@@ -43,7 +43,7 @@ struct SnappingCarousel: View {
                         let isSelected = globalIndex == scrolledID
                         
                         Circle()
-                            .fill(isSelected ? .colorPrimary : .colorSecundary.opacity(0.5))
+                            .fill(isSelected ? .colorPrimary : .colorSecondary.opacity(0.5))
                             .frame(width: isSelected ? selectedWidth : unselectedWidth, height: isSelected ? selectedWidth : unselectedWidth)
                             .overlay(
                                 Text("\(note)")

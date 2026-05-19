@@ -24,7 +24,7 @@ struct HarmonyCampCell: View {
             width: sizeClass == .regular ? 110 : 70,
             height: sizeClass == .regular ? 110 : 70
         )
-        .border(.colorSecundary, width: 4)
+        .border(.colorSecondary, width: 4)
         .cornerRadius(sizeClass == .regular ? 16 : 12)
         
         
