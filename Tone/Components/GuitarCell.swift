@@ -13,8 +13,8 @@ struct LinhaHorizontal: View {
         HStack(spacing: 0) {
             ForEach(0..<6, id: \.self) { i in
                 Rectangle()
-                    .fill(Color.red)
-                    .frame(width: 2)
+                    .fill(Color.black)
+                    .frame(width: 1)
                 if i < 5 {
                     Spacer()
                 }
@@ -28,15 +28,15 @@ struct LinhaVertical: View {
         
         VStack(spacing: 0) {
             Rectangle()
-                .fill(Color.red)
+                .fill(Color.black)
                 .frame(height: 6)
             
             Spacer()
             
             ForEach(0..<4, id: \.self) { i in
                 Rectangle()
-                    .fill(Color.red)
-                    .frame(height: 2)
+                    .fill(Color.black)
+                    .frame(height: 1)
                 if i < 3 {
                     Spacer()
                 }
@@ -48,27 +48,32 @@ struct LinhaVertical: View {
 struct GuitarCell: View {
     var body: some View {
         
-        
+        ZStack {
+            Color.colorSecondary
+            
             ZStack {
                 LinhaHorizontal()
                 LinhaVertical()
             }
-
-        .frame(width: 100, height: 100)
+            .frame(width: 90, height: 100)
+            .clipShape(RoundedRectangle(cornerRadius: 15))
+            .overlay(
+                RoundedRectangle(cornerRadius: 15)
+                    .stroke(Color.black, lineWidth: 2))
+            
+        }
+        .frame(width: 115, height: 115)
         .clipShape(RoundedRectangle(cornerRadius: 15))
-        .overlay(
-            RoundedRectangle(cornerRadius: 15)
-                .stroke(Color.red, lineWidth: 2))
-                .padding(5)
-
         
     }
 }
 
+
 #Preview {
+    
     ZStack {
-        
-        Color.white.ignoresSafeArea()
+        Color.black.ignoresSafeArea()
     GuitarCell()
-}
+        
+    }
 }
