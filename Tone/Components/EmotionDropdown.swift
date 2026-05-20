@@ -20,6 +20,8 @@ struct EmotionDropdown: View {
         "Tristeza"
     ]
     
+    let isIpad = UIDevice.current.userInterfaceIdiom == .pad
+    
     var body: some View {
         
         Button(action: {
@@ -30,6 +32,9 @@ struct EmotionDropdown: View {
                 
                 Text(selectedEmotion)
                     .foregroundColor(.black)
+                    .font(isIpad ? .title2 : .body)
+                    .fontWeight(.semibold)
+
                 
                 Spacer()
                 
@@ -39,7 +44,7 @@ struct EmotionDropdown: View {
                         .degrees(isExpanded ? 180 : 0)
                     )
             }
-            .padding(12)
+            .padding(isIpad ? 18 : 12)
             .background(Color("ColorSecondary"))
             .clipShape(RoundedRectangle(cornerRadius: 40))
         }
@@ -62,10 +67,13 @@ struct EmotionDropdown: View {
                                 
                                 Text(emotion)
                                     .foregroundColor(.black)
+                                    .font(isIpad ? .title2 : .body)
+                                    .fontWeight(.semibold)
+
                                 
                                 Spacer()
                             }
-                            .padding(12)
+                            .padding(isIpad ? 18 : 12)
                         }
                         
                         Divider()
@@ -77,8 +85,8 @@ struct EmotionDropdown: View {
                 .zIndex(1)
             }
         }
-        .padding(.horizontal,30)
-        .padding(.vertical,10)
+        .padding(.horizontal, isIpad ? 120 : 30)
+        .padding(.vertical, isIpad ? 30 : 10)
     }
 }
 
