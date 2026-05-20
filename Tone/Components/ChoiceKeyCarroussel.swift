@@ -11,7 +11,6 @@ struct ChoiceKeyCarroussel: View {
     var body: some View {
         SnappingCarousel()
     }
-    
 }
     
 struct SnappingCarousel: View {
@@ -26,9 +25,9 @@ struct SnappingCarousel: View {
             let screenWidth = geometry.size.width
             
             // Definição dos tamanhos dos círculos
-            let selectedWidth: CGFloat = 85
-            let unselectedWidth: CGFloat = 50
-            let spacing: CGFloat = 1
+            let selectedWidth: CGFloat = 65
+            let unselectedWidth: CGFloat = 40
+            let spacing: CGFloat = 10
             
             // O cálculo mágico: posiciona o elemento selecionado exatamente no centro
             // e dita quanto espaço sobra nas laterais para exibir os vizinhos
@@ -62,12 +61,13 @@ struct SnappingCarousel: View {
             .scrollPosition(id: $scrolledID)
             .safeAreaPadding(.horizontal, lateralPadding)
         }
-        .frame(height: 120)
+        .frame(height: 80)
         .onAppear { // Faz o carrossel ficar infinito, pois cuida do reset do index do array notes
             let middleFactor = itemMultiplier / 2
             let initialIndex = middleFactor * notes.count
             scrolledID = initialIndex
         }
+        .padding(.vertical, 10)
     }
 }
 

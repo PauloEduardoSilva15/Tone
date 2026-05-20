@@ -16,25 +16,39 @@ struct MainPage: View {
                     .ignoresSafeArea()
                 VStack{
                     Image("SmallLogo")
-                        .padding(.trailing, 250)
+                        .padding(.trailing, 280)
                         .padding(.top, 10)
                     Spacer()
                     
                     Text("Escolha o tom")
                         .foregroundStyle(Color("ColorSecondary"))
                         .font(.title2)
-                    
+                    ChoiceKeyCarroussel()
                     Spacer()
                     
-                    Text("Quer expressar algo?")
+                    Text("Escolha a escala")
                         .foregroundStyle(Color("ColorSecondary"))
                         .font(.title2)
                     Spacer()
+                    ScaleChoice()
+                   
+                    Spacer()
+                    Text("Quer expressar algo?")
+                        .foregroundStyle(Color("ColorSecondary"))
+                        .font(.title2)
+                    
+                    EmotionDropdown()
+                        .zIndex(1)
+                   Spacer()
                     
                     Text("Campo Harmônico")
                         .foregroundStyle(Color("ColorSecondary"))
                         .font(.title2)
+                    ViewHarmonyCamp()
                     Spacer()
+                    
+                    
+                    
                     
                     Button(action:{
                         showAcordes = true
@@ -49,7 +63,7 @@ struct MainPage: View {
                     .navigationDestination(isPresented: $showAcordes){
                         ChordsPage()
                     }
-                    .padding(.bottom, 20)
+                    .padding(.bottom, 10)
                     
                 }}}
         .navigationBarBackButtonHidden(true)
