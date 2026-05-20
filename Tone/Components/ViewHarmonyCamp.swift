@@ -10,19 +10,19 @@ import SwiftUI
 struct ViewHarmonyCamp: View {
     var body: some View {
         VStack {
-            //Text("Campo Harmônico")
-            HStack{
-                HarmonyCampCell(note: "C")
-                HarmonyCampCell(note: "Dm")
-                HarmonyCampCell(note: "Em")
+            HStack {
+                HarmonyCampCell(grau: "I", note: "C")
+                HarmonyCampCell(grau: "II",note: "Dm")
+                HarmonyCampCell(grau: "III",note: "Em")
             }
-            HStack{
-                HarmonyCampCell(note: "F")
-                HarmonyCampCell(note: "G")
-                HarmonyCampCell(note: "Am")
+            
+            HStack {
+                HarmonyCampCell(grau: "IV",note: "F")
+                HarmonyCampCell(grau: "V",note: "G")
+                HarmonyCampCell(grau: "VI",note: "Am")
             }
-            HStack{
-                HarmonyCampCell(note: "Bº")
+            HStack {
+                HarmonyCampCell(grau: "VII",note: "Bº")
             }
         }
         
@@ -30,5 +30,8 @@ struct ViewHarmonyCamp: View {
 }
 
 #Preview {
-    ViewHarmonyCamp()
+    ZStack {
+        Color.black.ignoresSafeArea()
+        ViewHarmonyCamp()
+    }
 }
