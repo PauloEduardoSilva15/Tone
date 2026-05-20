@@ -21,7 +21,7 @@ struct ViewHarmonyCamp: View {
                 HarmonyCampCell(grau: "V",note: "G")
                 HarmonyCampCell(grau: "VI",note: "Am")
             }
-            HStack { 
+            HStack {
                 HarmonyCampCell(grau: "VII",note: "Bº")
             }
         }
