@@ -10,7 +10,7 @@ import SwiftUI
 struct ViewHarmonyCamp: View {
     var body: some View {
         VStack {
-            Text("Campo Harmônico")
+            //Text("Campo Harmônico")
             HStack{
                 HarmonyCampCell(note: "C")
                 HarmonyCampCell(note: "Dm")

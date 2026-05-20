@@ -16,8 +16,10 @@ struct HarmonyCampCell: View {
             Text("I")
                 .font(sizeClass == .regular ? .headline : .caption)
                 .bold()
+                .foregroundStyle(Color("ColorSecondary"))
             Text(note)
                 .bold()
+                .foregroundStyle(Color("ColorSecondary"))
         }
         
         .frame(
