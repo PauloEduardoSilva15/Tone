@@ -9,12 +9,13 @@ import SwiftUI
 
 struct EntryPage: View {
     @State private var irMain: Bool = false
+    let isIpad = UIDevice.current.userInterfaceIdiom == .pad
     var body: some View {
         NavigationStack{
             ZStack{
                 Image("EntryPage")
                     .resizable()
-                    .frame(height: 920)
+                    .frame(height: isIpad ?  1300 : 920)
                 Image("Logo")
                     .padding(.bottom, 30)
             }

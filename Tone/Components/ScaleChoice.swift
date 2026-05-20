@@ -12,6 +12,7 @@ struct ScaleChoice: View {
     @State private var selectedScale = "Maior"
     
     let scales = ["Maior", "Menor"]
+    let isIpad = UIDevice.current.userInterfaceIdiom == .pad
     
     var body: some View {
         
@@ -24,6 +25,7 @@ struct ScaleChoice: View {
                 }) {
                     
                     Text(scale)
+                        .font(isIpad ? .title2 : .body)
                         .fontWeight(.semibold)
                         .foregroundColor(
                             selectedScale == scale
@@ -31,7 +33,7 @@ struct ScaleChoice: View {
                             : Color(.black)
                         )
                         .frame(maxWidth: .infinity)
-                        .padding(.vertical, 6)
+                        .padding(.vertical, isIpad ? 12 : 6)
                         .background(
                             selectedScale == scale
                             ? Color("ColorPrimary")
@@ -44,8 +46,8 @@ struct ScaleChoice: View {
         .padding(5)
         .background(Color("ColorSecondary"))
         .clipShape(RoundedRectangle(cornerRadius: 40))
-        .padding(.horizontal, 30)
-        .padding(.vertical, 10)
+        .padding(.horizontal, isIpad ? 120 : 30)
+        .padding(.vertical, isIpad ? 30 : 10)
     }
 }
 
