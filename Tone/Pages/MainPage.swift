@@ -12,12 +12,13 @@ struct MainPage: View {
     let isIpad = UIDevice.current.userInterfaceIdiom == .pad
     var body: some View {
             ZStack(){
-                Color("BackgroundColor")
-                    .ignoresSafeArea()
+                Image("BackGroundImage")
+                    .resizable()
+                    .frame(height: isIpad ?  1300 : 920)
                 VStack{
                     Image(isIpad ? "MediumLogo" : "SmallLogo")
                         .padding(.trailing, isIpad ? 580 : 280)
-                        .padding(.top, 10)
+                        .padding(.top, isIpad ? 100 : 60)
                     Spacer()
                     
                     Text("Escolha o tom")
@@ -41,8 +42,20 @@ struct MainPage: View {
                         .font(isIpad ? .title : .title2)
                         .fontWeight(isIpad ? .bold : .semibold)
                     
-                    EmotionDropdown()
-                        .zIndex(1)
+                    HStack{
+                        EmotionDropdown()
+                        Spacer()
+                        Button(action:{
+                            showAcordes = true
+                        }) {
+                            Image("PlayButton")
+                                .resizable()
+                                .frame(width: isIpad ? 60 : 40, height: isIpad ? 60 : 40)
+                                
+                        }
+                        .padding(.trailing, isIpad ? 115 : 28)
+                        .zIndex(1)}
+                    
                    Spacer()
                     
                     Text("Campo Harmônico")
@@ -51,9 +64,6 @@ struct MainPage: View {
                         .fontWeight(isIpad ? .bold : .semibold)
                     ViewHarmonyCamp()
                     Spacer()
-                    
-                    
-                    
                     
                     Button(action:{
                         showAcordes = true
@@ -69,7 +79,7 @@ struct MainPage: View {
                     .navigationDestination(isPresented: $showAcordes){
                         ChordsPage()
                     }
-                    .padding(.bottom, 10)
+                    .padding(.bottom, isIpad ? 100 : 60)
                     
                 }}
         .navigationBarBackButtonHidden(true)

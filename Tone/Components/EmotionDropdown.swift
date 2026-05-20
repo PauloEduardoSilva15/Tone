@@ -85,7 +85,7 @@ struct EmotionDropdown: View {
                 .zIndex(1)
             }
         }
-        .padding(.horizontal, isIpad ? 120 : 30)
+        .padding(.leading, isIpad ? 120 : 30)
         .padding(.vertical, isIpad ? 30 : 10)
     }
 }
