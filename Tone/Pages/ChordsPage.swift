@@ -9,13 +9,14 @@ import SwiftUI
 struct ChordsPage: View {
     
     @Environment(\.dismiss) var dismiss
-    
+    let isIpad = UIDevice.current.userInterfaceIdiom == .pad
     var body: some View {
         
         ZStack {
             
-            Color("BackgroundColor")
-                .ignoresSafeArea()
+            Image("BackGroundImage")
+                .resizable()
+                .frame(height: isIpad ?  1300 : 960)
             
             VStack {
                 
@@ -23,13 +24,15 @@ struct ChordsPage: View {
                 
                 Text("Selecione um modo de visualização")
                     .foregroundStyle(Color("ColorSecondary"))
-                    .font(.headline)
+                    .font(isIpad ? .title : .title2)
+                    .fontWeight(isIpad ? .bold : .semibold)
                 
                 Spacer()
                 
                 Text("Clique no acorde para ouví-lo")
                     .foregroundStyle(Color("ColorSecondary"))
-                    .font(.headline)
+                    .font(isIpad ? .title : .title2)
+                    .fontWeight(isIpad ? .bold : .semibold)
                 
                 Spacer()
             }
@@ -50,9 +53,9 @@ struct ChordsPage: View {
             }
             ToolbarItem(placement: .principal) {
                     Text("Acordes")
-                        .font(.title2)
-                        .fontWeight(.bold)
-                        .foregroundStyle(.white)
+                    .foregroundStyle(Color(.white))
+                    .font(isIpad ? .title : .title2)
+                    .fontWeight(isIpad ? .bold : .semibold)
                 }
             
         }

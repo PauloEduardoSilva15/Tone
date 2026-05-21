@@ -46,9 +46,7 @@ struct ScaleChoice: View {
         .padding(5)
         .background(Color("ColorSecondary"))
         .clipShape(RoundedRectangle(cornerRadius: 40))
-        .padding(.horizontal, isIpad ? 120 : 30)
-        .padding(.vertical, isIpad ? 30 : 10)
-    }
+            }
 }
 
 #Preview {
