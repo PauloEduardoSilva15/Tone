@@ -8,13 +8,16 @@
 import SwiftUI
     
 struct LinhaHorizontal: View {
+    
+    @Environment(\.horizontalSizeClass) var sizeClass
+    
     var body: some View {
         
         HStack(spacing: 0) {
             ForEach(0..<6, id: \.self) { i in
                 Rectangle()
                     .fill(Color.black)
-                    .frame(width: 1)
+                    .frame(width: sizeClass == .compact ? 1 : 2)
                 if i < 5 {
                     Spacer()
                 }
@@ -24,19 +27,22 @@ struct LinhaHorizontal: View {
 }
 
 struct LinhaVertical: View {
+    
+    @Environment(\.horizontalSizeClass) var sizeClass
+    
     var body: some View {
         
         VStack(spacing: 0) {
             Rectangle()
                 .fill(Color.black)
-                .frame(height: 6)
+                .frame(height: sizeClass == .compact ? 6 : 12)
             
             Spacer()
             
             ForEach(0..<4, id: \.self) { i in
                 Rectangle()
                     .fill(Color.black)
-                    .frame(height: 1)
+                    .frame(height: sizeClass == .compact ? 1 : 2)
                 if i < 3 {
                     Spacer()
                 }
@@ -46,6 +52,9 @@ struct LinhaVertical: View {
 }
         
 struct GuitarCell: View {
+    
+    @Environment(\.horizontalSizeClass) var sizeClass
+    
     var body: some View {
         
         ZStack {
@@ -55,14 +64,17 @@ struct GuitarCell: View {
                 LinhaHorizontal()
                 LinhaVertical()
             }
-            .frame(width: 90, height: 100)
-            .clipShape(RoundedRectangle(cornerRadius: 15))
+            .frame(
+                width: sizeClass == .compact ? 90 : 180,
+                height: sizeClass == .compact ? 100 : 200)
+            .clipShape(RoundedRectangle(cornerRadius: sizeClass == .compact ? 15 : 30))
             .overlay(
-                RoundedRectangle(cornerRadius: 15)
-                    .stroke(Color.black, lineWidth: 2))
+                RoundedRectangle(cornerRadius: sizeClass == .compact ? 15 : 30)
+                    .stroke(Color.black, lineWidth: sizeClass == .compact ? 1 : 2))
             
         }
-        .frame(width: 115, height: 115)
+        .frame(width: sizeClass == .compact ? 115 : 230,
+               height: sizeClass == .compact ? 115 : 230)
         .clipShape(RoundedRectangle(cornerRadius: 15))
         
     }
