@@ -26,7 +26,7 @@ struct MainPage: View {
                         .font(isIpad ? .title : .title2)
                         .fontWeight(isIpad ? .bold : .semibold)
                     ChoiceKeyCarroussel()
-                        .padding(.horizontal, 150)
+                        //.padding(.horizontal, 150)
                     Spacer()
                     
                     Text("Escolha a escala")
