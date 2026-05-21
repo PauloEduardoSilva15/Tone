@@ -60,6 +60,7 @@ struct ChoiceKeyCarroussel: View {
 //                            .animation(.interactiveSpring(response: 0.3, dampingFraction: 0.7), value: isSelected)
                             //.animation(.interactiveSpring(response: 0.5, dampingFraction: 0.9), value: isNeighboor)
                             .containerRelativeFrame(.horizontal, alignment: .center) // Aligns to screen width
+                            //.padding(.horizontal, isNeighboor ? 15 : 0) // tentei, mas buga o centro do carrossel mais vezes
                     }
                 }
                 .scrollTargetLayout() // Required for view-aligned snapping
@@ -69,7 +70,7 @@ struct ChoiceKeyCarroussel: View {
             .safeAreaPadding(.horizontal, lateralPadding)
             .animation(.interactiveSpring(response: 0.3, dampingFraction: 0.7), value: viewModel.scrolledID)
         }
-        .frame(height: 120)
+        //.frame(height: 120)
         .onAppear {
             // Faz o carrossel ficar infinito, pois cuida do reset do index do array notes
             let middleFactor = itemMultiplier / 2

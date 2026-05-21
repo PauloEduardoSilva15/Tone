@@ -14,27 +14,28 @@ class CarouselViewModel {
     
     var notaSelecionada: String = ""
     
-    private var selectNote: Task<Void, Never>?
+    private var selectionTask: Task<Void, Never>?
     
     // O ID que o ScrollView vai controlar
     var scrolledID: Int? {
         didSet {
             // Sempre que o ID mudar, essa função é disparada
-            printNotaSelecionada()
+            // Toda vez que o ID muda, agendamos a validação com um "await"
+            agendarSelecaoComDelay()
         }
     }
     
     // Função que recebe a nota selecionada e armazena na variável notaSelecionada, após aguardar 150ms (para evitar mudanças muito drásticas) e printa a nota selecionada (para debug)
-    private func printNotaSelecionada() {
-        selectNote?.cancel()
+    private func agendarSelecaoComDelay() {
+        selectionTask?.cancel()
         
-        selectNote = Task {
+        selectionTask = Task {
             guard let currentID = scrolledID else { return }
             
             do {
                 try await Task.sleep(for: .milliseconds(150))
                 
-                // Descobre o índice real dentro da array de notas
+                // Descobre o índice da nota selecionada dentro da array de notas
                 let realIndex = currentID % notes.count
                 let notaFinal = notes[realIndex]
                 
