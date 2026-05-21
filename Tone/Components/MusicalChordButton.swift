@@ -8,13 +8,14 @@
 import SwiftUI
 
 public struct MusicalNoteButton: View {
+    @State private var audioManager = AdvancedAudioManager()
     let note: String
     let type: Int
     @Environment(\.horizontalSizeClass) var sizeClass
     public var body: some View {
         VStack {
             Button(action: {
-                    
+                audioManager.tocarAcorde(nomeDoAcorde: note)
             }) {
                 VStack {
                     Image(systemName: "volume.3")

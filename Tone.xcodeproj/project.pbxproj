@@ -18,6 +18,9 @@
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		3A53675B2FBCCEB60070B1E8 /* Tone */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			explicitFolders = (
+				Audios,
+			);
 			path = Tone;
 			sourceTree = "<group>";
 		};
