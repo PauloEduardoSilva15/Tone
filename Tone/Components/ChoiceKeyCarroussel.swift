@@ -8,32 +8,30 @@
 import SwiftUI
 
 struct ChoiceKeyCarroussel: View {
-    let notes = ["C", "C#", "D", "Eb", "E", "F", "F#", "G", "Ab", "A", "Bb", "B"]
-    
+    // viewModel CarrousselViewModel controla e armazena as variáveis da Tonalidade
+    @State private var viewModel = CarouselViewModel()
+      
     private let itemMultiplier = 1000
-    
-    @State private var scrolledID: Int?
     
     var body: some View {
         GeometryReader { geometry in
             let screenWidth = geometry.size.width
             
             // Definição dos tamanhos dos círculos
-            let selectedWidth: CGFloat = 85
-            let spacing: CGFloat = 16
+            let containerWidth: CGFloat = 65
+            let spacing: CGFloat = 10
 
-            // O cálculo mágico: posiciona o elemento selecionado exatamente no centro
             // e dita quanto espaço sobra nas laterais para exibir os vizinhos
-            let lateralPadding = (screenWidth - selectedWidth) / 2
+            let lateralPadding = (screenWidth - containerWidth) / 2
             
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack(alignment: .center, spacing: spacing) {
-                    ForEach(0..<notes.count * itemMultiplier, id: \.self) { globalIndex in
-                        let realIndex = globalIndex % notes.count
-                        let note = notes[realIndex]
+                    ForEach(0..<viewModel.notes.count * itemMultiplier, id: \.self) { globalIndex in
+                        let realIndex = globalIndex % viewModel.notes.count
+                        let note = viewModel.notes[realIndex]
                         
                         // Descobre a distância entre o selecionado e os demais círculos
-                        let currentSelectedID = scrolledID ?? 0
+                        let currentSelectedID = viewModel.scrolledID ?? 0
                         let distance = abs(globalIndex - currentSelectedID)
                         
                         // Define as distâncias: se for 0 ele está selecionado. Se for 1, é um dos vizinhos próximos
@@ -59,22 +57,25 @@ struct ChoiceKeyCarroussel: View {
                             )
                             .opacity(opacictyCircle)
                             .id(globalIndex)
-                            .animation(.interactiveSpring(response: 0.3, dampingFraction: 0.7), value: isSelected)
+//                            .animation(.interactiveSpring(response: 0.3, dampingFraction: 0.7), value: isSelected)
                             //.animation(.interactiveSpring(response: 0.5, dampingFraction: 0.9), value: isNeighboor)
                             .containerRelativeFrame(.horizontal, alignment: .center) // Aligns to screen width
+                            //.padding(.horizontal, isNeighboor ? 15 : 0) // tentei, mas buga o centro do carrossel mais vezes
                     }
                 }
                 .scrollTargetLayout() // Required for view-aligned snapping
             }
             .scrollTargetBehavior(.viewAligned) // Ensures it snaps to cards
-            .scrollPosition(id: $scrolledID)
+            .scrollPosition(id: $viewModel.scrolledID)
             .safeAreaPadding(.horizontal, lateralPadding)
+            .animation(.interactiveSpring(response: 0.3, dampingFraction: 0.7), value: viewModel.scrolledID)
         }
-        .frame(height: 120)
-        .onAppear { // Faz o carrossel ficar infinito, pois cuida do reset do index do array notes
+        //.frame(height: 120)
+        .onAppear {
+            // Faz o carrossel ficar infinito, pois cuida do reset do index do array notes
             let middleFactor = itemMultiplier / 2
-            let initialIndex = middleFactor * notes.count
-            scrolledID = initialIndex
+            let initialIndex = middleFactor * viewModel.notes.count
+            viewModel.scrolledID = initialIndex
         }
     }
 }
