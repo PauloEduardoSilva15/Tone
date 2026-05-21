@@ -11,7 +11,6 @@ struct ChoiceKeyCarroussel: View {
     // viewModel CarrousselViewModel controla e armazena as variáveis da Tonalidade
     @State private var viewModel = CarouselViewModel()
     @Environment(\.horizontalSizeClass) var sizeClass
-    let isIpad = UIDevice.current.userInterfaceIdiom == .pad
     private let itemMultiplier = 1000
     
     var body: some View {

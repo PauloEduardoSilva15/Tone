@@ -9,30 +9,29 @@ import SwiftUI
 struct ChordsPage: View {
     
     @Environment(\.dismiss) var dismiss
-    let isIpad = UIDevice.current.userInterfaceIdiom == .pad
+    @Environment(\.horizontalSizeClass) var sizeClass
     var body: some View {
         
         ZStack {
             
             Image("BackGroundImage")
                 .resizable()
-                .frame(height: isIpad ?  1300 : 960)
+                .frame(height: sizeClass == .regular ?  1300 : 960)
             
             VStack {
-                
                 Spacer()
-                
                 Text("Selecione um modo de visualização")
                     .foregroundStyle(Color("ColorSecondary"))
-                    .font(isIpad ? .title : .title2)
-                    .fontWeight(isIpad ? .bold : .semibold)
-                
+                    .font(sizeClass == .regular ? .title : .body)
+                    .fontWeight(sizeClass == .regular ? .bold : .semibold)
+                    .padding(.top, 150)
+                ChoiceChordsButton()
                 Spacer()
                 
                 Text("Clique no acorde para ouví-lo")
                     .foregroundStyle(Color("ColorSecondary"))
-                    .font(isIpad ? .title : .title2)
-                    .fontWeight(isIpad ? .bold : .semibold)
+                    .font(sizeClass == .regular ? .title : .body)
+                    .fontWeight(sizeClass == .regular ? .bold : .semibold)
                 
                 Spacer()
             }
@@ -54,8 +53,8 @@ struct ChordsPage: View {
             ToolbarItem(placement: .principal) {
                     Text("Acordes")
                     .foregroundStyle(Color(.white))
-                    .font(isIpad ? .title : .title2)
-                    .fontWeight(isIpad ? .bold : .semibold)
+                    .font(sizeClass == .regular ? .title : .title2)
+                    .fontWeight(sizeClass == .regular ? .bold : .semibold)
                 }
             
         }
