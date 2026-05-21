@@ -8,30 +8,44 @@
 import SwiftUI
 
 struct TeclasBrancas: View {
+    
+    @Environment(\.horizontalSizeClass) var sizeClass
+    
     var body: some View {
         
         Rectangle()
             .fill(Color.white)
             .border(Color.black, width: 0.5)
-            .frame(width: 16, height: 65)
+            .frame(
+                width: sizeClass == .compact ? 16 : 32,
+                height: sizeClass == .compact ? 65 : 130)
     }
 }
 
 struct TeclasPretas: View {
+    
+    @Environment(\.horizontalSizeClass) var sizeClass
+    
     let Contador: Int
+    
     var body: some View {
         
-        HStack(spacing: 6) {
+        HStack(spacing: sizeClass == .compact ? 6 : 12) {
             ForEach(0..<Contador, id: \.self) { _ in
                 Rectangle()
                     .fill(Color.black)
-                    .frame(width: 10, height: 40)
+                    .frame(
+                        width: sizeClass == .compact ? 10 : 20,
+                        height: sizeClass == .compact ? 40 : 80)
             }
         }
     }
 }
 
 struct Oitava: View {
+    
+    @Environment(\.horizontalSizeClass) var sizeClass
+    
     var body: some View {
         
         ZStack(alignment: .top) {
@@ -41,7 +55,7 @@ struct Oitava: View {
                 }
             }
             
-            HStack(spacing: 0) {
+            HStack(spacing: sizeClass == .compact ? 0 : 12) {
                 TeclasPretas(Contador: 2)
                 
                 Spacer()
@@ -56,17 +70,17 @@ struct Oitava: View {
 
 struct PianoCell: View {
     var body: some View {
-            
-            HStack(spacing: 0) {
-                Oitava()
-                Oitava()
-            }
-            .clipShape(RoundedRectangle(cornerRadius: 15))
-            .overlay(
-                RoundedRectangle(cornerRadius: 15)
-                    .stroke(Color.white, lineWidth: 1))
-            .padding(5)
-            
+        
+        HStack(spacing: 0) {
+            Oitava()
+            Oitava()
+        }
+        .clipShape(RoundedRectangle(cornerRadius: 15))
+        .overlay(
+            RoundedRectangle(cornerRadius: 15)
+                .stroke(Color.white, lineWidth: 1))
+        .padding(5)
+        
     }
 }
 
