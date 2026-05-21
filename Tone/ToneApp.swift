@@ -11,7 +11,7 @@ import SwiftUI
 struct ToneApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            EntryPage()
         }
     }
 }
