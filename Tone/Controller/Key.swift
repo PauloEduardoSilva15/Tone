@@ -33,7 +33,7 @@ class CarouselViewModel {
             guard let currentID = scrolledID else { return }
             
             do {
-                try await Task.sleep(for: .milliseconds(150))
+                try await Task.sleep(for: .milliseconds(800))
                 
                 // Descobre o índice da nota selecionada dentro da array de notas
                 let realIndex = currentID % notes.count
