@@ -8,12 +8,14 @@
 import SwiftUI
 
 public struct MusicalNoteButton: View {
+    @State private var audioManager = AdvancedAudioManager()
     let note: String
+    let type: Int
     @Environment(\.horizontalSizeClass) var sizeClass
     public var body: some View {
         VStack {
             Button(action: {
-                    
+                audioManager.tocarAcorde(nomeDoAcorde: note)
             }) {
                 VStack {
                     Image(systemName: "volume.3")
@@ -22,13 +24,13 @@ public struct MusicalNoteButton: View {
                         .font(.headline)
                 }
                 .frame(
-                    width: sizeClass == .regular ? 60: 80,
-                    height: sizeClass == .regular ? 40: 80
+                    width: type == 1 ? 80: 110,
+                    height: type == 1 ? 80 : 50
                 )
             }
             .foregroundColor(.white)
             .background(Color.colorPrimary)
-            .cornerRadius(sizeClass == .regular ? 10: 15)
+            .cornerRadius(type == 1 ? 30 : 16)
         }
         
     }
@@ -36,5 +38,5 @@ public struct MusicalNoteButton: View {
 
 
 #Preview {
-    MusicalNoteButton(note: "C")
+    MusicalNoteButton(note: "C", type: 2)
 }

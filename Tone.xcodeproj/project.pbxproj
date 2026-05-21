@@ -6,13 +6,21 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		3AE414162FBF738F00AACD99 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 3AE414152FBF737900AACD99 /* .gitignore */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		3A5367592FBCCEB60070B1E8 /* Tone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tone.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3AE414152FBF737900AACD99 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		3A53675B2FBCCEB60070B1E8 /* Tone */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			explicitFolders = (
+				Audios,
+			);
 			path = Tone;
 			sourceTree = "<group>";
 		};
@@ -32,6 +40,7 @@
 		3A5367502FBCCEB60070B1E8 = {
 			isa = PBXGroup;
 			children = (
+				3AE414152FBF737900AACD99 /* .gitignore */,
 				3A53675B2FBCCEB60070B1E8 /* Tone */,
 				3A53675A2FBCCEB60070B1E8 /* Products */,
 			);
@@ -109,6 +118,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3AE414162FBF738F00AACD99 /* .gitignore in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

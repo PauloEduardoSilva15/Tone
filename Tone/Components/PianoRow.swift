@@ -11,7 +11,7 @@ public struct PianoRow: View {
     let chord: String
     public var body: some View {
         HStack{
-            MusicalNoteButton(note: chord)
+            MusicalNoteButton(note: chord, type: 1)
             PianoCell()
         }
         

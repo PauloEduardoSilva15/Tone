@@ -32,8 +32,8 @@ struct EmotionDropdown: View {
                 
                 Text(selectedEmotion)
                     .foregroundColor(.black)
-                    .font(isIpad ? .title2 : .body)
-                    .fontWeight(.semibold)
+                    .font(isIpad ? .title2 : .default)
+                    .fontWeight(isIpad ? .semibold : .regular)
 
                 
                 Spacer()
@@ -67,13 +67,13 @@ struct EmotionDropdown: View {
                                 
                                 Text(emotion)
                                     .foregroundColor(.black)
-                                    .font(isIpad ? .title2 : .body)
-                                    .fontWeight(.semibold)
+                                    .font(isIpad ? .title2 : .default)
+                                    .fontWeight(isIpad ? .semibold : .regular)
 
                                 
                                 Spacer()
                             }
-                            .padding(isIpad ? 18 : 12)
+                            .padding(isIpad ? 10 : 10)
                         }
                         
                         Divider()
@@ -85,8 +85,6 @@ struct EmotionDropdown: View {
                 .zIndex(1)
             }
         }
-        .padding(.leading, isIpad ? 120 : 30)
-        .padding(.vertical, isIpad ? 30 : 10)
     }
 }
 
