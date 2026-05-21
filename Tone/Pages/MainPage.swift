@@ -45,6 +45,56 @@ struct MainPage: View {
                 HStack{
                     EmotionDropdown()
                     Spacer()
+                    
+                    Text("Escolha o tom")
+                        .foregroundStyle(Color("ColorSecondary"))
+                        .font(isIpad ? .title : .title2)
+                        .fontWeight(isIpad ? .bold : .semibold)
+                    ChoiceKeyCarroussel()
+                        .padding(.horizontal, isIpad ? 45 : 15)
+                    Spacer()
+                    
+                    Text("Escolha a escala")
+                        .foregroundStyle(Color("ColorSecondary"))
+                        .font(isIpad ? .title : .title2)
+                        .fontWeight(isIpad ? .bold : .semibold)
+                    
+                    ScaleChoice()
+                        .padding(.horizontal, isIpad ? 150 : 30)
+                        .padding(.vertical, isIpad ? 8 : 8)
+
+                   
+                    Spacer()
+                    Text("Quer expressar algo?")
+                        .foregroundStyle(Color("ColorSecondary"))
+                        .font(isIpad ? .title : .title2)
+                        .fontWeight(isIpad ? .bold : .semibold)
+                    
+                    HStack{
+                        EmotionDropdown()
+                        .padding(.leading, isIpad ? 150 : 30)
+                        .padding(.vertical, isIpad ? 00 : 10)
+                        Spacer()
+                        Button(action:{
+                            showAcordes = true
+                        }) {
+                            Image("PlayButton")
+                                .resizable()
+                                .frame(width: isIpad ? 60 : 40, height: isIpad ? 60 : 40)
+                                
+                        }
+                        .padding(.trailing, isIpad ? 160 : 28)
+                        .zIndex(1)}
+                    
+                   Spacer()
+                    
+                    Text("Campo Harmônico")
+                        .foregroundStyle(Color("ColorSecondary"))
+                        .font(isIpad ? .title : .title2)
+                        .fontWeight(isIpad ? .bold : .semibold)
+                    ViewHarmonyCamp()
+                    Spacer()
+                    
                     Button(action:{
                         showAcordes = true
                     }) {
