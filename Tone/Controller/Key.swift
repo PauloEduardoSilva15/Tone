@@ -13,6 +13,7 @@ class CarouselViewModel {
     let notes = ["C", "C#", "D", "Eb", "E", "F", "F#", "G", "Ab", "A", "Bb", "B"]
     
     var notaSelecionada: String = ""
+    var sentimentoSelecionado: String = "Nenhuma emoção"
     
     private var selectionTask: Task<Void, Never>?
     
@@ -47,5 +48,10 @@ class CarouselViewModel {
                 
             }
         }
+    }
+    
+    func escolherSentimento(add emotion: String) {
+        sentimentoSelecionado = emotion
+        print(sentimentoSelecionado)
     }
 }

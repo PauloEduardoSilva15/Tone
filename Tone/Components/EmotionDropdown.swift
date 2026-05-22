@@ -7,16 +7,14 @@
 import SwiftUI
 
 struct EmotionDropdown: View {
-    
-    @State private var selectedEmotion = "Nenhuma emoção escolhida"
+    @State private var viewModel = CarouselViewModel()
+    //@State private var selectedEmotion = "Nenhuma emoção escolhida"
     @State private var isExpanded = false
     
     let emotions = [
-        "Nenhuma emoção escolhida",
+        "Nenhuma emoção",
         "Alegria",
-        "Medo",
-        "Raiva",
-        "Ternura",
+        "Tensão",
         "Tristeza"
     ]
     
@@ -30,7 +28,7 @@ struct EmotionDropdown: View {
             
             HStack {
                 
-                Text(selectedEmotion)
+                Text(viewModel.sentimentoSelecionado)
                     .foregroundColor(.black)
                     .font(isIpad ? .title2 : .default)
                     .fontWeight(isIpad ? .semibold : .regular)
@@ -58,7 +56,8 @@ struct EmotionDropdown: View {
                         
                         Button(action: {
                             
-                            selectedEmotion = emotion
+                           viewModel.escolherSentimento(add: emotion)
+                            //selectedEmotion = emotion
                             isExpanded = false
                             
                         }) {
