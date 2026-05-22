@@ -44,7 +44,7 @@ struct EmotionDropdown: View {
             }
             .padding(isIpad ? 18 : 12)
             .background(Color("ColorSecondary"))
-            .clipShape(RoundedRectangle(cornerRadius: 40))
+            .clipShape(RoundedRectangle(cornerRadius: 30))
         }
         .overlay(alignment: .topLeading) {
             
@@ -79,7 +79,7 @@ struct EmotionDropdown: View {
                     }
                 }
                 .background(Color("ColorSecondary"))
-                .clipShape(RoundedRectangle(cornerRadius: 20))
+                .clipShape(RoundedRectangle(cornerRadius: 30))
                 
                 .zIndex(1)
             }

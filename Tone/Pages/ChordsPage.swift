@@ -28,7 +28,7 @@ struct ChordsPage: View {
                 ChoiceChordsButton()
                 Spacer()
                 
-                Text("Clique no acorde para ouví-lo")
+                Text("Selecione o acorde para ouví-lo")
                     .foregroundStyle(Color("ColorSecondary"))
                     .font(sizeClass == .regular ? .title : .body)
                     .fontWeight(sizeClass == .regular ? .bold : .semibold)
