@@ -10,7 +10,7 @@ import SwiftUI
 struct ChoiceKeyCarroussel: View {
     // viewModel CarrousselViewModel controla e armazena as variáveis da Tonalidade
     @State private var viewModel = CarouselViewModel()
-      
+    @Environment(\.horizontalSizeClass) var sizeClass
     private let itemMultiplier = 1000
     
     var body: some View {
@@ -18,7 +18,7 @@ struct ChoiceKeyCarroussel: View {
             let screenWidth = geometry.size.width
             
             // Definição dos tamanhos dos círculos
-            let containerWidth: CGFloat = 65
+            let containerWidth: CGFloat = sizeClass == .compact ? 65 : 180
             let spacing: CGFloat = 10
 
             // e dita quanto espaço sobra nas laterais para exibir os vizinhos
@@ -37,14 +37,21 @@ struct ChoiceKeyCarroussel: View {
                         // Define as distâncias: se for 0 ele está selecionado. Se for 1, é um dos vizinhos próximos
                         let isSelected = distance == 0
                         let isNeighboor = distance == 1
-                        
                         // definição dos tamanhos
-                        let size: CGFloat = isSelected ? 80 : (isNeighboor ? 55 : 35)
+                        
+                        let selectedSize: CGFloat = sizeClass == .compact ? 80 : 160
+                        let neighborSize: CGFloat = sizeClass == .compact ? 55 : 110
+                        let defaultSize: CGFloat = sizeClass == .compact ? 35 : 70
+                        let size: CGFloat = isSelected ? selectedSize : (isNeighboor ? neighborSize : defaultSize)
                         let opacictyCircle: Double = isSelected ? 1 : (isNeighboor ? 0.8 : 0.5)
                         
                         let circleColor: Color = isSelected ? .colorPrimary : (isNeighboor ? .colorSecondary : .colorSecondary.opacity(opacictyCircle))
                         let textColor: Color = isSelected ? .white : .black
-                        let textFont: Font = isSelected ? .title2 : (isNeighboor ? .body : .caption)
+                        
+                        let selectedFont: Font = sizeClass == .compact ? .title2 : .largeTitle
+                        let neighborFont: Font = sizeClass == .compact ? .body : .title
+                        let defaultFont: Font = sizeClass == .compact ? .caption : .title3
+                        let textFont: Font = isSelected ? selectedFont : (isNeighboor ? neighborFont : defaultFont)
                                                 
                         Circle()
                             .fill(circleColor)
