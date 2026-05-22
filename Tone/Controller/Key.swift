@@ -13,6 +13,9 @@ class CarouselViewModel {
     let notes = ["C", "C#", "D", "Eb", "E", "F", "F#", "G", "Ab", "A", "Bb", "B"]
     
     var notaSelecionada: String = ""
+    var sentimentoSelecionado: String = "Nenhuma emoção"
+    
+    var escalaSelecionada: String = "Maior"
     
     private var selectionTask: Task<Void, Never>?
     
@@ -41,11 +44,21 @@ class CarouselViewModel {
                 
                 await MainActor.run {
                     self.notaSelecionada = notaFinal
-                    print("🎵 Nota Selecionada: \(notaSelecionada) (ID: \(currentID))")
+                    print("Nota Selecionada: \(notaSelecionada) (ID: \(currentID))")
                 }
             } catch {
                 
             }
         }
+    }
+    
+    func escolherSentimento(add emotion: String) {
+        sentimentoSelecionado = emotion
+        print(sentimentoSelecionado)
+    }
+    
+    func escolherEscala(add scale: String) {
+        escalaSelecionada = scale
+        print(escalaSelecionada)
     }
 }

@@ -11,7 +11,7 @@ struct GuitarRow: View {
     let chord: String
     var body: some View {
         VStack{
-            MusicalNoteButton(note: chord, type: 2)
+            MusicalChordButton(chord: chord, type: 2)
             GuitarCell()
         }
     }

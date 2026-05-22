@@ -4,7 +4,7 @@
 //
 //  Created by Paulo Eduardo Barbosa da Silva on 19/05/26.
 //
-
+/*
 import SwiftUI
 
 struct TeclasBrancas: View {
@@ -81,6 +81,79 @@ struct PianoCell: View {
                 .stroke(Color.white, lineWidth: 1))
         .padding(5)
         
+    }
+}
+
+#Preview {
+    ZStack {
+        Color.black.ignoresSafeArea()
+        PianoCell()
+    }
+}
+*/
+
+import SwiftUI
+
+struct TeclasBrancas: View {
+    var body: some View {
+        
+        Rectangle()
+            .fill(Color.white)
+            .border(Color.black, width: 0.5)
+            .frame(width: 16, height: 65)
+    }
+}
+
+struct TeclasPretas: View {
+    let Contador: Int
+    var body: some View {
+        
+        HStack(spacing: 6) {
+            ForEach(0..<Contador, id: \.self) { _ in
+                Rectangle()
+                    .fill(Color.black)
+                    .frame(width: 10, height: 40)
+            }
+        }
+    }
+}
+
+struct Oitava: View {
+    var body: some View {
+        
+        ZStack(alignment: .top) {
+            HStack(spacing: 0) {
+                ForEach(0..<7, id: \.self) { _ in
+                    TeclasBrancas()
+                }
+            }
+            
+            HStack(spacing: 0) {
+                TeclasPretas(Contador: 2)
+                
+                Spacer()
+                    .frame(width: 21)
+                
+                TeclasPretas(Contador: 3)
+            }
+            .padding(.leading, 1)
+        }
+    }
+}
+
+struct PianoCell: View {
+    var body: some View {
+            
+            HStack(spacing: 0) {
+                Oitava()
+                Oitava()
+            }
+            .clipShape(RoundedRectangle(cornerRadius: 15))
+            .overlay(
+                RoundedRectangle(cornerRadius: 15)
+                    .stroke(Color.white, lineWidth: 1))
+            .padding(5)
+            
     }
 }
 
