@@ -14,9 +14,7 @@ struct EmotionDropdown: View {
     let emotions = [
         "Nenhuma emoção escolhida",
         "Alegria",
-        "Medo",
-        "Raiva",
-        "Ternura",
+        "Tensao",
         "Tristeza"
     ]
     
@@ -46,7 +44,7 @@ struct EmotionDropdown: View {
             }
             .padding(isIpad ? 18 : 12)
             .background(Color("ColorSecondary"))
-            .clipShape(RoundedRectangle(cornerRadius: 40))
+            .clipShape(RoundedRectangle(cornerRadius: 30))
         }
         .overlay(alignment: .topLeading) {
             
@@ -80,7 +78,7 @@ struct EmotionDropdown: View {
                     }
                 }
                 .background(Color("ColorSecondary"))
-                .clipShape(RoundedRectangle(cornerRadius: 20))
+                .clipShape(RoundedRectangle(cornerRadius: 30))
                 
                 .zIndex(1)
             }

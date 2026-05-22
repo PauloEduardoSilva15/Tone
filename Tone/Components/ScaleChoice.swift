@@ -33,7 +33,7 @@ struct ScaleChoice: View {
                             : Color(.black)
                         )
                         .frame(maxWidth: .infinity)
-                        .padding(.vertical, isIpad ? 12 : 6)
+                        .padding(.vertical, isIpad ? 8 : 6)
                         .background(
                             selectedScale == scale
                             ? Color("ColorPrimary")

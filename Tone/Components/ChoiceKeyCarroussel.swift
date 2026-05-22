@@ -18,7 +18,7 @@ struct ChoiceKeyCarroussel: View {
             let screenWidth = geometry.size.width
             
             // Definição dos tamanhos dos círculos
-            let containerWidth: CGFloat = sizeClass == .compact ? 65 : 180
+            let containerWidth: CGFloat = sizeClass == .compact ? 80 : 195
             let spacing: CGFloat = 10
 
             // e dita quanto espaço sobra nas laterais para exibir os vizinhos
@@ -39,9 +39,9 @@ struct ChoiceKeyCarroussel: View {
                         let isNeighboor = distance == 1
                         // definição dos tamanhos
                         
-                        let selectedSize: CGFloat = sizeClass == .compact ? 80 : 160
-                        let neighborSize: CGFloat = sizeClass == .compact ? 55 : 110
-                        let defaultSize: CGFloat = sizeClass == .compact ? 35 : 70
+                        let selectedSize: CGFloat = sizeClass == .compact ? 80 : 130
+                        let neighborSize: CGFloat = sizeClass == .compact ? 55 : 80
+                        let defaultSize: CGFloat = sizeClass == .compact ? 35 : 50
                         let size: CGFloat = isSelected ? selectedSize : (isNeighboor ? neighborSize : defaultSize)
                         let opacictyCircle: Double = isSelected ? 1 : (isNeighboor ? 0.8 : 0.5)
                         
@@ -66,18 +66,19 @@ struct ChoiceKeyCarroussel: View {
                             .id(globalIndex)
 //                            .animation(.interactiveSpring(response: 0.3, dampingFraction: 0.7), value: isSelected)
                             //.animation(.interactiveSpring(response: 0.5, dampingFraction: 0.9), value: isNeighboor)
-                            .containerRelativeFrame(.horizontal, alignment: .center) // Aligns to screen width
+                            /*.containerRelativeFrame(.horizontal, alignment: .center)*/ // Aligns to screen width
                             //.padding(.horizontal, isNeighboor ? 15 : 0) // tentei, mas buga o centro do carrossel mais vezes
                     }
                 }
                 .scrollTargetLayout() // Required for view-aligned snapping
             }
             .scrollTargetBehavior(.viewAligned) // Ensures it snaps to cards
-            .scrollPosition(id: $viewModel.scrolledID)
+            .scrollPosition(id: $viewModel.scrolledID, anchor: .center)
+            .defaultScrollAnchor(.center)
             .safeAreaPadding(.horizontal, lateralPadding)
             .animation(.interactiveSpring(response: 0.3, dampingFraction: 0.7), value: viewModel.scrolledID)
         }
-        //.frame(height: 120)
+        .frame(height: sizeClass == .regular ? 130 : 80)
         .onAppear {
             // Faz o carrossel ficar infinito, pois cuida do reset do index do array notes
             let middleFactor = itemMultiplier / 2
