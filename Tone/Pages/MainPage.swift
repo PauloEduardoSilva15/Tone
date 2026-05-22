@@ -1,4 +1,4 @@
-//  MainPage.swift
+///  MainPage.swift
 //  Tone
 //
 //  Created by Paulo Eduardo Barbosa da Silva on 19/05/26.
@@ -17,60 +17,62 @@ struct MainPage: View {
                 Image("BackGroundImage")
                     .resizable()
                     .frame(height: .infinity)
-                HStack(alignment: .center){
-                    VStack{
+                HStack{
+                    VStack(alignment: .leading){
                         Image(isIpad ? "MediumLogo" : "SmallLogo")
+                            .padding(.trailing, )
                         
-                            .padding(.trailing, isIpad ? 350 : 280)
-                        
-                        
-                        
-                        Text("Escolha o tom")
-                            .foregroundStyle(Color("ColorSecondary"))
-                            .font(isIpad ? .title : .title2)
-                            .fontWeight(isIpad ? .bold : .semibold)
-                        
-                        
-                        ChoiceKeyCarroussel()
-                            .padding(.top, 20)
-                            .padding(.bottom, 20)
-                        
-                        
-                        
-                        
-                        Text("Escolha a escala")
-                            .foregroundStyle(Color("ColorSecondary"))
-                            .font(isIpad ? .title : .title2)
-                            .fontWeight(isIpad ? .bold : .semibold)
-                            .padding(.bottom, 30)
-                        
-                        ScaleChoice()
-                            .padding(.bottom, 40)
-                        
-                        
-                        //Spacer()
-                        Text("Quer expressar algo?")
-                            .foregroundStyle(Color("ColorSecondary"))
-                            .font(isIpad ? .title : .title2)
-                            .fontWeight(isIpad ? .bold : .semibold)
-                            .padding(.bottom, 20)
-                        
-                        HStack{
-                            EmotionDropdown()
                             
-                                .padding(.vertical, 10)
-                            Spacer()
-                            PlayButton(corEmocao: Color("ColorPrimary"))
+                        Spacer()
+                        VStack{
+                            Text("Escolha o tom")
+                                .foregroundStyle(Color("ColorSecondary"))
+                                .font(isIpad ? .title : .title2)
+                                .fontWeight(isIpad ? .bold : .semibold)
                             
                             
+                            ChoiceKeyCarroussel()
+                                .padding(.top, 20)
+                                .padding(.bottom, 20)
+                            
+                            
+                            
+                            
+                            Text("Escolha a escala")
+                                .foregroundStyle(Color("ColorSecondary"))
+                                .font(isIpad ? .title : .title2)
+                                .fontWeight(isIpad ? .bold : .semibold)
+                                .padding(.bottom, 30)
+                            
+                            ScaleChoice()
+                                .padding(.bottom, 40)
+                            
+                            
+                            //Spacer()
+                            Text("Quer expressar algo?")
+                                .foregroundStyle(Color("ColorSecondary"))
+                                .font(isIpad ? .title : .title2)
+                                .fontWeight(isIpad ? .bold : .semibold)
+                                .padding(.bottom, 20)
+                            
+                            HStack{
+                                EmotionDropdown()
+                                
+                                    .padding(.vertical, 10)
+                                Spacer()
+                                PlayButton(corEmocao: Color("ColorPrimary"))
+                                
+                                
+                                
+                            }
+                            .padding(.bottom, 120)
                             
                         }
-                        .padding(.bottom, 120)
+                        .frame(width: 450)
+                        .padding(.horizontal, 70)
                         Spacer()
                     }
-                    .frame(width: 450)
-                    .padding(.horizontal, 70)
-                    Spacer()
+                    //.frame(width: 850)
                     VStack{
                         Spacer()
                         Text("Campo Harmônico")
@@ -111,7 +113,7 @@ struct MainPage: View {
             ZStack(){
                 Image("BackGroundImage")
                     .resizable()
-                    .frame(height: isIpad ?  1300 : 920)
+                    .frame(height: .infinity)
                 VStack{
                     VStack{
                         Image(isIpad ? "MediumLogo" : "SmallLogo")
