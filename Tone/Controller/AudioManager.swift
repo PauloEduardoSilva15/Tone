@@ -28,14 +28,15 @@ class AdvancedAudioManager{
         ]
     }()
     
-    init() {
-        configurarEngine()
+    init(filepath: String) {
+        configurarEngine(filepath: filepath)
     }
     
-    private func configurarEngine() {
+    private func configurarEngine(filepath: String) {
+        
         // Carrega o seu único arquivo de áudio base (precisa ser a nota Dó/C para a matemática bater)
-        guard let url = Bundle.main.url(forResource: "Audios/C_Piano", withExtension: "mp3") else {
-            print("Erro: Arquivo base 'Audios/C_Piano.mp3' não encontrado.")
+        guard let url = Bundle.main.url(forResource: filepath, withExtension: "mp3") else {
+            print("Erro: Arquivo base '\(filepath).mp3' não encontrado.")
             return
         }
         
