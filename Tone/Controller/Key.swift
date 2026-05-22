@@ -15,6 +15,8 @@ class CarouselViewModel {
     var notaSelecionada: String = ""
     var sentimentoSelecionado: String = "Nenhuma emoção"
     
+    var escalaSelecionada: String = "Maior"
+    
     private var selectionTask: Task<Void, Never>?
     
     // O ID que o ScrollView vai controlar
@@ -42,7 +44,7 @@ class CarouselViewModel {
                 
                 await MainActor.run {
                     self.notaSelecionada = notaFinal
-                    print("🎵 Nota Selecionada: \(notaSelecionada) (ID: \(currentID))")
+                    print("Nota Selecionada: \(notaSelecionada) (ID: \(currentID))")
                 }
             } catch {
                 
@@ -53,5 +55,10 @@ class CarouselViewModel {
     func escolherSentimento(add emotion: String) {
         sentimentoSelecionado = emotion
         print(sentimentoSelecionado)
+    }
+    
+    func escolherEscala(add scale: String) {
+        escalaSelecionada = scale
+        print(escalaSelecionada)
     }
 }
