@@ -18,7 +18,7 @@ struct ChoiceKeyCarroussel: View {
             let screenWidth = geometry.size.width
             
             // Definição dos tamanhos dos círculos
-            let containerWidth: CGFloat = sizeClass == .compact ? 65 : 180
+            let containerWidth: CGFloat = sizeClass == .compact ? 80 : 195
             let spacing: CGFloat = 10
 
             // e dita quanto espaço sobra nas laterais para exibir os vizinhos
@@ -64,16 +64,13 @@ struct ChoiceKeyCarroussel: View {
                             )
                             .opacity(opacictyCircle)
                             .id(globalIndex)
-//                            .animation(.interactiveSpring(response: 0.3, dampingFraction: 0.7), value: isSelected)
-                            //.animation(.interactiveSpring(response: 0.5, dampingFraction: 0.9), value: isNeighboor)
-                            .containerRelativeFrame(.horizontal, alignment: .center) // Aligns to screen width
-                            //.padding(.horizontal, isNeighboor ? 15 : 0) // tentei, mas buga o centro do carrossel mais vezes
                     }
                 }
                 .scrollTargetLayout() // Required for view-aligned snapping
             }
             .scrollTargetBehavior(.viewAligned) // Ensures it snaps to cards
-            .scrollPosition(id: $viewModel.scrolledID)
+            .scrollPosition(id: $viewModel.scrolledID, anchor: .center)
+            .defaultScrollAnchor(.center)
             .safeAreaPadding(.horizontal, lateralPadding)
             .animation(.interactiveSpring(response: 0.3, dampingFraction: 0.7), value: viewModel.scrolledID)
         }
