@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-public struct MusicalNoteButton: View {
-    let note: String
+public struct MusicalChordButton: View {
+    let chord: String
     @State var type: Int
  
     @State private var audioPiano: AdvancedAudioManager = AdvancedAudioManager(filepath: "Audios/C_Piano")
@@ -18,15 +18,15 @@ public struct MusicalNoteButton: View {
         VStack {
             Button(action: {
                 if(type != 1){
-                    audioGuitar.tocarAcorde(nomeDoAcorde: note)
+                    audioGuitar.tocarAcorde(nomeDoAcorde: chord)
                     return
                 }
-                audioPiano.tocarAcorde(nomeDoAcorde: note)
+                audioPiano.tocarAcorde(nomeDoAcorde: chord)
             }) {
                 VStack {
                     Image(systemName: "volume.3")
                         .font(.caption)
-                    Text(note)
+                    Text(chord)
                         .font(.headline)
                 }
                 .frame(
@@ -44,5 +44,5 @@ public struct MusicalNoteButton: View {
 
 
 #Preview {
-    MusicalNoteButton(note: "C", type: 2)
+    MusicalChordButton(chord: "C", type: 2)
 }
