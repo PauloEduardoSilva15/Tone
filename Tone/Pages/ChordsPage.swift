@@ -16,8 +16,8 @@ struct ChordsPage: View {
             
             Image("BackGroundImage")
                 .resizable()
-                .frame(height: sizeClass == .regular ?  1300 : 960)
-            
+                .ignoresSafeArea()
+            AnimatedStarsOverlay()
             VStack {
                 Spacer()
                 Text("Selecione um modo de visualização")

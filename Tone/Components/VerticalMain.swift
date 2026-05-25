@@ -11,10 +11,11 @@ struct VerticalMain: View {
     @State private var showAcordes: Bool = false
     let isIpad = UIDevice.current.userInterfaceIdiom == .pad
     var body: some View {
-        ZStack(){
+        ZStack{
             Image("BackGroundImage")
                 .resizable()
                 .frame(height: .infinity)
+            AnimatedStarsOverlay()
             VStack{
                 VStack{
                     Image(isIpad ? "MediumLogo" : "SmallLogo")
@@ -49,11 +50,12 @@ struct VerticalMain: View {
                     HStack{
                         EmotionDropdown()
                             .padding(.vertical, 10)
+                            
                         Spacer()
                         PlayButton(corEmocao: Color("ColorPrimary"))
                     }
                     .padding(.bottom, 10)}
-                //.padding(.horizontal, 120)
+
                 Spacer()
                 VStack{
                     
