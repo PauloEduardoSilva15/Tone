@@ -31,12 +31,12 @@ public struct MusicalChordButton: View {
                 }
                 .frame(
                     width: type == 1 ? 80: 110,
-                    height: type == 1 ? 80 : 50
+                    height: type == 1 ? 60 : 50
                 )
             }
             .foregroundColor(.white)
             .background(Color.colorPrimary)
-            .cornerRadius(type == 1 ? 30 : 16)
+            .cornerRadius(16)
         }
         
     }
@@ -44,5 +44,5 @@ public struct MusicalChordButton: View {
 
 
 #Preview {
-    MusicalChordButton(chord: "C", type: 2)
+    MusicalChordButton(chord: "C", type: 1)
 }

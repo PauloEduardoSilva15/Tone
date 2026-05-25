@@ -100,7 +100,7 @@ struct TeclasBrancas: View {
         Rectangle()
             .fill(Color.white)
             .border(Color.black, width: 0.5)
-            .frame(width: 16, height: 65)
+            .frame(width: 16, height: 55)
     }
 }
 
@@ -112,7 +112,7 @@ struct TeclasPretas: View {
             ForEach(0..<Contador, id: \.self) { _ in
                 Rectangle()
                     .fill(Color.black)
-                    .frame(width: 10, height: 40)
+                    .frame(width: 10, height: 30)
             }
         }
     }
