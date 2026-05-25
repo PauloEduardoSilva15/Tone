@@ -7,7 +7,10 @@
 import SwiftUI
 
 struct MainPage: View {
+    
+    @State private var viewModel = CarouselViewModel()
     @State private var showAcordes: Bool = false
+    
     let isIpad = UIDevice.current.userInterfaceIdiom == .pad
     var body: some View {
         
@@ -81,7 +84,7 @@ struct MainPage: View {
                             .font(isIpad ? .title : .title2)
                             .fontWeight(isIpad ? .bold : .semibold)
                         //Spacer()
-                        ViewHarmonyCamp()
+                        ViewHarmonyCamp(viewModel: viewModel)
                             .padding(.top, 8)
                             .padding(.bottom, 10)
                         //Spacer()
@@ -161,7 +164,7 @@ struct MainPage: View {
                             .foregroundStyle(Color("ColorSecondary"))
                             .font(isIpad ? .title : .title2)
                             .fontWeight(isIpad ? .bold : .semibold)
-                        ViewHarmonyCamp()
+                        ViewHarmonyCamp(viewModel: viewModel)
                         
                             .padding(.top, 10)
                             .padding(.bottom, isIpad ? 20 : 10)
@@ -190,7 +193,7 @@ struct MainPage: View {
             }
         }
         .navigationBarBackButtonHidden(true)
-        
+        .environment(viewModel)
     }
 }
 
