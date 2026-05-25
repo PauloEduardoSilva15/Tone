@@ -8,8 +8,11 @@
 import SwiftUI
 
 struct ScaleChoice: View {
-    @State private var viewModel = CarouselViewModel()
+    
+    //@State private var viewModel = CarouselViewModel()
     //@State private var selectedScale = "Maior"
+    
+    @Environment(CarouselViewModel.self) var viewModel
     
     let scales = ["Maior", "Menor"]
     let isIpad = UIDevice.current.userInterfaceIdiom == .pad
@@ -50,6 +53,6 @@ struct ScaleChoice: View {
 }
 
 #Preview {
-        ScaleChoice()
-    }
-
+    ScaleChoice()
+    .environment(CarouselViewModel())
+}
