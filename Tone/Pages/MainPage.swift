@@ -16,7 +16,8 @@ struct MainPage: View {
             ZStack{
                 Image("BackGroundImage")
                     .resizable()
-                    .frame(height: .infinity)
+//                    .frame(height: .infinity)
+                    .ignoresSafeArea()
                 HStack{
                     VStack(alignment: .leading){
                         Image(isIpad ? "MediumLogo" : "SmallLogo")
