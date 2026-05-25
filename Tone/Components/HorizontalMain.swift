@@ -15,6 +15,7 @@ struct HorizontalMain: View {
             Image("BackGroundImage")
                 .resizable()
                 .ignoresSafeArea()
+            AnimatedStarsOverlay()
             HStack{
                 VStack(alignment: .leading){
                     Image(isIpad ? "MediumLogo" : "SmallLogo")
