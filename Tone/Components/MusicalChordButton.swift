@@ -25,13 +25,13 @@ public struct MusicalChordButton: View {
             }) {
                 VStack {
                     Image(systemName: "volume.3")
-                        .font(.caption)
+                        .font(sizeClass == .regular ?  .headline : .caption)
                     Text(chord)
-                        .font(.headline)
+                        .font(sizeClass == .regular ? .title : .headline)
                 }
                 .frame(
-                    width: type == 1 ? 80: 110,
-                    height: type == 1 ? 60 : 50
+                    width: sizeClass == .regular ? 100: 65,
+                    height: sizeClass == .regular ? 90 : 65
                 )
             }
             .foregroundColor(.white)
