@@ -66,13 +66,24 @@ struct EmotionDropdown: View {
                                 
                                 Text(emotion)
                                     .foregroundColor(.black)
-                                    .font(isIpad ? .title2 : .default)
+                                    .font(isIpad ? .title2 : .body)
                                     .fontWeight(isIpad ? .semibold : .regular)
-
                                 
                                 Spacer()
+                                
+                                if viewModel.sentimentoSelecionado == emotion {
+                                    
+                                    Image(systemName: "checkmark")
+                                        .foregroundColor(Color("ColorPrimary"))
+                                        .fontWeight(.bold)
+                                }
                             }
                             .padding(isIpad ? 10 : 10)
+                            .background(
+                                viewModel.sentimentoSelecionado == emotion
+                                ? Color("ColorPrimary").opacity(0.25)
+                                : Color("ColorSecondary").opacity(1)
+                            )
                         }
                         
                         Divider()
