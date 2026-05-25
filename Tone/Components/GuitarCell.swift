@@ -97,6 +97,8 @@ struct GuitarCell: View {
 import SwiftUI
     
 struct LinhaHorizontal: View {
+    
+    @Environment(\.horizontalSizeClass) var sizeClass
     var body: some View {
         
         HStack(spacing: 0) {
@@ -113,6 +115,8 @@ struct LinhaHorizontal: View {
 }
 
 struct LinhaVertical: View {
+    
+    @Environment(\.horizontalSizeClass) var sizeClass
     var body: some View {
         
         VStack(spacing: 0) {
@@ -135,6 +139,7 @@ struct LinhaVertical: View {
 }
         
 struct GuitarCell: View {
+    @Environment(\.horizontalSizeClass) var sizeClass
     var body: some View {
         
         ZStack {
@@ -144,15 +149,15 @@ struct GuitarCell: View {
                 LinhaHorizontal()
                 LinhaVertical()
             }
-            .frame(width: 90, height: 100)
+            .frame(width: sizeClass == .regular ? 108 : 75, height: sizeClass == .regular ? 108 : 75)
             .clipShape(RoundedRectangle(cornerRadius: 15))
             .overlay(
                 RoundedRectangle(cornerRadius: 15)
                     .stroke(Color.black, lineWidth: 2))
             
         }
-        .frame(width: 115, height: 115)
-        .clipShape(RoundedRectangle(cornerRadius: 15))
+        .frame(width: sizeClass == .regular ? 122 : 90, height: sizeClass == .regular ? 122 :  90)
+        .clipShape(RoundedRectangle(cornerRadius: 25))
         
     }
 }

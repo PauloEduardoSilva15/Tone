@@ -95,16 +95,18 @@ struct PianoCell: View {
 import SwiftUI
 
 struct TeclasBrancas: View {
+    @Environment(\.horizontalSizeClass) var sizeClass
     var body: some View {
         
         Rectangle()
             .fill(Color.white)
             .border(Color.black, width: 0.5)
-            .frame(width: 16, height: 55)
+            .frame(width: sizeClass == .regular ? 20.7 : 16 , height: sizeClass == .regular ? 80 : 55)
     }
 }
 
 struct TeclasPretas: View {
+    @Environment(\.horizontalSizeClass) var sizeClass
     let Contador: Int
     var body: some View {
         
@@ -112,7 +114,7 @@ struct TeclasPretas: View {
             ForEach(0..<Contador, id: \.self) { _ in
                 Rectangle()
                     .fill(Color.black)
-                    .frame(width: 10, height: 30)
+                    .frame(width: sizeClass == .regular ? 15 : 10, height: sizeClass == .regular ? 40 : 30)
             }
         }
     }

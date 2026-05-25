@@ -37,7 +37,7 @@ struct ChordButton: View {
                     .fontWeight(.regular)
                 
             }
-            .frame(width: sizeClass == .compact ? 60 : 120, height: sizeClass == .compact ? 60 : 100)
+            .frame(width: sizeClass == .compact ? 60 : 110, height: sizeClass == .compact ? 60 : 100)
             .foregroundColor(Selecionado ? .white : .black)
             .background(Selecionado ? Color.colorPrimary : Color.colorSecondary)
             .clipShape(Circle())
@@ -46,58 +46,12 @@ struct ChordButton: View {
     }
 }
 
-struct ChoiceChordsButton: View {
-    
-    @State var botaoSelecionado: Int = 1
-    @Environment(\.horizontalSizeClass) var sizeClass
-    var body: some View {
-        VStack{
-            HStack(spacing: 20) {
-                ChordButton(id: 1,
-                         icone: "music.quarternote.3",
-                         texto: "Nota",
-                         selecaoAtual: $botaoSelecionado)
-                
-                ChordButton(id: 2,
-                         icone: "pianokeys",
-                         texto: "Piano",
-                         selecaoAtual: $botaoSelecionado)
-                
-                ChordButton(id: 3,
-                         icone: "guitars.fill",
-                         texto: "Violão",
-                         selecaoAtual: $botaoSelecionado)
-            }
-            .padding(.bottom, 20)
-            Text("Selecione o acorde para ouví-lo")
-                .foregroundStyle(Color("ColorSecondary"))
-                .font(sizeClass == .regular ? .title : .body)
-                .fontWeight(sizeClass == .regular ? .bold : .semibold)
-            
-            switch botaoSelecionado {
-                case 1:
-                    ViewModeChord()
-                
-                case 2:
-                    ViewModePiano()
-                
-                case 3:
-                    ViewModeGuitar()
-            default:
-                ViewModeChord()
-            }
-            
-        }
-        
-        
-        
-    }
-}
+
 
 #Preview {
     ZStack {
         Color.black.ignoresSafeArea()
-        ChoiceChordsButton()
+        ChordButton(id: 0, icone: "note.list", texto: "C", selecaoAtual: .constant(0))
     }
 }
 
