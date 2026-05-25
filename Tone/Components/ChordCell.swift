@@ -14,8 +14,8 @@ struct ChordCell: View {
     var body: some View {
         VStack(alignment: .center) {
             Text(notes.joined(separator: " - "))
-        }.frame(width: sizeClass == .regular ? 400 : 300,
-                height: 80,)
+        }.frame(width: sizeClass == .regular ? 300 : 250,
+                height: 60,)
             .border(.colorSecondary, width:1)
             .cornerRadius(sizeClass == .regular ? 15 : 12)
             .clipShape(RoundedRectangle(cornerRadius: 15))

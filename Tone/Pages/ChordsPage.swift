@@ -16,7 +16,7 @@ struct ChordsPage: View {
             
             Image("BackGroundImage")
                 .resizable()
-                .frame(height: sizeClass == .regular ?  1300 : 960)
+                .ignoresSafeArea()
             
             VStack {
                 Spacer()
@@ -24,14 +24,11 @@ struct ChordsPage: View {
                     .foregroundStyle(Color("ColorSecondary"))
                     .font(sizeClass == .regular ? .title : .body)
                     .fontWeight(sizeClass == .regular ? .bold : .semibold)
-                    .padding(.top, 150)
+                    .padding(.top, 50)
                 ChoiceChordsButton()
                 Spacer()
                 
-                Text("Selecione o acorde para ouví-lo")
-                    .foregroundStyle(Color("ColorSecondary"))
-                    .font(sizeClass == .regular ? .title : .body)
-                    .fontWeight(sizeClass == .regular ? .bold : .semibold)
+                
                 
                 Spacer()
             }
