@@ -15,11 +15,13 @@ struct VerticalChords: View {
     var body: some View {
         
         ZStack {
-            VStack{
+            
                 Image("BackGroundImage")
                     .resizable()
+                    
                     .ignoresSafeArea()
                 AnimatedStarsOverlay()
+            VStack{
                 VStack {
                     Text("Acordes")
                         .font(sizeClass == .regular ? .largeTitle : .title3)
