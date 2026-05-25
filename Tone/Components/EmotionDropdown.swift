@@ -7,16 +7,14 @@
 import SwiftUI
 
 struct EmotionDropdown: View {
-    
-    @State private var selectedEmotion = "Nenhuma emoção escolhida"
+    @State private var viewModel = CarouselViewModel()
+    //@State private var selectedEmotion = "Nenhuma emoção escolhida"
     @State private var isExpanded = false
     
     let emotions = [
-        "Nenhuma emoção escolhida",
+        "Nenhuma emoção",
         "Alegria",
-        "Medo",
-        "Raiva",
-        "Ternura",
+        "Tensão",
         "Tristeza"
     ]
     
@@ -30,7 +28,7 @@ struct EmotionDropdown: View {
             
             HStack {
                 
-                Text(selectedEmotion)
+                Text(viewModel.sentimentoSelecionado)
                     .foregroundColor(.black)
                     .font(isIpad ? .title2 : .default)
                     .fontWeight(isIpad ? .semibold : .regular)
@@ -46,7 +44,7 @@ struct EmotionDropdown: View {
             }
             .padding(isIpad ? 18 : 12)
             .background(Color("ColorSecondary"))
-            .clipShape(RoundedRectangle(cornerRadius: 40))
+            .clipShape(RoundedRectangle(cornerRadius: 30))
         }
         .overlay(alignment: .topLeading) {
             
@@ -58,7 +56,8 @@ struct EmotionDropdown: View {
                         
                         Button(action: {
                             
-                            selectedEmotion = emotion
+                           viewModel.escolherSentimento(add: emotion)
+                            //selectedEmotion = emotion
                             isExpanded = false
                             
                         }) {
@@ -67,20 +66,31 @@ struct EmotionDropdown: View {
                                 
                                 Text(emotion)
                                     .foregroundColor(.black)
-                                    .font(isIpad ? .title2 : .default)
+                                    .font(isIpad ? .title2 : .body)
                                     .fontWeight(isIpad ? .semibold : .regular)
-
                                 
                                 Spacer()
+                                
+                                if viewModel.sentimentoSelecionado == emotion {
+                                    
+                                    Image(systemName: "checkmark")
+                                        .foregroundColor(Color("ColorPrimary"))
+                                        .fontWeight(.bold)
+                                }
                             }
                             .padding(isIpad ? 10 : 10)
+                            .background(
+                                viewModel.sentimentoSelecionado == emotion
+                                ? Color("ColorPrimary").opacity(0.25)
+                                : Color("ColorSecondary").opacity(1)
+                            )
                         }
                         
                         Divider()
                     }
                 }
                 .background(Color("ColorSecondary"))
-                .clipShape(RoundedRectangle(cornerRadius: 20))
+                .clipShape(RoundedRectangle(cornerRadius: 30))
                 
                 .zIndex(1)
             }
