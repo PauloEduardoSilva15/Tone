@@ -17,7 +17,7 @@ struct ChordButton: View {
     var Selecionado: Bool {
         selecaoAtual == id
     }
-    @Environment(\.horizontalSizeClass) var sizeClass
+    
     
     var body: some View {
 
@@ -29,14 +29,14 @@ struct ChordButton: View {
             VStack(spacing: 4) {
                 
                 Image(systemName: icone)
-                    .font(sizeClass == .compact ? .title2 : .largeTitle)
+                    .font(.title2)
 
                 Text(texto)
-                    .font(sizeClass == .compact ? .caption : .title2)
-                    .fontWeight(.regular)
+                    .font(.caption)
+                    .fontWeight(.bold)
                 
             }
-            .frame(width: sizeClass == .compact ? 80 : 120, height: sizeClass == .compact ? 80 : 100)
+            .frame(width: 80, height: 100)
             .foregroundColor(Selecionado ? .white : .black)
             .background(Selecionado ? Color.colorPrimary : Color.colorSecondary)
             .clipShape(Circle())

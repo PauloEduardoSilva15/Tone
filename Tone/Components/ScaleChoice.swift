@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct ScaleChoice: View {
-    @State private var viewModel = CarouselViewModel()
-    //@State private var selectedScale = "Maior"
+    
+    @State private var selectedScale = "Maior"
     
     let scales = ["Maior", "Menor"]
     let isIpad = UIDevice.current.userInterfaceIdiom == .pad
@@ -21,21 +21,21 @@ struct ScaleChoice: View {
             ForEach(scales, id: \.self) { scale in
                 
                 Button(action: {
-                    viewModel.escolherEscala(add: scale)
+                    selectedScale = scale
                 }) {
                     
                     Text(scale)
                         .font(isIpad ? .title2 : .body)
                         .fontWeight(.semibold)
                         .foregroundColor(
-                            viewModel.escalaSelecionada == scale
+                            selectedScale == scale
                             ? .white
                             : Color(.black)
                         )
                         .frame(maxWidth: .infinity)
-                        .padding(.vertical, isIpad ? 8 : 6)
+                        .padding(.vertical, isIpad ? 12 : 6)
                         .background(
-                            viewModel.escalaSelecionada == scale
+                            selectedScale == scale
                             ? Color("ColorPrimary")
                             : Color.clear
                         )
