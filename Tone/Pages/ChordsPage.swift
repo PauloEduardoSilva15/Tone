@@ -9,29 +9,30 @@ import SwiftUI
 struct ChordsPage: View {
     
     @Environment(\.dismiss) var dismiss
-    @Environment(\.horizontalSizeClass) var sizeClass
+    let isIpad = UIDevice.current.userInterfaceIdiom == .pad
     var body: some View {
         
         ZStack {
             
             Image("BackGroundImage")
                 .resizable()
-                .frame(height: sizeClass == .regular ?  1300 : 960)
+                .frame(height: isIpad ?  1300 : 960)
             
             VStack {
-                Spacer()
-                Text("Selecione um modo de visualização")
-                    .foregroundStyle(Color("ColorSecondary"))
-                    .font(sizeClass == .regular ? .title : .body)
-                    .fontWeight(sizeClass == .regular ? .bold : .semibold)
-                    .padding(.top, 150)
-                ChoiceChordsButton()
+                
                 Spacer()
                 
-                Text("Selecione o acorde para ouví-lo")
+                Text("Selecione um modo de visualização")
                     .foregroundStyle(Color("ColorSecondary"))
-                    .font(sizeClass == .regular ? .title : .body)
-                    .fontWeight(sizeClass == .regular ? .bold : .semibold)
+                    .font(isIpad ? .title : .title2)
+                    .fontWeight(isIpad ? .bold : .semibold)
+                
+                Spacer()
+                
+                Text("Clique no acorde para ouví-lo")
+                    .foregroundStyle(Color("ColorSecondary"))
+                    .font(isIpad ? .title : .title2)
+                    .fontWeight(isIpad ? .bold : .semibold)
                 
                 Spacer()
             }
@@ -53,8 +54,8 @@ struct ChordsPage: View {
             ToolbarItem(placement: .principal) {
                     Text("Acordes")
                     .foregroundStyle(Color(.white))
-                    .font(sizeClass == .regular ? .title : .title2)
-                    .fontWeight(sizeClass == .regular ? .bold : .semibold)
+                    .font(isIpad ? .title : .title2)
+                    .fontWeight(isIpad ? .bold : .semibold)
                 }
             
         }

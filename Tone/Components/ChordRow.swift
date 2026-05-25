@@ -21,7 +21,7 @@ struct ChordRow: View {
     ]
     var body: some View {
         HStack() {
-            MusicalChordButton(chord: chord, type: 1)
+            MusicalNoteButton(note: chord, type: 1)
             ChordCell(notes: chordNotes[chord] ?? [])
             
         }
