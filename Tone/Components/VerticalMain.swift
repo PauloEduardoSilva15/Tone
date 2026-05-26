@@ -26,7 +26,7 @@ struct VerticalMain: View {
                 VStack{
                     Image(isIpad ? "MediumLogo" : "SmallLogo")
                         .padding(.trailing, isIpad ? 580 : 280)
-                        .padding(.top, isIpad ? 100 : 60)
+                        .padding(.top, isIpad ? 150 : 60)
                     Spacer()
                     
                     Text("Escolha o tom")
@@ -34,24 +34,24 @@ struct VerticalMain: View {
                         .font(isIpad ? .title : .title2)
                         .fontWeight(isIpad ? .bold : .semibold)
                     ChoiceKeyCarroussel()
-                        .padding(.vertical, 15)
+                        .padding(.vertical, 10)
                     //Spacer()
                     
                     Text("Escolha a escala")
                         .foregroundStyle(Color("ColorSecondary"))
                         .font(isIpad ? .title : .title2)
                         .fontWeight(isIpad ? .bold : .semibold)
-                        .padding(.bottom, isIpad ? 30 : 10)
+                        .padding(.bottom, isIpad ? 20 : 10)
                     
                     ScaleChoice()
-                        .padding(.bottom, isIpad ? 30 : 10)
+                        .padding(.bottom, isIpad ? 20 : 10)
                     
                     
                     Text("Quer expressar algo?")
                         .foregroundStyle(Color("ColorSecondary"))
                         .font(isIpad ? .title : .title2)
                         .fontWeight(isIpad ? .bold : .semibold)
-                        .padding(.bottom, isIpad ? 20 : 10)
+                        .padding(.bottom, isIpad ? 10 : 10)
                     
                     HStack{
                         EmotionDropdown()
@@ -72,7 +72,7 @@ struct VerticalMain: View {
                         .fontWeight(isIpad ? .bold : .semibold)
                     ViewHarmonyCamp(viewModel: viewModel)
                         .padding(.top, 10)
-                        .padding(.bottom, isIpad ? 20 : 10)
+                        .padding(.bottom, isIpad ? 10 : 10)
                     
                     
                     Button(action:{
@@ -89,7 +89,7 @@ struct VerticalMain: View {
                     .navigationDestination(isPresented: $showAcordes){
                             ChordsPage()
                     }
-                    .padding(.bottom, isIpad ? 200 : 100)
+                    .padding(.bottom, isIpad ? 220 : 100)
                     Spacer()
                 }
             }

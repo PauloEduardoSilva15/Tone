@@ -28,7 +28,7 @@ struct HarmonyCampCell: View {
                 .foregroundStyle(accentColor) // <--- Usando a cor
         }
         .frame(width: sizeClass == .regular ? 120 : 80, height: sizeClass == .regular ? 120 : 80)
-        .background(accentColor.opacity(0.1)) // Opcional: um fundo leve da mesma cor
+        ////.background(accentColor.opacity(0.1)) // Opcional: um fundo leve da mesma cor
         .cornerRadius(sizeClass == .regular ? 15 : 12)
         .overlay(
             RoundedRectangle(cornerRadius: 15)

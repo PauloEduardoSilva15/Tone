@@ -25,7 +25,7 @@ struct TwinklingStar: View {
     
     @State private var opacity = Double.random(in: 0.1...1)
     
-    let size = CGFloat.random(in: 6...8)
+    let size = CGFloat.random(in: 4...6)
     
     let x = CGFloat.random(in: 0...1000)
     

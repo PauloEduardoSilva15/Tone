@@ -23,10 +23,6 @@ struct Acorde: Hashable {
     let notas: [String]
 }
 
-enum Sentimento {
-    case Alegria, Tristeza, Tensao, Nenhuma
-}
-
 struct Sequencia {
     let notas = ["C", "C#", "D", "Eb", "E", "F", "F#", "G", "Ab", "A", "Bb", "B"]
     
@@ -160,26 +156,26 @@ class CarouselViewModel {
         case "Alegria":
             if isMaior {
                 // No campo MAIOR, os acordes maiores são I, IV e V
-                if ["I", "IV", "V", "IV"].contains(grau) { return .yellow }
+                if ["I", "IV", "V", "IV"].contains(grau) { return .happy }
             } else {
                 // No campo MENOR, os acordes maiores são III, VI e VII
-                if ["VI", "V", "V", "I"].contains(grau) { return .yellow }
+                if ["VI", "V", "V", "I"].contains(grau) { return .happy }
             }
             
         case "Tristeza":
             if isMaior {
                 // No campo MAIOR, os acordes menores são II, III e VI
-                if ["I", "III", "IV", "IV"].contains(grau) { return .blue }
+                if ["I", "III", "IV", "IV"].contains(grau) { return .sad }
             } else {
                 // No campo MENOR, os acordes menores são I, IV e V
-                if ["I", "IV", "V"].contains(grau) { return .blue }
+                if ["I", "IV", "V"].contains(grau) { return .sad }
             }
             
         case "Tensão":
             if isMaior {
-                if ["VI", "III", "IV", "IV" ].contains(grau) { return .blue }
+                if ["VI", "III", "IV", "IV" ].contains(grau) { return .fear }
             } else {
-                if ["I", "V", "VI", "VI"].contains(grau) { return .blue }
+                if ["I", "V", "VI", "VI"].contains(grau) { return .fear}
             }
             
         default:
