@@ -15,6 +15,7 @@ struct ChordCell: View {
         VStack(alignment: .center) {
             Text(notes.joined(separator: " - "))
                 .font(sizeClass == .regular ? .title : .body)
+                .foregroundColor(.white)
         }.frame(width: sizeClass == .regular ? 300 : 240,
                 height: sizeClass == .regular ? 90 : 65)
             .border(.colorSecondary, width:1)
