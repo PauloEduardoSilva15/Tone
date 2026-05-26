@@ -23,6 +23,10 @@ struct Acorde: Hashable {
     let notas: [String]
 }
 
+enum Sentimento {
+    case Alegria, Tristeza, Tensao, Nenhuma
+}
+
 struct Sequencia {
     let notas = ["C", "C#", "D", "Eb", "E", "F", "F#", "G", "Ab", "A", "Bb", "B"]
     
@@ -94,6 +98,10 @@ class CarouselViewModel {
     
     var campoHarmonicoAtual: [Acorde] = []
     
+//    var highlightedIndices: Set<Int> {
+//        Set(sequenciaSentimento)
+//    }
+    
     private let sequenciaHarmonica = Sequencia()
     
     private var selectionTask: Task<Void, Never>?
@@ -107,6 +115,10 @@ class CarouselViewModel {
     init() {
             atualizarCampoHarmonico()
         }
+    
+    func printDebug() {
+        print("Nota: \(notaSelecionada)\nSentimento: \(sentimentoSelecionado)\nEscala: \(escalaSelecionada)")
+    }
     
     private func agendarSelecaoComDelay() {
         selectionTask?.cancel()
@@ -131,11 +143,59 @@ class CarouselViewModel {
         }
     }
     
+    var sequenciaSentimento: [Int] = []
+    
+    // No CarouselViewModel.swift
+
+    func corParaGrau(_ grau: String) -> Color {
+        // Se não houver emoção selecionada, retorna a cor padrão
+        if sentimentoSelecionado == "Nenhuma emoção" {
+            return Color("ColorSecondary")
+        }
+        
+        // Verifica se estamos trabalhando com uma escala maior ou menor
+        let isMaior = escalaSelecionada.lowercased() == "maior"
+        
+        switch sentimentoSelecionado {
+        case "Alegria":
+            if isMaior {
+                // No campo MAIOR, os acordes maiores são I, IV e V
+                if ["I", "IV", "V", "IV"].contains(grau) { return .yellow }
+            } else {
+                // No campo MENOR, os acordes maiores são III, VI e VII
+                if ["VI", "V", "V", "I"].contains(grau) { return .yellow }
+            }
+            
+        case "Tristeza":
+            if isMaior {
+                // No campo MAIOR, os acordes menores são II, III e VI
+                if ["I", "III", "IV", "IV"].contains(grau) { return .blue }
+            } else {
+                // No campo MENOR, os acordes menores são I, IV e V
+                if ["I", "IV", "V"].contains(grau) { return .blue }
+            }
+            
+        case "Tensão":
+            if isMaior {
+                if ["VI", "III", "IV", "IV" ].contains(grau) { return .blue }
+            } else {
+                if ["I", "V", "VI", "VI"].contains(grau) { return .blue }
+            }
+            
+        default:
+            return .colorSecondary
+        }
+        
+        // Cor padrão para os acordes que não se encaixam na emoção atual
+        return .colorSecondary
+    }
+    
     func escolherSentimento(add emotion: String) {
         sentimentoSelecionado = emotion
         print(sentimentoSelecionado)
+        atualizarCampoHarmonico()
     }
-    
+        
     func escolherEscala(add scale: String) {
         escalaSelecionada = scale
         print(escalaSelecionada)
@@ -153,5 +213,7 @@ class CarouselViewModel {
         
         print("Campo Harmônico de \(notaSelecionada) \(escalaSelecionada) atualizado:")
         print(campoHarmonicoAtual.map { $0.nome })
+        printDebug()
     }
 }
+    

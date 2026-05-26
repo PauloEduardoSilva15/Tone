@@ -8,64 +8,32 @@
 import SwiftUI
 
 struct HarmonyCampCell: View {
+    @Environment(CarouselViewModel.self) var viewModel
     let grau: String
     let note: String
-    let isHighlighted: Bool
-    let numeroProgressao: Int?
-    let corEmocao: Color
+    let accentColor: Color // <--- Nova propriedade
     
     @Environment(\.horizontalSizeClass) var sizeClass
     
     var body: some View {
-        
         VStack(spacing: sizeClass == .regular ? 12 : 8) {
-            
             Text(grau)
-                .font(.system(size: sizeClass == .regular ? 21 : 16, weight: .regular, design: .default))
+                .font(.system(size: sizeClass == .regular ? 21 : 16, weight: .regular))
                 .bold()
-                .foregroundStyle(
-                    isHighlighted
-                    ? corEmocao
-                    : Color("ColorSecondary")
-                )
+                .foregroundStyle(accentColor) // <--- Usando a cor
             
             Text(note)
-                .font(.system(size: sizeClass == .regular ? 25 : 20, weight: .bold, design: .default))
+                .font(.system(size: sizeClass == .regular ? 25 : 20, weight: .bold))
                 .bold()
-                .foregroundStyle(
-                    isHighlighted
-                    ? corEmocao
-                    : Color("ColorSecondary")
-                )
+                .foregroundStyle(accentColor) // <--- Usando a cor
         }
-        .frame(
-            width: sizeClass == .regular ? 120 : 80,
-            height: sizeClass == .regular ? 120 : 80)
-        
-        .border(.colorSecondary, width:1)
+        .frame(width: sizeClass == .regular ? 120 : 80, height: sizeClass == .regular ? 120 : 80)
+        .background(accentColor.opacity(0.1)) // Opcional: um fundo leve da mesma cor
         .cornerRadius(sizeClass == .regular ? 15 : 12)
-        .clipShape(RoundedRectangle(cornerRadius: 15))
         .overlay(
             RoundedRectangle(cornerRadius: 15)
-                .stroke(Color( isHighlighted ? corEmocao : .colorSecondary), lineWidth: 1))
-        .overlay(alignment: .topLeading) {
-            
-            if isHighlighted {
-                ZStack {
-                    
-                    Circle()
-                        .fill(corEmocao)
-                        .frame(width: 28, height: 28)
-                        .shadow(color: corEmocao.opacity(0.8), radius: 8)
-                    
-                    Text("\(numeroProgressao ?? 0)")
-                        .font(.caption)
-                        .bold()
-                        .foregroundColor(.black)
-                }
-                .offset(x: -10, y: -10)
-            }
-        }
+                .stroke(accentColor, lineWidth: 1) // <--- Borda da cor escolhida
+        )
         .padding(5)
         
     }
@@ -74,13 +42,7 @@ struct HarmonyCampCell: View {
 #Preview {
     ZStack {
         Color.black.ignoresSafeArea()
-        
-        HarmonyCampCell(
-            grau: "I",
-            note: "C",
-            isHighlighted: true,
-            numeroProgressao: 1,
-            corEmocao: .yellow
-        )
+        HarmonyCampCell(grau: "I", note: "C", accentColor: .blue)
     }
+    .environment(CarouselViewModel())
 }
