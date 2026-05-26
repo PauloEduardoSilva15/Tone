@@ -94,9 +94,9 @@ class CarouselViewModel {
     
     var campoHarmonicoAtual: [Acorde] = []
     
-//    var highlightedIndices: Set<Int> {
-//        Set(sequenciaSentimento)
-//    }
+    //    var highlightedIndices: Set<Int> {
+    //        Set(sequenciaSentimento)
+    //    }
     
     private let sequenciaHarmonica = Sequencia()
     
@@ -109,8 +109,8 @@ class CarouselViewModel {
     }
     
     init() {
-            atualizarCampoHarmonico()
-        }
+        atualizarCampoHarmonico()
+    }
     
     func printDebug() {
         print("Nota: \(notaSelecionada)\nSentimento: \(sentimentoSelecionado)\nEscala: \(escalaSelecionada)")
@@ -142,47 +142,46 @@ class CarouselViewModel {
     var sequenciaSentimento: [Int] = []
     
     // No CarouselViewModel.swift
-
+    
+    let progressao : [String: [String: [String]]] =
+    ["Maior": ["Alegria": ["I", "IV", "V", "IV"],
+               "Tristeza": ["I", "II", "IV", "IV"],
+               "Tensão": ["VI", "III", "IV", "IV" ]],
+     
+     "Menor": ["Alegria": ["VI", "V", "V", "I"],
+               "Tristeza": ["I", "IV", "V", "V"],
+               "Tensão": ["I", "V", "VI", "VI"]]]
+    
     func corParaGrau(_ grau: String) -> Color {
-        // Se não houver emoção selecionada, retorna a cor padrão
+        
         if sentimentoSelecionado == "Nenhuma emoção" {
-            return Color("ColorSecondary")
-        }
-        
-        // Verifica se estamos trabalhando com uma escala maior ou menor
-        let isMaior = escalaSelecionada.lowercased() == "maior"
-        
-        switch sentimentoSelecionado {
-        case "Alegria":
-            if isMaior {
-                // No campo MAIOR, os acordes maiores são I, IV e V
-                if ["I", "IV", "V", "IV"].contains(grau) { return .happy }
-            } else {
-                // No campo MENOR, os acordes maiores são III, VI e VII
-                if ["VI", "V", "V", "I"].contains(grau) { return .happy }
-            }
-            
-        case "Tristeza":
-            if isMaior {
-                // No campo MAIOR, os acordes menores são II, III e VI
-                if ["I", "III", "IV", "IV"].contains(grau) { return .sad }
-            } else {
-                // No campo MENOR, os acordes menores são I, IV e V
-                if ["I", "IV", "V"].contains(grau) { return .sad }
-            }
-            
-        case "Tensão":
-            if isMaior {
-                if ["VI", "III", "IV", "IV" ].contains(grau) { return .fear }
-            } else {
-                if ["I", "V", "VI", "VI"].contains(grau) { return .fear}
-            }
-            
-        default:
             return .colorSecondary
         }
         
-        // Cor padrão para os acordes que não se encaixam na emoção atual
+        // Busca a progressão correta no dicionário
+        if let grausDaProgressao =
+            progressao[escalaSelecionada]?[sentimentoSelecionado] {
+            
+            // Verifica se o grau atual existe na progressão
+            if grausDaProgressao.contains(grau) {
+                
+                switch sentimentoSelecionado {
+                    
+                case "Alegria":
+                    return .happy
+                    
+                case "Tristeza":
+                    return .sad
+                    
+                case "Tensão":
+                    return .fear
+                    
+                default:
+                    return .colorSecondary
+                }
+            }
+        }
+        
         return .colorSecondary
     }
     
