@@ -9,19 +9,24 @@ import SwiftUI
 
 public struct MusicalChordButton: View {
     let chord: String
-    @State var type: Int
+    @State var instrument: String
  
     @State private var audioPiano: AdvancedAudioManager = AdvancedAudioManager(filepath: "Audios/C_Piano")
     @State private var audioGuitar: AdvancedAudioManager = AdvancedAudioManager(filepath: "Audios/C_Guitar")
     @Environment(\.horizontalSizeClass) var sizeClass
+    
     public var body: some View {
         VStack {
             Button(action: {
-                if(type != 1){
+                
+                switch instrument {
+                case "Piano":
+                    audioPiano.tocarAcorde(nomeDoAcorde: chord)
+                case "Guitar":
                     audioGuitar.tocarAcorde(nomeDoAcorde: chord)
-                    return
+                default:
+                    audioPiano.tocarAcorde(nomeDoAcorde: chord)
                 }
-                audioPiano.tocarAcorde(nomeDoAcorde: chord)
             }) {
                 VStack {
                     Image(systemName: "volume.3")
@@ -44,5 +49,5 @@ public struct MusicalChordButton: View {
 
 
 #Preview {
-    MusicalChordButton(chord: "C", type: 1)
+    MusicalChordButton(chord: "C", instrument: "Piano" )
 }
