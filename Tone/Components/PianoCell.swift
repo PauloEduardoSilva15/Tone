@@ -95,25 +95,31 @@ struct PianoCell: View {
 import SwiftUI
 
 struct TeclasBrancas: View {
+    @Environment(CarouselViewModel.self) var viewModel
     @Environment(\.horizontalSizeClass) var sizeClass
+    
+    
     var body: some View {
+        let highlightedNotes: [String] = [String]()
         
         Rectangle()
-            .fill(Color.white)
+            .fill(highlightedNotes.contains(viewModel.notaSelecionada) ? .colorPrimary.opacity(0.4) : .white)
             .border(Color.black, width: 0.5)
             .frame(width: sizeClass == .regular ? 20.7 : 16 , height: sizeClass == .regular ? 80 : 55)
     }
 }
 
 struct TeclasPretas: View {
+    @Environment(CarouselViewModel.self) var viewModel
     @Environment(\.horizontalSizeClass) var sizeClass
     let Contador: Int
     var body: some View {
-        
+        let highlightedNotes: [String] = [String]()
+
         HStack(spacing: 6) {
             ForEach(0..<Contador, id: \.self) { _ in
                 Rectangle()
-                    .fill(Color.black)
+                    .fill(highlightedNotes.contains(viewModel.notaSelecionada) ? .colorPrimary.opacity(0.4) : .black)
                     .frame(width: sizeClass == .regular ? 15 : 10, height: sizeClass == .regular ? 40 : 30)
             }
         }
@@ -163,6 +169,7 @@ struct PianoCell: View {
     ZStack {
         Color.black.ignoresSafeArea()
         PianoCell()
+            .environment(CarouselViewModel())
     }
 }
 
