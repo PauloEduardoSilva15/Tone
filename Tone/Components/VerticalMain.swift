@@ -5,17 +5,23 @@
 //  Created by Gabriel Groppo on 25/05/26.
 //
 
+
 import SwiftUI
 
 struct VerticalMain: View {
     @State private var showAcordes: Bool = false
     let isIpad = UIDevice.current.userInterfaceIdiom == .pad
+    @State private var viewModel = CarouselViewModel()
+    
     var body: some View {
         ZStack{
             Image("BackGroundImage")
                 .resizable()
                 .frame(height: .infinity)
+                .ignoresSafeArea()
+            
             AnimatedStarsOverlay()
+            
             VStack{
                 VStack{
                     Image(isIpad ? "MediumLogo" : "SmallLogo")
@@ -54,7 +60,8 @@ struct VerticalMain: View {
                         Spacer()
                         PlayButton(corEmocao: Color("ColorPrimary"))
                     }
-                    .padding(.bottom, 10)}
+                    .padding(.bottom, 10)
+                }
 
                 Spacer()
                 VStack{
@@ -63,8 +70,7 @@ struct VerticalMain: View {
                         .foregroundStyle(Color("ColorSecondary"))
                         .font(isIpad ? .title : .title2)
                         .fontWeight(isIpad ? .bold : .semibold)
-                    ViewHarmonyCamp()
-                    
+                    ViewHarmonyCamp(viewModel: viewModel)
                         .padding(.top, 10)
                         .padding(.bottom, isIpad ? 20 : 10)
                     
@@ -81,7 +87,7 @@ struct VerticalMain: View {
                         
                     }
                     .navigationDestination(isPresented: $showAcordes){
-                        ChordsPage()
+                            ChordsPage()
                     }
                     .padding(.bottom, isIpad ? 200 : 100)
                     Spacer()
@@ -90,9 +96,9 @@ struct VerticalMain: View {
             .frame(maxWidth: isIpad ? 450 : 320)
             .padding(.top, isIpad ? 100 : 60)
         }
+        .environment(viewModel)
     }
 }
-
 
 #Preview {
     VerticalMain()
