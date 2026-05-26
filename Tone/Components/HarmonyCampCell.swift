@@ -11,7 +11,8 @@ struct HarmonyCampCell: View {
     @Environment(CarouselViewModel.self) var viewModel
     let grau: String
     let note: String
-    let accentColor: Color // <--- Nova propriedade
+    let accentColor: Color
+    //let numeroProgressao: Int?
     
     @Environment(\.horizontalSizeClass) var sizeClass
     
@@ -28,12 +29,31 @@ struct HarmonyCampCell: View {
                 .foregroundStyle(accentColor) // <--- Usando a cor
         }
         .frame(width: sizeClass == .regular ? 120 : 80, height: sizeClass == .regular ? 120 : 80)
-        ////.background(accentColor.opacity(0.1)) // Opcional: um fundo leve da mesma cor
         .cornerRadius(sizeClass == .regular ? 15 : 12)
         .overlay(
             RoundedRectangle(cornerRadius: 15)
-                .stroke(accentColor, lineWidth: 1) // <--- Borda da cor escolhida
+                .stroke(accentColor, lineWidth: 1) 
         )
+//        .overlay(alignment: .topLeading) {
+//            
+//            if let numero = numeroProgressao {
+//                
+//                ZStack {
+//                    
+//                    Circle()
+//                        .fill(accentColor)
+//                        .frame(width: sizeClass == .regular ? 34 : 28,
+//                               height: sizeClass == .regular ? 34 : 28)
+//                        .shadow(color: accentColor.opacity(0.8), radius: 8)
+//                    
+//                    Text("\(numero)")
+//                        .font(sizeClass == .regular ? .headline : .caption)
+//                        .bold()
+//                        .foregroundStyle(.black)
+//                }
+//                .offset(x: -10, y: -10)
+//            }
+//        }
         .padding(5)
         
     }

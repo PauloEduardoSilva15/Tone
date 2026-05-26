@@ -20,7 +20,7 @@ struct ViewHarmonyCamp: View {
                         HarmonyCampCell(
                             grau: acorde.grau,
                             note: acorde.nome,
-                            accentColor: viewModel.corParaGrau(acorde.grau) // <--- Aqui
+                            accentColor: viewModel.corParaGrau(acorde.grau)
                         )
                     }
                 }
@@ -53,10 +53,3 @@ struct ViewHarmonyCamp: View {
     }
 }
 
-#Preview {
-    ZStack{
-        Color.black
-        ViewHarmonyCamp(viewModel: CarouselViewModel())
-    }
-    .ignoresSafeArea()
-}
