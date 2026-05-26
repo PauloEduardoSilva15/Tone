@@ -11,7 +11,6 @@ struct HorizontalMain: View {
     @State private var showAcordes: Bool = false
     let isIpad = UIDevice.current.userInterfaceIdiom == .pad
     
-    // 1. Criamos a variável do ViewModel para gerenciar esta tela
     @State private var viewModel = CarouselViewModel()
     
     var body: some View {
@@ -20,7 +19,7 @@ struct HorizontalMain: View {
                 .resizable()
                 .ignoresSafeArea()
             
-            // AnimatedStarsOverlay() // Descomente se tiver no seu projeto
+            AnimatedStarsOverlay()
             
             HStack{
                 VStack(alignment: .leading){
@@ -58,7 +57,7 @@ struct HorizontalMain: View {
                             EmotionDropdown()
                                 .padding(.vertical, 10)
                             Spacer()
-                            // PlayButton(corEmocao: Color("ColorPrimary")) // Descomente se tiver
+                            PlayButton(corEmocao: Color("ColorPrimary"))
                         }
                         .padding(.bottom, 120)
                         
@@ -74,7 +73,6 @@ struct HorizontalMain: View {
                         .font(isIpad ? .title : .title2)
                         .fontWeight(isIpad ? .bold : .semibold)
                     
-                    // 2. Passamos o viewModel para o seu Campo Harmônico
                     ViewHarmonyCamp(viewModel: viewModel)
                         .padding(.top, 8)
                         .padding(.bottom, 10)
@@ -91,7 +89,7 @@ struct HorizontalMain: View {
                         
                     }
                     .navigationDestination(isPresented: $showAcordes){
-                        // ChordsPage() // Descomente se tiver
+                            ChordsPage()
                     }
                     .padding(.bottom, isIpad ? 70 : 60)
                     Spacer()
@@ -102,7 +100,6 @@ struct HorizontalMain: View {
             .frame(maxWidth: .infinity)
             .padding(.top, isIpad ? 40 : 60)
         }
-        // 3. Injetamos no ambiente para que os outros componentes consigam acessar os dados
         .environment(viewModel)
     }
 }

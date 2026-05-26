@@ -35,6 +35,7 @@ struct HarmonyCampCell: View {
                 .stroke(accentColor, lineWidth: 1) // <--- Borda da cor escolhida
         )
         .padding(5)
+        
     }
 }
 

@@ -14,10 +14,8 @@ struct ChordsPage: View {
         ViewThatFits(in: .horizontal){
             //deitado
             HorizontalChords()
-            
             //em pé
             VerticalChords()
-            
         }
         .navigationBarBackButtonHidden(true)}
 }
