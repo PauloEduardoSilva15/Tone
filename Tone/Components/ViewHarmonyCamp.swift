@@ -9,7 +9,8 @@ import SwiftUI
 
 struct ViewHarmonyCamp: View {
     
-    var viewModel: CarouselViewModel
+    @State var viewModel: CarouselViewModel
+    //@Environment(CarouselViewModel.self) var viewModel
     
     var body: some View {
         VStack {
@@ -26,34 +27,11 @@ struct ViewHarmonyCamp: View {
             }
             HStack {
                 HarmonyCampCell(grau: "VII",note: "Bº", isHighlighted: false, numeroProgressao: 1, corEmocao: .yellow)
-            
-            if viewModel.campoHarmonicoAtual.count == 7 {
-                
-                HStack {
-                    ForEach(0..<3, id: \.self) { index in
-                        let acorde = viewModel.campoHarmonicoAtual[index]
-                        HarmonyCampCell(grau: acorde.grau, note: acorde.nome)
-                    }
-                }
-                
-                HStack {
-                    ForEach(3..<6, id: \.self) { index in
-                        let acorde = viewModel.campoHarmonicoAtual[index]
-                        HarmonyCampCell(grau: acorde.grau, note: acorde.nome)
-                    }
-                }
-                
-                HStack {
-                        let acorde = viewModel.campoHarmonicoAtual[6]
-                        HarmonyCampCell(grau: acorde.grau, note: acorde.nome)
-                    }
-                
-                } else {
-                    Text("Selecione um tom")
-                    
-                }
-                
-                    
-                }
             }
         }
+    }
+}
+
+#Preview {
+    ViewHarmonyCamp(viewModel: CarouselViewModel())
+}
