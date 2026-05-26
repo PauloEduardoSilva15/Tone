@@ -5,17 +5,24 @@
 //  Created by Gabriel Groppo on 25/05/26.
 //
 
+
 import SwiftUI
 
 struct VerticalMain: View {
     @State private var showAcordes: Bool = false
     let isIpad = UIDevice.current.userInterfaceIdiom == .pad
+    
+    // 1. Criamos a variável que vai gerenciar a lógica desta tela
+    @State private var viewModel = CarouselViewModel()
+    
     var body: some View {
         ZStack{
             Image("BackGroundImage")
                 .resizable()
-                .frame(height: .infinity)
-            AnimatedStarsOverlay()
+                .frame(height: .infinity) // .ignoresSafeArea() talvez seja melhor aqui dependendo do seu design
+            
+            // AnimatedStarsOverlay() // Descomente se tiver esse componente no seu projeto
+            
             VStack{
                 VStack{
                     Image(isIpad ? "MediumLogo" : "SmallLogo")
@@ -52,9 +59,10 @@ struct VerticalMain: View {
                             .padding(.vertical, 10)
                             
                         Spacer()
-                        PlayButton(corEmocao: Color("ColorPrimary"))
+                        // PlayButton(corEmocao: Color("ColorPrimary")) // Descomente se tiver
                     }
-                    .padding(.bottom, 10)}
+                    .padding(.bottom, 10)
+                }
 
                 Spacer()
                 VStack{
@@ -63,8 +71,9 @@ struct VerticalMain: View {
                         .foregroundStyle(Color("ColorSecondary"))
                         .font(isIpad ? .title : .title2)
                         .fontWeight(isIpad ? .bold : .semibold)
-                    ViewHarmonyCamp()
                     
+                    // 2. Passamos o viewModel para a ViewHarmonyCamp!
+                    ViewHarmonyCamp(viewModel: viewModel)
                         .padding(.top, 10)
                         .padding(.bottom, isIpad ? 20 : 10)
                     
@@ -81,7 +90,7 @@ struct VerticalMain: View {
                         
                     }
                     .navigationDestination(isPresented: $showAcordes){
-                        ChordsPage()
+                        // ChordsPage() // Descomente se tiver
                     }
                     .padding(.bottom, isIpad ? 200 : 100)
                     Spacer()
@@ -90,9 +99,10 @@ struct VerticalMain: View {
             .frame(maxWidth: isIpad ? 450 : 320)
             .padding(.top, isIpad ? 100 : 60)
         }
+        // 3. Injetamos o viewModel no ambiente para o Carrossel, Escala e Emoção conseguirem usá-lo
+        .environment(viewModel)
     }
 }
-
 
 #Preview {
     VerticalMain()

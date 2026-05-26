@@ -10,17 +10,22 @@ import SwiftUI
 struct HorizontalMain: View {
     @State private var showAcordes: Bool = false
     let isIpad = UIDevice.current.userInterfaceIdiom == .pad
+    
+    // 1. Criamos a variável do ViewModel para gerenciar esta tela
+    @State private var viewModel = CarouselViewModel()
+    
     var body: some View {
         ZStack{
             Image("BackGroundImage")
                 .resizable()
                 .ignoresSafeArea()
-            AnimatedStarsOverlay()
+            
+            // AnimatedStarsOverlay() // Descomente se tiver no seu projeto
+            
             HStack{
                 VStack(alignment: .leading){
                     Image(isIpad ? "MediumLogo" : "SmallLogo")
-                        .padding(.trailing, )
-                    
+                        .padding(.trailing )
                         
                     Spacer()
                     VStack{
@@ -28,7 +33,6 @@ struct HorizontalMain: View {
                             .foregroundStyle(Color("ColorSecondary"))
                             .font(isIpad ? .title : .title2)
                             .fontWeight(isIpad ? .bold : .semibold)
-                        
                         
                         ChoiceKeyCarroussel()
                             .padding(.top, 20)
@@ -44,7 +48,6 @@ struct HorizontalMain: View {
                             .padding(.bottom, 40)
                         
                         
-                        
                         Text("Quer expressar algo?")
                             .foregroundStyle(Color("ColorSecondary"))
                             .font(isIpad ? .title : .title2)
@@ -53,13 +56,9 @@ struct HorizontalMain: View {
                         
                         HStack{
                             EmotionDropdown()
-                            
                                 .padding(.vertical, 10)
                             Spacer()
-                            PlayButton(corEmocao: Color("ColorPrimary"))
-                            
-                            
-                            
+                            // PlayButton(corEmocao: Color("ColorPrimary")) // Descomente se tiver
                         }
                         .padding(.bottom, 120)
                         
@@ -74,7 +73,9 @@ struct HorizontalMain: View {
                         .foregroundStyle(Color("ColorSecondary"))
                         .font(isIpad ? .title : .title2)
                         .fontWeight(isIpad ? .bold : .semibold)
-                    ViewHarmonyCamp()
+                    
+                    // 2. Passamos o viewModel para o seu Campo Harmônico
+                    ViewHarmonyCamp(viewModel: viewModel)
                         .padding(.top, 8)
                         .padding(.bottom, 10)
                     
@@ -90,7 +91,7 @@ struct HorizontalMain: View {
                         
                     }
                     .navigationDestination(isPresented: $showAcordes){
-                        ChordsPage()
+                        // ChordsPage() // Descomente se tiver
                     }
                     .padding(.bottom, isIpad ? 70 : 60)
                     Spacer()
@@ -98,13 +99,13 @@ struct HorizontalMain: View {
                 .frame(width: 300)
                 .padding(.horizontal, 100)
             }
-            
             .frame(maxWidth: .infinity)
             .padding(.top, isIpad ? 40 : 60)
         }
+        // 3. Injetamos no ambiente para que os outros componentes consigam acessar os dados
+        .environment(viewModel)
     }
 }
-
 
 #Preview {
     HorizontalMain()
