@@ -7,10 +7,11 @@
 import SwiftUI
 
 struct EmotionDropdown: View {
-    //@Environment(Key.self) var key
-    //@State private var viewModel = Key()
+    /////////////////////////////////////////////////////////
+    // Com o @EnvironmentObject você declara uma variável que receberá um objeto observável do tipo declarado 'KeyModel'
     @EnvironmentObject var key: KeyModel
-    //@State private var selectedEmotion = "Nenhuma emoção escolhida"
+    /////////////////////////////////////////////////////////
+    
     @State private var isExpanded = false
     
     let emotions = [
@@ -103,6 +104,9 @@ struct EmotionDropdown: View {
 
 #Preview {
     EmotionDropdown()
+    /////////////////////////////////////////////////////////
+    // Passa o .environmentObject(Object()) para que o preview não crashe e saiba qual tipo de objeto ele está olhando
         .environmentObject(KeyModel())
+    /////////////////////////////////////////////////////////
 }
 

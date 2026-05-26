@@ -8,17 +8,15 @@
 import SwiftUI
 
 struct ChoiceKeyCarroussel: View {
-    // viewModel CarrousselViewModel controla e armazena as variáveis da Tonalidade
-    //@State private var viewModel = Key()
+    /////////////////////////////////////////////////////////
+    // Com o @EnvironmentObject você declara uma variável que receberá um objeto observável do tipo declarado 'KeyModel'
     @EnvironmentObject var key: KeyModel
-    //@Environment(Key.self) var key
+    /////////////////////////////////////////////////////////
     
     @Environment(\.horizontalSizeClass) var sizeClass
     private let itemMultiplier = 1000
     
     var body: some View {
-        //@Bindable var key = key
-        
         GeometryReader { geometry in
             let screenWidth = geometry.size.width
             
@@ -60,9 +58,7 @@ struct ChoiceKeyCarroussel: View {
                                                 
                         Circle()
                             .fill(circleColor)
-                        //.fill(isSelected ? .colorPrimary : .colorSecundary.opacity(0.5))
                             .frame(width: size, height: size)
-                        //.frame(width: isSelected ? selectedWidth : unselectedWidth, height: isSelected ? selectedWidth : unselectedWidth)
                             .overlay(
                                 Text("\(note)")
                                     .foregroundStyle(textColor)
@@ -93,6 +89,9 @@ struct ChoiceKeyCarroussel: View {
 
 #Preview {
     ChoiceKeyCarroussel()
+    /////////////////////////////////////////////////////////
+    // Passa o .environmentObject(Object()) para que o preview não crashe e saiba qual tipo de objeto ele está olhando
         .environmentObject(KeyModel())
+    /////////////////////////////////////////////////////////
         .padding(20)
 }

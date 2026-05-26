@@ -6,14 +6,23 @@
 //
 
 import SwiftUI
+/////////////////////////////////////////////////////////
+// Precisa importar Combina para o protocolo ObservableObject
 import Combine
+/////////////////////////////////////////////////////////
 
+/////////////////////////////////////////////////////////
+// Tipar a classe como ObservableObject
 class KeyModel: ObservableObject {
+/////////////////////////////////////////////////////////
     let notes = ["C", "C#", "D", "Eb", "E", "F", "F#", "G", "Ab", "A", "Bb", "B"]
-    
+
+    /////////////////////////////////////////////////////////
+    // @Published para as variáveis que serão alteradas nas views
     @Published var notaSelecionada: String = ""
     @Published var sentimentoSelecionado: String = "Nenhuma emoção"
     @Published var escalaSelecionada: String = "Maior"
+    /////////////////////////////////////////////////////////
     
     private var selectionTask: Task<Void, Never>?
     

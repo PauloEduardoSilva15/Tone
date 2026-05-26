@@ -108,4 +108,5 @@ struct HorizontalMain: View {
 
 #Preview {
     HorizontalMain()
+        .environmentObject(KeyModel())
 }

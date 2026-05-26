@@ -10,7 +10,10 @@ import SwiftUI
 struct EntryPage: View {
     @State private var irMain: Bool = false
     let isIpad = UIDevice.current.userInterfaceIdiom == .pad
+/////////////////////////////////////////////////////////
+    // CRIA O OBJETO QUE SERÁ OBSERVADO EM TODAS AS TELAS FILHAS
     @StateObject private var key = KeyModel()
+////////////////////////////////////////////////////////
     var body: some View {
         NavigationStack{
             ZStack{
@@ -30,7 +33,10 @@ struct EntryPage: View {
                 irMain = true
             }
         }
+/////////////////////////////////////////////////////////
+        // Passa para as views filhas que o objeto "key" é o ambiente a ser observado
         .environmentObject(key)
+/////////////////////////////////////////////////////////
     }
 }
 

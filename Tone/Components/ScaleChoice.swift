@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct ScaleChoice: View {
-    //@State private var viewModel = Key()
-    //@State private var selectedScale = "Maior"
+    /////////////////////////////////////////////////////////
+    // Com o @EnvironmentObject você declara uma variável que receberá um objeto observável do tipo declarado 'KeyModel'
     @EnvironmentObject var key: KeyModel
+    /////////////////////////////////////////////////////////
     
     let scales = ["Maior", "Menor"]
     let isIpad = UIDevice.current.userInterfaceIdiom == .pad
@@ -52,6 +53,9 @@ struct ScaleChoice: View {
 
 #Preview {
     ScaleChoice()
+    /////////////////////////////////////////////////////////
+    // Passa o .environmentObject(Object()) para que o preview não crashe e saiba qual tipo de objeto ele está olhando
         .environmentObject(KeyModel())
+    /////////////////////////////////////////////////////////
 }
 
