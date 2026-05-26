@@ -10,12 +10,13 @@ import SwiftUI
 struct EntryPage: View {
     @State private var irMain: Bool = false
     let isIpad = UIDevice.current.userInterfaceIdiom == .pad
+    @StateObject private var key = KeyModel()
     var body: some View {
         NavigationStack{
             ZStack{
                 Image("EntryPage")
                     .resizable()
-//                    .frame(height: isIpad ?  1300 : 920)
+                //                    .frame(height: isIpad ?  1300 : 920)
                     .ignoresSafeArea()
                 Image("Logo")
                     .padding(.bottom, 30)
@@ -25,11 +26,12 @@ struct EntryPage: View {
             }
         }
         .onAppear {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            irMain = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                irMain = true
+            }
         }
+        .environmentObject(key)
     }
-}    
 }
 
 #Preview {

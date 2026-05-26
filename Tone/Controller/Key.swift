@@ -6,29 +6,24 @@
 //
 
 import SwiftUI
-import Observation
+import Combine
 
-@Observable
-class CarouselViewModel {
+class KeyModel: ObservableObject {
     let notes = ["C", "C#", "D", "Eb", "E", "F", "F#", "G", "Ab", "A", "Bb", "B"]
     
-    var notaSelecionada: String = ""
-    var sentimentoSelecionado: String = "Nenhuma emoção"
-    
-    var escalaSelecionada: String = "Maior"
+    @Published var notaSelecionada: String = ""
+    @Published var sentimentoSelecionado: String = "Nenhuma emoção"
+    @Published var escalaSelecionada: String = "Maior"
     
     private var selectionTask: Task<Void, Never>?
     
-    // O ID que o ScrollView vai controlar
     var scrolledID: Int? {
         didSet {
-            // Sempre que o ID mudar, essa função é disparada
-            // Toda vez que o ID muda, agendamos a validação com um "await"
             agendarSelecaoComDelay()
+            print("Nota: \(notaSelecionada)\nSentimento: \(sentimentoSelecionado)\nEscala: \(escalaSelecionada)")
         }
     }
     
-    // Função que recebe a nota selecionada e armazena na variável notaSelecionada, após aguardar 150ms (para evitar mudanças muito drásticas) e printa a nota selecionada (para debug)
     private func agendarSelecaoComDelay() {
         selectionTask?.cancel()
         
@@ -36,29 +31,23 @@ class CarouselViewModel {
             guard let currentID = scrolledID else { return }
             
             do {
-                try await Task.sleep(for: .milliseconds(800))
+                try await Task.sleep(for: .milliseconds(10))
                 
-                // Descobre o índice da nota selecionada dentro da array de notas
                 let realIndex = currentID % notes.count
                 let notaFinal = notes[realIndex]
                 
                 await MainActor.run {
                     self.notaSelecionada = notaFinal
-                    print("Nota Selecionada: \(notaSelecionada) (ID: \(currentID))")
                 }
-            } catch {
-                
-            }
+            } catch {}
         }
     }
     
     func escolherSentimento(add emotion: String) {
         sentimentoSelecionado = emotion
-        print(sentimentoSelecionado)
     }
     
     func escolherEscala(add scale: String) {
         escalaSelecionada = scale
-        print(escalaSelecionada)
     }
 }

@@ -7,7 +7,9 @@
 import SwiftUI
 
 struct EmotionDropdown: View {
-    @State private var viewModel = CarouselViewModel()
+    //@Environment(Key.self) var key
+    //@State private var viewModel = Key()
+    @EnvironmentObject var key: KeyModel
     //@State private var selectedEmotion = "Nenhuma emoção escolhida"
     @State private var isExpanded = false
     
@@ -21,6 +23,7 @@ struct EmotionDropdown: View {
     let isIpad = UIDevice.current.userInterfaceIdiom == .pad
     
     var body: some View {
+        //@Bindable var viewModel = viewModel
         
         Button(action: {
             isExpanded.toggle()
@@ -28,7 +31,7 @@ struct EmotionDropdown: View {
             
             HStack {
                 
-                Text(viewModel.sentimentoSelecionado)
+                Text(key.sentimentoSelecionado)
                     .foregroundColor(.black)
                     .font(isIpad ? .title2 : .default)
                     .fontWeight(isIpad ? .semibold : .regular)
@@ -56,7 +59,7 @@ struct EmotionDropdown: View {
                         
                         Button(action: {
                             
-                           viewModel.escolherSentimento(add: emotion)
+                           key.escolherSentimento(add: emotion)
                             //selectedEmotion = emotion
                             isExpanded = false
                             
@@ -71,7 +74,7 @@ struct EmotionDropdown: View {
                                 
                                 Spacer()
                                 
-                                if viewModel.sentimentoSelecionado == emotion {
+                                if key.sentimentoSelecionado == emotion {
                                     
                                     Image(systemName: "checkmark")
                                         .foregroundColor(Color("ColorPrimary"))
@@ -80,7 +83,7 @@ struct EmotionDropdown: View {
                             }
                             .padding(isIpad ? 10 : 10)
                             .background(
-                                viewModel.sentimentoSelecionado == emotion
+                                key.sentimentoSelecionado == emotion
                                 ? Color("ColorPrimary").opacity(0.25)
                                 : Color("ColorSecondary").opacity(1)
                             )
@@ -99,6 +102,7 @@ struct EmotionDropdown: View {
 }
 
 #Preview {
-        EmotionDropdown()
-    }
+    EmotionDropdown()
+        .environmentObject(KeyModel())
+}
 

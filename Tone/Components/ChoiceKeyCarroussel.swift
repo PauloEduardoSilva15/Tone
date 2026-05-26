@@ -9,11 +9,16 @@ import SwiftUI
 
 struct ChoiceKeyCarroussel: View {
     // viewModel CarrousselViewModel controla e armazena as variáveis da Tonalidade
-    @State private var viewModel = CarouselViewModel()
+    //@State private var viewModel = Key()
+    @EnvironmentObject var key: KeyModel
+    //@Environment(Key.self) var key
+    
     @Environment(\.horizontalSizeClass) var sizeClass
     private let itemMultiplier = 1000
     
     var body: some View {
+        //@Bindable var key = key
+        
         GeometryReader { geometry in
             let screenWidth = geometry.size.width
             
@@ -26,12 +31,12 @@ struct ChoiceKeyCarroussel: View {
             
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack(alignment: .center, spacing: spacing) {
-                    ForEach(0..<viewModel.notes.count * itemMultiplier, id: \.self) { globalIndex in
-                        let realIndex = globalIndex % viewModel.notes.count
-                        let note = viewModel.notes[realIndex]
+                    ForEach(0..<key.notes.count * itemMultiplier, id: \.self) { globalIndex in
+                        let realIndex = globalIndex % key.notes.count
+                        let note = key.notes[realIndex]
                         
                         // Descobre a distância entre o selecionado e os demais círculos
-                        let currentSelectedID = viewModel.scrolledID ?? 0
+                        let currentSelectedID = key.scrolledID ?? 0
                         let distance = abs(globalIndex - currentSelectedID)
                         
                         // Define as distâncias: se for 0 ele está selecionado. Se for 1, é um dos vizinhos próximos
@@ -47,12 +52,11 @@ struct ChoiceKeyCarroussel: View {
                         
                         let circleColor: Color = isSelected ? .colorPrimary : (isNeighboor ? .colorSecondary : .colorSecondary.opacity(opacictyCircle))
                         let textColor: Color = isSelected ? .white : .black
-                        let textFont: Font = isSelected ? .title2 : (isNeighboor ? .body : .caption)
                         
                         let selectedFont: Font = sizeClass == .compact ? .title2 : .largeTitle
                         let neighborFont: Font = sizeClass == .compact ? .body : .title
                         let defaultFont: Font = sizeClass == .compact ? .caption : .title3
-                        let textFont: Font = isSelected ? selectedFont : (isNeighboor ? neighborFont : defaultFont)
+                        let txtFont: Font = isSelected ? selectedFont : (isNeighboor ? neighborFont : defaultFont)
                                                 
                         Circle()
                             .fill(circleColor)
@@ -62,7 +66,7 @@ struct ChoiceKeyCarroussel: View {
                             .overlay(
                                 Text("\(note)")
                                     .foregroundStyle(textColor)
-                                    .font(textFont)
+                                    .font(txtFont)
                                     .fontWeight(.semibold)
                             )
                             .opacity(opacictyCircle)
@@ -72,22 +76,23 @@ struct ChoiceKeyCarroussel: View {
                 .scrollTargetLayout() // Required for view-aligned snapping
             }
             .scrollTargetBehavior(.viewAligned) // Ensures it snaps to cards
-            .scrollPosition(id: $viewModel.scrolledID, anchor: .center)
+            .scrollPosition(id: $key.scrolledID, anchor: .center)
             .defaultScrollAnchor(.center)
             .safeAreaPadding(.horizontal, lateralPadding)
-            .animation(.interactiveSpring(response: 0.3, dampingFraction: 0.7), value: viewModel.scrolledID)
+            .animation(.interactiveSpring(response: 0.3, dampingFraction: 0.7), value: key.scrolledID)
         }
         .frame(height: sizeClass == .regular ? 130 : 80)
         .onAppear {
             // Faz o carrossel ficar infinito, pois cuida do reset do index do array notes
             let middleFactor = itemMultiplier / 2
-            let initialIndex = middleFactor * viewModel.notes.count
-            viewModel.scrolledID = initialIndex
+            let initialIndex = middleFactor * key.notes.count
+            key.scrolledID = initialIndex
         }
     }
 }
 
 #Preview {
     ChoiceKeyCarroussel()
+        .environmentObject(KeyModel())
         .padding(20)
 }
