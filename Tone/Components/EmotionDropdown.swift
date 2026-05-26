@@ -7,7 +7,7 @@
 import SwiftUI
 
 struct EmotionDropdown: View {
-    @State private var viewModel = CarouselViewModel()
+    @Environment(CarouselViewModel.self) var viewModel
     //@State private var selectedEmotion = "Nenhuma emoção escolhida"
     @State private var isExpanded = false
     
@@ -100,5 +100,6 @@ struct EmotionDropdown: View {
 
 #Preview {
         EmotionDropdown()
+            .environment(CarouselViewModel())
     }
 

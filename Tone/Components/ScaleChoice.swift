@@ -54,5 +54,5 @@ struct ScaleChoice: View {
 
 #Preview {
     ScaleChoice()
-    .environment(CarouselViewModel())
+        .environment(CarouselViewModel())
 }
