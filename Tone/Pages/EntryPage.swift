@@ -33,4 +33,5 @@ struct EntryPage: View {
 
 #Preview {
     EntryPage()
+        .environment(CarouselViewModel())
 }

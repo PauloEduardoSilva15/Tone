@@ -12,6 +12,8 @@ struct VerticalChords: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.horizontalSizeClass) var sizeClass
     @State var botaoSelecionado: Int = 1
+    @Environment(CarouselViewModel.self) var viewModel
+
     var body: some View {
         
         ZStack {
@@ -103,5 +105,6 @@ struct VerticalChords: View {
 #Preview {
     NavigationStack {
         ChordsPage()
+            .environment(CarouselViewModel())
     }
 }

@@ -10,6 +10,8 @@ struct ChordsPage: View {
     
     @Environment(\.dismiss) var dismiss
     @Environment(\.horizontalSizeClass) var sizeClass
+    @Environment(CarouselViewModel.self) var viewModel
+
     var body: some View {
         ViewThatFits(in: .horizontal){
             //deitado
@@ -23,5 +25,6 @@ struct ChordsPage: View {
 #Preview {
     NavigationStack {
         ChordsPage()
+            .environment(CarouselViewModel())
     }
 }

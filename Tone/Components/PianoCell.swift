@@ -97,29 +97,32 @@ import SwiftUI
 struct TeclasBrancas: View {
     @Environment(\.horizontalSizeClass) var sizeClass
     var isHighlighted: Bool
+    var corApertada: Color
     
     var body: some View {
         
         Rectangle()
-            .fill(isHighlighted ? Color.colorPrimary : Color.white)
+            .fill(isHighlighted ? corApertada : Color.white)
             .border(Color.black, width: 0.5)
-            .frame(width: sizeClass == .regular ? 20.7 : 16 , height: sizeClass == .regular ? 80 : 55)
+            .frame(width: sizeClass == .regular ? 20.7 : 17 , height: sizeClass == .regular ? 80 : 55)
     }
 }
 
 struct TeclasPretas: View {
     @Environment(\.horizontalSizeClass) var sizeClass
     var isHighlighted: Bool
+    var corApertada: Color
     
     var body: some View {
         Rectangle()
-            .fill(isHighlighted ? Color.colorPrimary : Color.black)
-            .frame(width: sizeClass == .regular ? 15 : 10, height: sizeClass == .regular ? 40 : 30)
+            .fill(isHighlighted ? corApertada : Color.black)
+            .frame(width: sizeClass == .regular ? 15 : 10, height: sizeClass == .regular ? 40 : 32)
             }
         }
 
 struct Oitava: View {
-    var notasDestacadas: [String] = ["C"]
+    var notasDestacadas: [String]
+    var corApertada: Color
     
     let notasBrancas = ["C", "D", "E", "F", "G", "A", "B"]
     let notasPretasGrupo1 = ["C#", "Eb"]
@@ -130,20 +133,20 @@ struct Oitava: View {
             
             HStack(spacing: 0) {
                 ForEach(notasBrancas, id: \.self) { nota in
-                    TeclasBrancas(isHighlighted: notasDestacadas.contains(nota))
+                    TeclasBrancas(isHighlighted: notasDestacadas.contains(nota), corApertada: corApertada)
                 }
             }
             
-            HStack(spacing: 4) {
+            HStack(spacing: 7) {
                 ForEach(notasPretasGrupo1, id: \.self) { nota in
-                    TeclasPretas(isHighlighted: notasDestacadas.contains(nota))
+                    TeclasPretas(isHighlighted: notasDestacadas.contains(nota), corApertada: corApertada)
                 }
                 
                 Spacer()
-                    .frame(width: 21)
+                    .frame(width: 10)
                 
                 ForEach(notasPretasGrupo2, id: \.self) { nota in
-                    TeclasPretas(isHighlighted: notasDestacadas.contains(nota))
+                    TeclasPretas(isHighlighted: notasDestacadas.contains(nota), corApertada: corApertada)
                 }
             }
             .padding(.leading, 1)
@@ -154,6 +157,7 @@ struct Oitava: View {
 
 struct PianoCell: View {
     var acorde: Acorde?
+    var corApertada: Color = .colorPrimary
     
     var body: some View {
         
@@ -166,8 +170,8 @@ struct PianoCell: View {
         
             
             HStack(spacing: 0) {
-                Oitava(notasDestacadas: oitava1)
-                Oitava(notasDestacadas: oitava2)
+                Oitava(notasDestacadas: oitava1, corApertada: corApertada)
+                Oitava(notasDestacadas: oitava2, corApertada: corApertada)
             }
             .clipShape(RoundedRectangle(cornerRadius: 15))
             .overlay(

@@ -8,16 +8,19 @@
 import SwiftUI
 
 public struct PianoRow: View {
-    let chord: String
+    let acorde: Acorde
+    
     public var body: some View {
+
         HStack{
-            MusicalChordButton(chord: chord, instrument: "Piano")
-            PianoCell()
+            MusicalChordButton(chord: acorde.nome, instrument: "Piano")
+            PianoCell(acorde: acorde)
         }
         
     }
 }
 
 #Preview {
-    PianoRow(chord: "C")
+    PianoRow(acorde: Acorde(grau: "I", nome: "G", notas: ["C", "E","G"]))
+    
 }
