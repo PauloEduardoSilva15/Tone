@@ -146,7 +146,7 @@ struct EngineHarmonica {
             let notaRaiz = MusicConstants.notes[indexDaNota]
             let tipo = tipos[i]
             
-            let sufixo = tipo == .menor ? "m" : (tipo == .diminuto ? "dim" : "")
+            let sufixo = tipo == .menor ? "m" : (tipo == .diminuto ? "º" : "")
             let nomeAcorde = "\(notaRaiz)\(sufixo)"
             let notasAcorde = formarAcorde(tonica: notaRaiz, tipo: tipo)
             
@@ -186,7 +186,7 @@ struct EngineHarmonica {
             
             // Reconstrói o nome do acorde com a raiz corrigida
             let raizCorrigida = notasCorrigidas[0]
-            let sufixo = acorde.nome.hasSuffix("dim") ? "dim"
+            let sufixo = acorde.nome.hasSuffix("º") ? "º"
                        : acorde.nome.hasSuffix("m") ? "m"
                        : ""
             
