@@ -73,7 +73,7 @@ struct HorizontalMain: View {
                         .font(isIpad ? .title : .title2)
                         .fontWeight(isIpad ? .bold : .semibold)
                     
-                    ViewHarmonyCamp(viewModel: viewModel)
+                    ViewHarmonyCamp()
                         .padding(.top, 8)
                         .padding(.bottom, 10)
                     
@@ -106,4 +106,5 @@ struct HorizontalMain: View {
 
 #Preview {
     HorizontalMain()
+        .environment(CarouselViewModel())
 }

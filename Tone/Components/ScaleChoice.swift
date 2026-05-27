@@ -8,48 +8,38 @@
 import SwiftUI
 
 struct ScaleChoice: View {
-    
-    //@State private var viewModel = CarouselViewModel()
-    //@State private var selectedScale = "Maior"
-    
     @Environment(CarouselViewModel.self) var viewModel
-    
-    let scales = ["Maior", "Menor"]
-    let isIpad = UIDevice.current.userInterfaceIdiom == .pad
+    @Environment(\.horizontalSizeClass) var sizeClass
     
     var body: some View {
-        
         HStack{
-            
-            ForEach(scales, id: \.self) { scale in
-                
+            ForEach(Escala.allCases, id: \.self) { scale in
                 Button(action: {
-                    viewModel.escolherEscala(add: scale)
+                    viewModel.escolherEscala(scale)
                 }) {
-                    
-                    Text(scale)
-                        .font(isIpad ? .title2 : .body)
+                    Text(scale.rawValue)
+                        .font(sizeClass == .regular ? .title2 : .body)
                         .fontWeight(.semibold)
                         .foregroundColor(
                             viewModel.escalaSelecionada == scale
                             ? .white
-                            : Color(.black)
+                            : .black
                         )
                         .frame(maxWidth: .infinity)
-                        .padding(.vertical, isIpad ? 8 : 6)
+                        .padding(.vertical, sizeClass == .regular ? 8 : 6)
                         .background(
                             viewModel.escalaSelecionada == scale
-                            ? Color("ColorPrimary")
-                            : Color.clear
+                            ? .colorPrimary
+                            : .clear
                         )
                         .clipShape(RoundedRectangle(cornerRadius: 40))
                 }
             }
         }
         .padding(5)
-        .background(Color("ColorSecondary"))
+        .background(.colorSecondary)
         .clipShape(RoundedRectangle(cornerRadius: 40))
-            }
+    }
 }
 
 #Preview {
