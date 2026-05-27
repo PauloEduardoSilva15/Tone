@@ -53,7 +53,7 @@ struct HarmonyCampCell: View {
                             .map { String($0) }
                             .joined(separator: "-")
                     )
-                    .font(sizeClass == .regular ? .caption : .caption2)
+                    .font(sizeClass == .regular ? .headline : .caption)
                     .bold()
                     .foregroundStyle(.black)
                 }
