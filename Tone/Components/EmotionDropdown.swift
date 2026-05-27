@@ -36,12 +36,16 @@ struct EmotionDropdown: View {
         .overlay(alignment: .topLeading) {
             if isExpanded {
                 VStack(alignment: .leading, spacing: 0) {
+                    
                     ForEach(Emocao.allCases, id: \.self) { emocao in
+                        
                         Button(action: {
                             viewModel.escolherSentimento(emocao)
                             isExpanded = false
                         }) {
+                            
                             HStack {
+                                
                                 Text(emocao.rawValue)
                                     .foregroundColor(.black)
                                     .font(isIpad ? .title2 : .body)
@@ -55,19 +59,18 @@ struct EmotionDropdown: View {
                                         .fontWeight(.bold)
                                 }
                             }
-                            .padding(isIpad ? 10 : 10)
-                            .background(
-                                viewModel.sentimentoSelecionado == emocao
-                                ? .colorPrimary.opacity(0.25)
-                                : .colorSecondary.opacity(1)
-                            )
+                            .padding(10)
                         }
+                        
                         Divider()
                     }
                 }
-                .background(.colorSecondary)
-                .clipShape(RoundedRectangle(cornerRadius: 30))
-                .zIndex(1)
+                .padding(6)
+                .background(
+                    RoundedRectangle(cornerRadius: 30)
+                        .fill(Color.colorSecondary)
+                )
+                .shadow(color: .black.opacity(0.3), radius: 10)
             }
         }
     }

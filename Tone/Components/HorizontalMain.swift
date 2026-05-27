@@ -56,6 +56,7 @@ struct HorizontalMain: View {
                         HStack{
                             EmotionDropdown()
                                 .padding(.vertical, 10)
+                                .zIndex(1)
                             Spacer()
                             PlayButton(corEmocao: Color("ColorPrimary"))
                         }

@@ -12,7 +12,7 @@ struct HarmonyCampCell: View {
     let grau: String
     let note: String
     let accentColor: Color
-    //let numeroProgressao: Int?
+    let numerosProgressao: [Int]
     
     @Environment(\.horizontalSizeClass) var sizeClass
     
@@ -21,12 +21,12 @@ struct HarmonyCampCell: View {
             Text(grau)
                 .font(.system(size: sizeClass == .regular ? 21 : 16, weight: .regular))
                 .bold()
-                .foregroundStyle(accentColor) // <--- Usando a cor
+                .foregroundStyle(accentColor)
             
             Text(note)
                 .font(.system(size: sizeClass == .regular ? 25 : 20, weight: .bold))
                 .bold()
-                .foregroundStyle(accentColor) // <--- Usando a cor
+                .foregroundStyle(accentColor)
         }
         .frame(width: sizeClass == .regular ? 120 : 80, height: sizeClass == .regular ? 120 : 80)
         .cornerRadius(sizeClass == .regular ? 15 : 12)
@@ -34,26 +34,33 @@ struct HarmonyCampCell: View {
             RoundedRectangle(cornerRadius: 15)
                 .stroke(accentColor, lineWidth: 1) 
         )
-//        .overlay(alignment: .topLeading) {
-//            
-//            if let numero = numeroProgressao {
-//                
-//                ZStack {
-//                    
-//                    Circle()
-//                        .fill(accentColor)
-//                        .frame(width: sizeClass == .regular ? 34 : 28,
-//                               height: sizeClass == .regular ? 34 : 28)
-//                        .shadow(color: accentColor.opacity(0.8), radius: 8)
-//                    
-//                    Text("\(numero)")
-//                        .font(sizeClass == .regular ? .headline : .caption)
-//                        .bold()
-//                        .foregroundStyle(.black)
-//                }
-//                .offset(x: -10, y: -10)
-//            }
-//        }
+        .overlay(alignment: .topLeading) {
+            
+            if !numerosProgressao.isEmpty {
+                
+                ZStack {
+                    
+                    Circle()
+                        .fill(accentColor)
+                        .frame(
+                            width: sizeClass == .regular ? 38 : 30,
+                            height: sizeClass == .regular ? 38 : 30
+                        )
+                        .shadow(color: accentColor.opacity(0.8), radius: 8)
+                    
+                    Text(
+                        numerosProgressao
+                            .map { String($0) }
+                            .joined(separator: "-")
+                    )
+                    .font(sizeClass == .regular ? .caption : .caption2)
+                    .bold()
+                    .foregroundStyle(.black)
+                }
+                .offset(x: -10, y: -10)
+            }
+        }
+
         .padding(5)
         
     }
@@ -62,7 +69,7 @@ struct HarmonyCampCell: View {
 #Preview {
     ZStack {
         Color.black.ignoresSafeArea()
-        HarmonyCampCell(grau: "I", note: "C", accentColor: .blue)
+        HarmonyCampCell(grau: "I", note: "C", accentColor: .blue, numerosProgressao: [1])
     }
     .environment(CarouselViewModel())
 }

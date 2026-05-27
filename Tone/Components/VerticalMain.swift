@@ -57,12 +57,14 @@ struct VerticalMain: View {
                         EmotionDropdown()
                             .padding(.vertical, 10)
                             
+                            
                         Spacer()
                         PlayButton(corEmocao: Color("ColorPrimary"))
                     }
+                    
                     .padding(.bottom, 10)
                 }
-
+                .zIndex(2)
                 Spacer()
                 VStack{
                     
@@ -73,6 +75,7 @@ struct VerticalMain: View {
                     ViewHarmonyCamp()
                         .padding(.top, 10)
                         .padding(.bottom, isIpad ? 10 : 10)
+                        .zIndex(0)
                     
                     
                     Button(action:{
@@ -92,6 +95,7 @@ struct VerticalMain: View {
                     .padding(.bottom, isIpad ? 220 : 100)
                     Spacer()
                 }
+                .zIndex(0)
             }
             .frame(maxWidth: isIpad ? 450 : 320)
             .padding(.top, isIpad ? 100 : 60)
