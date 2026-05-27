@@ -100,7 +100,7 @@ enum Emocao: String, CaseIterable {
 }
 
 struct EngineHarmonica {
-    private func formarAcorde(tonica: String, tipo: TipoAcorde) -> [String] {
+    func formarAcorde(tonica: String, tipo: TipoAcorde) -> [String] {
         guard let indice = MusicConstants.notes.firstIndex(of: tonica) else { return [] }
         
         let terca: String

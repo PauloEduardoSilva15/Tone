@@ -10,17 +10,18 @@ import SwiftUI
 public struct ViewModeChord: View {
     public var body: some View {
         VStack {
-            ChordRow(chord: "C")
-            ChordRow(chord: "Dm")
-            ChordRow(chord: "Em")
-            ChordRow(chord: "F")
-            ChordRow(chord: "G")
-            ChordRow(chord: "Am")
-            ChordRow(chord: "Bº")
+            ChordRow(chord: "C", typeChord: "")
+            ChordRow(chord: "D", typeChord: "m")
+            ChordRow(chord: "E", typeChord: "m")
+            ChordRow(chord: "F", typeChord: "")
+            ChordRow(chord: "G", typeChord: "")
+            ChordRow(chord: "A", typeChord: "m")
+            ChordRow(chord: "B", typeChord: "º")
         }
     }
 }
 
 #Preview {
     ViewModeChord()
+        .environment(CarouselViewModel())
 }
