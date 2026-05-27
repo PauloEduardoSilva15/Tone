@@ -186,7 +186,7 @@ struct EngineHarmonica {
             
             // Reconstrói o nome do acorde com a raiz corrigida
             let raizCorrigida = notasCorrigidas[0]
-            let sufixo = acorde.nome.hasSuffix("dim") ? "º"
+            let sufixo = acorde.nome.hasSuffix("º") ? "º"
                        : acorde.nome.hasSuffix("m") ? "m"
                        : ""
             
