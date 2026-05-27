@@ -15,7 +15,6 @@ struct EntryPage: View {
             ZStack{
                 Image("EntryPage")
                     .resizable()
-//                    .frame(height: isIpad ?  1300 : 920)
                     .ignoresSafeArea()
                 Image("Logo")
                     .padding(.bottom, 30)

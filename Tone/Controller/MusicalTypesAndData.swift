@@ -46,6 +46,29 @@ enum MusicConstants {
 
         return emocao.cor
     }
+    static func numerosDaProgressao(
+        para grau: String,
+        escala: Escala,
+        emocao: Emocao
+    ) -> [Int] {
+        
+        guard emocao != .nenhum,
+              let graus = progressao[escala]?[emocao]
+        else {
+            return []
+        }
+        
+        var numeros: [Int] = []
+        
+        for (index, grauAtual) in graus.enumerated() {
+            
+            if grauAtual == grau {
+                numeros.append(index + 1)
+            }
+        }
+        
+        return numeros
+    }
 }
 
 enum Emocao: String, CaseIterable {
