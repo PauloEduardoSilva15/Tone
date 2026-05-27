@@ -38,6 +38,18 @@ enum MusicConstants {
         ]
     ]
     
+    static let equivalentesEnarmonicos: [String: String] = [
+        "C#": "Db", "Db": "C#",
+        "D#": "Eb", "Eb": "D#",
+        "F#": "Gb", "Gb": "F#",
+        "G#": "Ab", "Ab": "G#",
+        "A#": "Bb", "Bb": "A#",
+        "B": "Cb", "Cb": "B",
+        "B#": "C", "C": "B#",
+        "E": "Fb", "Fb": "E",
+        "F": "E#", "E#": "F",
+    ]
+    
     static func corParaGrau(_ grau: String, escala: Escala, emocao: Emocao) -> Color {
         guard emocao != .nenhum,
               let graus = progressao[escala]?[emocao],
@@ -140,7 +152,45 @@ struct EngineHarmonica {
             
             campoHarmonico.append(Acorde(grau: graus[i], nome: nomeAcorde, notas: notasAcorde))
         }
-        
+        campoHarmonico = corrigirEnarmonia(do: campoHarmonico, comTonica: tom)
         return campoHarmonico
+    }
+    
+    private func corrigirEnarmonia(do campoHarmonico: [Acorde], comTonica tonica: String) -> [Acorde] {
+        let letrasMusicais = ["A", "B", "C", "D", "E", "F", "G"]
+        
+        guard let letraInicial = tonica.first?.uppercased(),
+              let indiceLetraInicial = letrasMusicais.firstIndex(of: letraInicial)
+        else { return campoHarmonico }
+        
+        let offsetsDaTríade = [0, 2, 4] // raiz, terça, quinta
+        
+        return campoHarmonico.enumerated().map { (grau, acorde) in
+            
+            // Corrige cada nota do acorde (tônica, terça, quinta)
+            let notasCorrigidas = acorde.notas.enumerated().map { (i, nota) in
+                let indiceLetraEsperada = (indiceLetraInicial + grau + offsetsDaTríade[i]) % 7
+                let letraEsperada = letrasMusicais[indiceLetraEsperada]
+                
+                // Já está com a letra certa? Mantém
+                if nota.hasPrefix(letraEsperada) { return nota }
+                
+                // Busca equivalente enarmônico
+                if let equivalente = MusicConstants.equivalentesEnarmonicos[nota],
+                   equivalente.hasPrefix(letraEsperada) {
+                    return equivalente
+                }
+                
+                return nota
+            }
+            
+            // Reconstrói o nome do acorde com a raiz corrigida
+            let raizCorrigida = notasCorrigidas[0]
+            let sufixo = acorde.nome.hasSuffix("dim") ? "dim"
+                       : acorde.nome.hasSuffix("m") ? "m"
+                       : ""
+            
+            return Acorde(grau: acorde.grau, nome: "\(raizCorrigida)\(sufixo)", notas: notasCorrigidas)
+        }
     }
 }
