@@ -9,6 +9,7 @@ import SwiftUI
 import Observation
 
 @Observable
+@MainActor
 class CarouselViewModel {
     var notaSelecionada: String = "C"
     var sentimentoSelecionado: Emocao = .nenhum
@@ -47,10 +48,10 @@ class CarouselViewModel {
                 let realIndex = currentID % MusicConstants.notes.count
                 let notaFinal = MusicConstants.notes[realIndex]
                 
-                await MainActor.run {
+                //await MainActor.run {
                     self.notaSelecionada = notaFinal                    
                     self.atualizarCampoHarmonico()
-                }
+                //}
             } catch is CancellationError {
                 
             } catch {
