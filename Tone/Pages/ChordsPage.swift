@@ -1,4 +1,3 @@
-//
 //  ChordsPage.swift
 //  Tone
 //
@@ -7,11 +6,9 @@
 import SwiftUI
 
 struct ChordsPage: View {
-    
+    @Environment(CarouselViewModel.self) var viewModel
     @Environment(\.dismiss) var dismiss
     @Environment(\.horizontalSizeClass) var sizeClass
-    @Environment(CarouselViewModel.self) var viewModel
-
     var body: some View {
         ViewThatFits(in: .horizontal){
             //deitado
