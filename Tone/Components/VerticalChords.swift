@@ -1,4 +1,3 @@
-//
 //  VerticalChords.swift
 //  Tone
 //
@@ -8,7 +7,7 @@
 import SwiftUI
 
 struct VerticalChords: View {
-    
+    @Environment(CarouselViewModel.self) var viewModel
     @Environment(\.dismiss) var dismiss
     @Environment(\.horizontalSizeClass) var sizeClass
     @State var botaoSelecionado: Int = 1
@@ -69,6 +68,7 @@ struct VerticalChords: View {
                             
                         case 3:
                             ViewModeGuitar()
+                                .environment(viewModel)
                         default:
                             ViewModeChord()
                         }
@@ -102,7 +102,7 @@ struct VerticalChords: View {
 
 #Preview {
     NavigationStack {
-        ChordsPage()
+        VerticalChords()
             .environment(CarouselViewModel())
     }
 }
