@@ -91,6 +91,7 @@ struct HorizontalMain: View {
                     }
                     .navigationDestination(isPresented: $showAcordes){
                             ChordsPage()
+                                .environment(viewModel)
                     }
                     .padding(.bottom, isIpad ? 70 : 60)
                     Spacer()

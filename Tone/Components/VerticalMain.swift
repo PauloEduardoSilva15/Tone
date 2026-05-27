@@ -1,4 +1,3 @@
-//
 //  VerticalMain.swift
 //  Tone
 //
@@ -91,6 +90,7 @@ struct VerticalMain: View {
                     }
                     .navigationDestination(isPresented: $showAcordes){
                             ChordsPage()
+                                .environment(viewModel)
                     }
                     .padding(.bottom, isIpad ? 220 : 100)
                     Spacer()
