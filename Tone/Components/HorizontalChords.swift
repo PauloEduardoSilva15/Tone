@@ -110,5 +110,6 @@ struct HorizontalChords: View {
 #Preview {
     NavigationStack {
         ChordsPage()
+            .environment(CarouselViewModel())
     }
 }

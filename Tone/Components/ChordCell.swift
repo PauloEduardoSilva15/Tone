@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ChordCell: View {
-    
     let notes:[String]
     @Environment(\.horizontalSizeClass) var sizeClass
     var body: some View {
@@ -27,7 +26,6 @@ struct ChordCell: View {
            
     }
 }
-
 
 #Preview {
     ChordCell(notes: ["C", "G", "Am"])

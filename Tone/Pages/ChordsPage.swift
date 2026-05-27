@@ -23,5 +23,6 @@ struct ChordsPage: View {
 #Preview {
     NavigationStack {
         ChordsPage()
+            .environment(CarouselViewModel())
     }
 }
