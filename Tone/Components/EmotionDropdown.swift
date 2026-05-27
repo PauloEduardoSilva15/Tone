@@ -8,32 +8,19 @@ import SwiftUI
 
 struct EmotionDropdown: View {
     @Environment(CarouselViewModel.self) var viewModel
-    //@State private var selectedEmotion = "Nenhuma emoção escolhida"
     @State private var isExpanded = false
-    
-    let emotions = [
-        "Nenhuma emoção",
-        "Alegria",
-        "Tensão",
-        "Tristeza"
-    ]
     
     let isIpad = UIDevice.current.userInterfaceIdiom == .pad
     
     var body: some View {
-        
         Button(action: {
             isExpanded.toggle()
         }) {
-            
             HStack {
-                
-                Text(viewModel.sentimentoSelecionado)
+                Text(viewModel.sentimentoSelecionado.rawValue)
                     .foregroundColor(.black)
                     .font(isIpad ? .title2 : .default)
                     .fontWeight(isIpad ? .semibold : .regular)
-
-                
                 Spacer()
                 
                 Image(systemName: "chevron.down")
@@ -43,55 +30,43 @@ struct EmotionDropdown: View {
                     )
             }
             .padding(isIpad ? 18 : 12)
-            .background(Color("ColorSecondary"))
+            .background(.colorSecondary)
             .clipShape(RoundedRectangle(cornerRadius: 30))
         }
         .overlay(alignment: .topLeading) {
-            
             if isExpanded {
-                
                 VStack(alignment: .leading, spacing: 0) {
-                    
-                    ForEach(emotions, id: \.self) { emotion in
-                        
+                    ForEach(Emocao.allCases, id: \.self) { emocao in
                         Button(action: {
-                            
-                           viewModel.escolherSentimento(add: emotion)
-                            //selectedEmotion = emotion
+                            viewModel.escolherSentimento(emocao)
                             isExpanded = false
-                            
                         }) {
-                            
                             HStack {
-                                
-                                Text(emotion)
+                                Text(emocao.rawValue)
                                     .foregroundColor(.black)
                                     .font(isIpad ? .title2 : .body)
                                     .fontWeight(isIpad ? .semibold : .regular)
                                 
                                 Spacer()
                                 
-                                if viewModel.sentimentoSelecionado == emotion {
-                                    
+                                if viewModel.sentimentoSelecionado == emocao {
                                     Image(systemName: "checkmark")
-                                        .foregroundColor(Color("ColorPrimary"))
+                                        .foregroundColor(.colorPrimary)
                                         .fontWeight(.bold)
                                 }
                             }
                             .padding(isIpad ? 10 : 10)
                             .background(
-                                viewModel.sentimentoSelecionado == emotion
-                                ? Color("ColorPrimary").opacity(0.25)
-                                : Color("ColorSecondary").opacity(1)
+                                viewModel.sentimentoSelecionado == emocao
+                                ? .colorPrimary.opacity(0.25)
+                                : .colorSecondary.opacity(1)
                             )
                         }
-                        
                         Divider()
                     }
                 }
-                .background(Color("ColorSecondary"))
+                .background(.colorSecondary)
                 .clipShape(RoundedRectangle(cornerRadius: 30))
-                
                 .zIndex(1)
             }
         }
@@ -99,7 +74,7 @@ struct EmotionDropdown: View {
 }
 
 #Preview {
-        EmotionDropdown()
-            .environment(CarouselViewModel())
-    }
+    EmotionDropdown()
+        .environment(CarouselViewModel())
+}
 

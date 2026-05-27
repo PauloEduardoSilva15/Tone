@@ -8,97 +8,15 @@
 import SwiftUI
 import Observation
 
-enum TipoEscala {
-    case maior
-    case menor
-}
-
-enum TipoAcorde {
-    case maior, menor, diminuto
-}
-
-struct Acorde: Hashable {
-    let grau: String
-    let nome: String
-    let notas: [String]
-}
-
-struct Sequencia {
-    let notas = ["C", "C#", "D", "Eb", "E", "F", "F#", "G", "Ab", "A", "Bb", "B"]
-    
-    func formarAcorde(tonica: String, tipo: TipoAcorde) -> [String] {
-        guard let indice = notas.firstIndex(of: tonica) else { return [] }
-        
-        let terca: String
-        let quinta: String
-        
-        switch tipo {
-        case .maior:
-            terca  = notas[(indice + 4) % 12]
-            quinta = notas[(indice + 7) % 12]
-            
-        case .menor:
-            terca  = notas[(indice + 3) % 12]
-            quinta = notas[(indice + 7) % 12]
-            
-        case .diminuto:
-            terca  = notas[(indice + 3) % 12]
-            quinta = notas[(indice + 6) % 12]
-        }
-        return [notas[indice], terca, quinta]
-    }
-    
-    func gerarCampoHarmonico(tom: String, escala: TipoEscala) -> [Acorde] {
-        guard let indiceRaiz = notas.firstIndex(of: tom) else { return [] }
-        
-        var campoHarmonico: [Acorde] = []
-        
-        let intervalos: [Int]
-        let tipos: [TipoAcorde]
-        let graus: [String]
-        
-        if escala == .maior {
-            intervalos = [0, 2, 4, 5, 7, 9, 11]
-            tipos = [.maior, .menor, .menor, .maior, .maior, .menor, .diminuto]
-            graus = ["I", "II", "III", "IV", "V", "VI", "VIIº"]
-        } else {
-            intervalos = [0, 2, 3, 5, 7, 8, 10]
-            tipos = [.menor, .diminuto, .maior, .menor, .menor, .maior, .maior]
-            graus = ["I", "II", "III", "IV", "V", "VI", "VII"]
-        }
-        
-        for i in 0..<7 {
-            let indexDaNota = (indiceRaiz + intervalos[i]) % 12
-            let notaRaiz = notas[indexDaNota]
-            let tipo = tipos[i]
-            
-            let sufixo = tipo == .menor ? "m" : (tipo == .diminuto ? "dim" : "")
-            let nomeAcorde = "\(notaRaiz)\(sufixo)"
-            let notasAcorde = formarAcorde(tonica: notaRaiz, tipo: tipo)
-            
-            campoHarmonico.append(Acorde(grau: graus[i], nome: nomeAcorde, notas: notasAcorde))
-        }
-        
-        return campoHarmonico
-    }
-}
-
-
 @Observable
 class CarouselViewModel {
-    let notes = ["C", "C#", "D", "Eb", "E", "F", "F#", "G", "Ab", "A", "Bb", "B"]
-    
     var notaSelecionada: String = "C"
-    var sentimentoSelecionado: String = "Nenhuma emoção"
-    var escalaSelecionada: String = "Maior"
+    var sentimentoSelecionado: Emocao = .nenhum
+    var escalaSelecionada: Escala = .maior
     
     var campoHarmonicoAtual: [Acorde] = []
     
-    //    var highlightedIndices: Set<Int> {
-    //        Set(sequenciaSentimento)
-    //    }
-    
-    private let sequenciaHarmonica = Sequencia()
+    private let engineHarmonica = EngineHarmonica()
     
     private var selectionTask: Task<Void, Never>?
     
@@ -113,6 +31,7 @@ class CarouselViewModel {
     }
     
     func printDebug() {
+        print(campoHarmonicoAtual.map { $0.nome })
         print("Nota: \(notaSelecionada)\nSentimento: \(sentimentoSelecionado)\nEscala: \(escalaSelecionada)")
     }
     
@@ -123,92 +42,39 @@ class CarouselViewModel {
             guard let currentID = scrolledID else { return }
             
             do {
-                try await Task.sleep(for: .milliseconds(800))
+                try await Task.sleep(for: .milliseconds(300))
                 
-                let realIndex = currentID % notes.count
-                let notaFinal = notes[realIndex]
+                let realIndex = currentID % MusicConstants.notes.count
+                let notaFinal = MusicConstants.notes[realIndex]
                 
                 await MainActor.run {
-                    self.notaSelecionada = notaFinal
-                    print("Nota Selecionada: \(notaSelecionada) (ID: \(currentID))")
-                    
+                    self.notaSelecionada = notaFinal                    
                     self.atualizarCampoHarmonico()
                 }
-            } catch {
-            }
-        }
-    }
-    
-    var sequenciaSentimento: [Int] = []
-    
-    // No CarouselViewModel.swift
-    
-    let progressao : [String: [String: [String]]] =
-    ["Maior": ["Alegria": ["I", "IV", "V", "IV"],
-               "Tristeza": ["I", "II", "IV", "IV"],
-               "Tensão": ["VI", "III", "IV", "IV" ]],
-     
-     "Menor": ["Alegria": ["VI", "V", "V", "I"],
-               "Tristeza": ["I", "IV", "V", "V"],
-               "Tensão": ["I", "V", "VI", "VI"]]]
-    
-    func corParaGrau(_ grau: String) -> Color {
-        
-        if sentimentoSelecionado == "Nenhuma emoção" {
-            return .colorSecondary
-        }
-        
-        // Busca a progressão correta no dicionário
-        if let grausDaProgressao =
-            progressao[escalaSelecionada]?[sentimentoSelecionado] {
-            
-            // Verifica se o grau atual existe na progressão
-            if grausDaProgressao.contains(grau) {
+            } catch is CancellationError {
                 
-                switch sentimentoSelecionado {
-                    
-                case "Alegria":
-                    return .happy
-                    
-                case "Tristeza":
-                    return .sad
-                    
-                case "Tensão":
-                    return .fear
-                    
-                default:
-                    return .colorSecondary
-                }
+            } catch {
+                print("Erro inesperado aconteceu em agendarSelecaoComDelay: \(error)")
             }
         }
-        
-        return .colorSecondary
-    }
-    
-    func escolherSentimento(add emotion: String) {
-        sentimentoSelecionado = emotion
-        print(sentimentoSelecionado)
-        atualizarCampoHarmonico()
     }
         
-    func escolherEscala(add scale: String) {
-        escalaSelecionada = scale
-        print(escalaSelecionada)
-        
-        atualizarCampoHarmonico()
-    }
-    
-    
     private func atualizarCampoHarmonico() {
         guard !notaSelecionada.isEmpty else { return }
         
-        let tipoDaEscala: TipoEscala = (escalaSelecionada.lowercased() == "maior") ? .maior : .menor
+        campoHarmonicoAtual = engineHarmonica.gerarCampoHarmonico(tom: notaSelecionada, escala: escalaSelecionada)
         
-        campoHarmonicoAtual = sequenciaHarmonica.gerarCampoHarmonico(tom: notaSelecionada, escala: tipoDaEscala)
-        
-        print("Campo Harmônico de \(notaSelecionada) \(escalaSelecionada) atualizado:")
-        print(campoHarmonicoAtual.map { $0.nome })
         printDebug()
+    }
+    
+    func escolherSentimento(_ emocao: Emocao) {
+        sentimentoSelecionado = emocao
+        atualizarCampoHarmonico()
+    }
+    
+    func escolherEscala(_ escala: Escala) {
+        escalaSelecionada = escala
+        atualizarCampoHarmonico()
     }
 }
     

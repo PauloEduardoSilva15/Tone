@@ -70,7 +70,7 @@ struct VerticalMain: View {
                         .foregroundStyle(Color("ColorSecondary"))
                         .font(isIpad ? .title : .title2)
                         .fontWeight(isIpad ? .bold : .semibold)
-                    ViewHarmonyCamp(viewModel: viewModel)
+                    ViewHarmonyCamp()
                         .padding(.top, 10)
                         .padding(.bottom, isIpad ? 10 : 10)
                     
@@ -102,4 +102,5 @@ struct VerticalMain: View {
 
 #Preview {
     VerticalMain()
+        .environment(CarouselViewModel())
 }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ViewHarmonyCamp: View {
-    var viewModel: CarouselViewModel
+    @Environment(CarouselViewModel.self) var viewModel
     
     var body: some View {
         VStack {
@@ -20,7 +20,7 @@ struct ViewHarmonyCamp: View {
                         HarmonyCampCell(
                             grau: acorde.grau,
                             note: acorde.nome,
-                            accentColor: viewModel.corParaGrau(acorde.grau)
+                            accentColor: MusicConstants.corParaGrau(acorde.grau, escala: viewModel.escalaSelecionada, emocao: viewModel.sentimentoSelecionado)
                         )
                     }
                 }
@@ -32,7 +32,7 @@ struct ViewHarmonyCamp: View {
                         HarmonyCampCell(
                             grau: acorde.grau,
                             note: acorde.nome,
-                            accentColor: viewModel.corParaGrau(acorde.grau) // <--- Aqui
+                            accentColor: MusicConstants.corParaGrau(acorde.grau, escala: viewModel.escalaSelecionada, emocao: viewModel.sentimentoSelecionado)
                         )
                     }
                 }
@@ -43,7 +43,7 @@ struct ViewHarmonyCamp: View {
                     HarmonyCampCell(
                         grau: acorde.grau,
                         note: acorde.nome,
-                        accentColor: viewModel.corParaGrau(acorde.grau) // <--- Aqui
+                        accentColor: MusicConstants.corParaGrau(acorde.grau, escala: viewModel.escalaSelecionada, emocao: viewModel.sentimentoSelecionado)
                     )
                 }
             } else {
@@ -53,3 +53,7 @@ struct ViewHarmonyCamp: View {
     }
 }
 
+#Preview {
+    ViewHarmonyCamp()
+        .environment(CarouselViewModel())
+}
