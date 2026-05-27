@@ -9,19 +9,22 @@
 import SwiftUI
 
 struct ViewModePiano: View {
+    
+    @Environment(CarouselViewModel.self) var viewModel
+
     var body: some View {
+        
         VStack {
-            PianoRow(chord: "C")
-            PianoRow(chord: "Dm")
-            PianoRow(chord: "Em")
-            PianoRow(chord: "F")
-            PianoRow(chord: "G")
-            PianoRow(chord: "Am")
-            PianoRow(chord: "Bº")
+            ForEach(viewModel.campoHarmonicoAtual, id: \.nome) { acorde in
+                
+                PianoRow(acorde: acorde)
+                
+            }
         }
     }
 }
 
 #Preview {
     ViewModePiano()
+        .environment(CarouselViewModel())
 }
