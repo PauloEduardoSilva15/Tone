@@ -18,8 +18,8 @@ struct ScaleChoice: View {
                     viewModel.escolherEscala(scale)
                 }) {
                     Text(scale.rawValue)
-                        .font(sizeClass == .regular ? .title2 : .body)
-                        .fontWeight(.semibold)
+                        .font(sizeClass == .regular ? .title2 : .subheadline)
+                        .fontWeight(.regular)
                         .foregroundColor(
                             viewModel.escalaSelecionada == scale
                             ? .white

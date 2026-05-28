@@ -32,31 +32,31 @@ struct VerticalMain: View {
                     
                     Text("Escolha o tom")
                         .foregroundStyle(Color("ColorSecondary"))
-                        .font(isIpad ? .title : .title2)
+                        .font(isIpad ? .title : .title3)
                         .fontWeight(isIpad ? .bold : .semibold)
                     ChoiceKeyCarroussel()
-                        .padding(.vertical, 10)
+                        .padding(.vertical, 8)
                     //Spacer()
                     
                     Text("Escolha a escala")
                         .foregroundStyle(Color("ColorSecondary"))
-                        .font(isIpad ? .title : .title2)
+                        .font(isIpad ? .title : .title3)
                         .fontWeight(isIpad ? .bold : .semibold)
-                        .padding(.bottom, isIpad ? 20 : 10)
+                        .padding(.bottom, isIpad ? 20 : 8)
                     
                     ScaleChoice()
-                        .padding(.bottom, isIpad ? 20 : 10)
+                        .padding(.bottom, isIpad ? 20 : 8)
                     
                     
                     Text("Quer expressar algo?")
                         .foregroundStyle(Color("ColorSecondary"))
-                        .font(isIpad ? .title : .title2)
+                        .font(isIpad ? .title : .title3)
                         .fontWeight(isIpad ? .bold : .semibold)
-                        .padding(.bottom, isIpad ? 10 : 10)
+                        .padding(.bottom, 8)
                     
                     HStack{
                         EmotionDropdown()
-                            .padding(.vertical, 10)
+                            .padding(.vertical, 8)
                         
                         
                         Spacer()
@@ -65,7 +65,7 @@ struct VerticalMain: View {
                         }
                     }
                     
-                    .padding(.bottom, 10)
+                    .padding(.bottom, 8)
                 }
                 .zIndex(2)
                 Spacer()
@@ -73,11 +73,11 @@ struct VerticalMain: View {
                     
                     Text("Campo Harmônico")
                         .foregroundStyle(Color("ColorSecondary"))
-                        .font(isIpad ? .title : .title2)
+                        .font(isIpad ? .title : .headline)
                         .fontWeight(isIpad ? .bold : .semibold)
                     ViewHarmonyCamp()
                         .padding(.top, 10)
-                        .padding(.bottom, isIpad ? 10 : 10)
+                        .padding(.bottom, 8)
                         .zIndex(0)
                     
                     
@@ -85,9 +85,9 @@ struct VerticalMain: View {
                         showAcordes = true
                     }) {
                         Text("Ver Acordes")
-                            .font(isIpad ? .title : .body)
+                            .font(isIpad ? .title2 : .subheadline)
                             .foregroundStyle(Color.white)
-                            .frame(width: isIpad ? 230: 120, height: isIpad ? 50 : 32)
+                            .frame(width: isIpad ? 200: 140, height: isIpad ? 50 : 42)
                             .background(Color("ColorPrimary"))
                             .cornerRadius(40)
                         
@@ -96,7 +96,7 @@ struct VerticalMain: View {
                         ChordsPage()
                         //.environment(viewModel)
                     }
-                    .padding(.bottom, isIpad ? 220 : 100)
+                    .padding(.bottom, isIpad ? 220 : 120)
                     Spacer()
                 }
                 .zIndex(0)

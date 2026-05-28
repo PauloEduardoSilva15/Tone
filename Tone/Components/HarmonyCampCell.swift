@@ -19,13 +19,15 @@ struct HarmonyCampCell: View {
     var body: some View {
         VStack(spacing: sizeClass == .regular ? 12 : 8) {
             Text(grau)
-                .font(.system(size: sizeClass == .regular ? 21 : 16, weight: .regular))
-                .bold()
+                .font(sizeClass == .regular ? .title : .title3)
+                .fontWeight(sizeClass == .regular ? .regular : .regular)
+                
                 .foregroundStyle(accentColor)
             
             Text(note)
-                .font(.system(size: sizeClass == .regular ? 25 : 20, weight: .bold))
-                .bold()
+                .font(sizeClass == .regular ? .title : .title3)
+                .fontWeight(sizeClass == .regular ? .regular : .regular)
+                
                 .foregroundStyle(accentColor)
         }
         .frame(width: sizeClass == .regular ? 120 : 80, height: sizeClass == .regular ? 120 : 80)
@@ -53,7 +55,7 @@ struct HarmonyCampCell: View {
                             .map { String($0) }
                             .joined(separator: "-")
                     )
-                    .font(sizeClass == .regular ? .headline : .caption)
+                    .font(sizeClass == .regular ? .headline : .subheadline)
                     .bold()
                     .foregroundStyle(.black)
                 }

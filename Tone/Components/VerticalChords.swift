@@ -29,8 +29,8 @@ struct VerticalChords: View {
                         .padding(.bottom, sizeClass == .regular ? 20 : 5)
                     Text("Selecione um modo de visualização")
                         .foregroundStyle(Color("ColorSecondary"))
-                        .font(sizeClass == .regular ? .title : .body)
-                        .fontWeight(sizeClass == .regular ? .bold : .semibold)
+                        .font(sizeClass == .regular ? .title2 : .body)
+                        .fontWeight(sizeClass == .regular ? .bold : .regular)
                         .padding(.vertical, 25)
                     
                     HStack(spacing: 20) {
@@ -56,8 +56,8 @@ struct VerticalChords: View {
                     VStack(alignment: .center){
                         Text("Selecione o acorde para ouví-lo")
                             .foregroundStyle(Color("ColorSecondary"))
-                            .font(sizeClass == .regular ? .title : .body)
-                            .fontWeight(sizeClass == .regular ? .semibold : .semibold)
+                            .font(sizeClass == .regular ? .title2 : .body)
+                            .fontWeight(sizeClass == .regular ? .semibold : .regular)
                             .padding(.vertical, 25)
                         switch botaoSelecionado {
                         case 1:
