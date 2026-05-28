@@ -13,6 +13,7 @@ import Observation
 class CarouselViewModel {
     var notaSelecionada: String = "C"
     var sentimentoSelecionado: Emocao = .nenhum
+    var sentimentoAtivo: Emocao = .nenhum
     var escalaSelecionada: Escala = .maior
     var campoHarmonicoAtual: [Acorde] = []
     
@@ -77,5 +78,9 @@ class CarouselViewModel {
         escalaSelecionada = escala
         atualizarCampoHarmonico()
     }
+    
+//    func aplicarEmocao() {
+//        sentimentoAtivo = sentimentoSelecionado
+//    }
 }
     

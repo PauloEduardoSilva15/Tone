@@ -13,10 +13,10 @@ struct PlayButton: View{
     var action: () -> Void;
     
     var body: some View{
+        
         Button(action: {
             action()
         }) {
-            
             Image(systemName: "play.fill")
                 .foregroundColor(viewModel.sentimentoSelecionado == .nenhum ? .gray : .white)
                 .font(.title3)
@@ -25,9 +25,8 @@ struct PlayButton: View{
                         .colorPrimary)
                 .clipShape(Circle())
         }
-        
-        
         .zIndex(1)
+        
     }
 }
 
