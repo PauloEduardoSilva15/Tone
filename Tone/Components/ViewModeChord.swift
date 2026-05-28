@@ -7,16 +7,15 @@
 
 import SwiftUI
 
+
 public struct ViewModeChord: View {
+    @Environment(CarouselViewModel.self) var viewModel
+    
     public var body: some View {
         VStack {
-            ChordRow(chord: "C", typeChord: "")
-            ChordRow(chord: "D", typeChord: "m")
-            ChordRow(chord: "E", typeChord: "m")
-            ChordRow(chord: "F", typeChord: "")
-            ChordRow(chord: "G", typeChord: "")
-            ChordRow(chord: "A", typeChord: "m")
-            ChordRow(chord: "B", typeChord: "º")
+            ForEach(viewModel.campoHarmonicoAtual, id: \.self) { acorde in
+                ChordRow(acorde: acorde)
+            }
         }
     }
 }
@@ -25,3 +24,4 @@ public struct ViewModeChord: View {
     ViewModeChord()
         .environment(CarouselViewModel())
 }
+

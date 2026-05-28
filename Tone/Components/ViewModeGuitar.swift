@@ -7,59 +7,36 @@ struct ViewModeGuitar: View {
 
     @Environment(CarouselViewModel.self) var viewModel
 
+    private var linhas: [[Acorde]] {
+        guard viewModel.campoHarmonicoAtual.count == 7 else { return [] }
+        return [
+            Array(viewModel.campoHarmonicoAtual[0..<3]),
+            Array(viewModel.campoHarmonicoAtual[3..<6]),
+            Array(viewModel.campoHarmonicoAtual[6..<7])
+        ]
+    }
+    
     var body: some View {
-
         VStack {
-
-            if viewModel.campoHarmonicoAtual.count == 7 {
-
-                HStack {
-
-                    ForEach(0..<3, id: \.self) { index in
-
-                        let acorde = viewModel.campoHarmonicoAtual[index]
-
-                        GuitarRow(
-                            chord: acorde.nome
-                        )
+            if !linhas.isEmpty {
+                ForEach(linhas.indices, id: \.self) { linhaIndex in
+                    HStack {
+                        ForEach(linhas[linhaIndex], id: \.self) { acorde in
+                            GuitarRow(acorde: acorde)
+                        }
                     }
                 }
-                HStack {
-
-                    ForEach(3..<6, id: \.self) { index in
-
-                        let acorde = viewModel.campoHarmonicoAtual[index]
-
-                        GuitarRow(
-                            chord: acorde.nome
-                        )
-                    }
-                }
-
-                HStack {
-
-                    let acorde = viewModel.campoHarmonicoAtual[6]
-
-                    GuitarRow(
-                        chord: acorde.nome
-                    )
-                }
-
             } else {
-
                 Text("Selecione um tom")
-                    .foregroundStyle(.white)
+                .foregroundStyle(.white)
             }
         }
     }
 }
 
 #Preview {
-
     ZStack {
-
         Color.black.ignoresSafeArea()
-
         ViewModeGuitar()
             .environment(CarouselViewModel())
     }

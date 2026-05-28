@@ -6,7 +6,6 @@
 import SwiftUI
 
 struct ChordsPage: View {
-    @Environment(CarouselViewModel.self) var viewModel
     @Environment(\.dismiss) var dismiss
     @Environment(\.horizontalSizeClass) var sizeClass
     var body: some View {
@@ -20,8 +19,6 @@ struct ChordsPage: View {
 }
 
 #Preview {
-    NavigationStack {
-        ChordsPage()
-            .environment(CarouselViewModel())
-    }
+    ChordsPage()
+        .environment(CarouselViewModel())
 }

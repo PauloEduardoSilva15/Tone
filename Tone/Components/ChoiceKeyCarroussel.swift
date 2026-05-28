@@ -5,67 +5,27 @@
 ////  Created by Paulo Eduardo Barbosa da Silva on 19/05/26.
 ////
 //
-
 import SwiftUI
 
 struct ChoiceKeyCarroussel: View {
     @Environment(CarouselViewModel.self) var viewModel
     @Environment(\.horizontalSizeClass) var sizeClass
-    
-    private let itemMultiplier = 1000
-    
+        
     var body: some View {
-        @Bindable var viewModel = viewModel // Precisa passar pois precisa de um Binding no ScrollPosition
+        @Bindable var viewModelBind = viewModel // Precisa passar pois precisa de um Binding no ScrollPosition
         
         GeometryReader { geometry in
             let screenWidth = geometry.size.width
-            
-            // Definição dos tamanhos dos círculos
-            let containerWidth: CGFloat = sizeClass == .compact ? 80 : 195
-            let spacing: CGFloat = 10
-            
-            // e dita quanto espaço sobra nas laterais para exibir os vizinhos
-            let lateralPadding = (screenWidth - containerWidth) / 2
-            
+                        
             ScrollView(.horizontal, showsIndicators: false) {
-                LazyHStack(alignment: .center, spacing: spacing) {
-                    ForEach(0..<MusicConstants.notes.count * itemMultiplier, id: \.self) { globalIndex in
+                LazyHStack(alignment: .center, spacing: CarouselConfig.spacing) {
+                    ForEach(0..<MusicConstants.notes.count * CarouselConfig.itemMultiplier, id: \.self) { globalIndex in
+                        let totalNotes = MusicConstants.notes.count
+                        let current = viewModel.scrolledID ?? 0
                         let realIndex = globalIndex % MusicConstants.notes.count
-                        let note = MusicConstants.notes[realIndex]
+                        let distance = abs((globalIndex - current) % totalNotes)
                         
-                        // Descobre a distância entre o selecionado e os demais círculos
-                        let currentSelectedID = viewModel.scrolledID ?? 0
-                        let distance = abs(globalIndex - currentSelectedID)
-                        
-                        // Define as distâncias: se for 0 ele está selecionado. Se for 1, é um dos vizinhos próximos
-                        let isSelected = distance == 0
-                        let isNeighboor = distance == 1
-                        
-                        // definição dos tamanhos
-                        let selectedSize: CGFloat = sizeClass == .compact ? 80 : 130
-                        let neighborSize: CGFloat = sizeClass == .compact ? 55 : 80
-                        let defaultSize: CGFloat = sizeClass == .compact ? 35 : 50
-                        let size: CGFloat = isSelected ? selectedSize : (isNeighboor ? neighborSize : defaultSize)
-                        let opacictyCircle: Double = isSelected ? 1 : (isNeighboor ? 0.8 : 0.5)
-                        
-                        let circleColor: Color = isSelected ? .colorPrimary : (isNeighboor ? .colorSecondary : .colorSecondary.opacity(opacictyCircle))
-                        let textColor: Color = isSelected ? .white : .black
-                        
-                        let selectedFont: Font = sizeClass == .compact ? .title2 : .largeTitle
-                        let neighborFont: Font = sizeClass == .compact ? .body : .title
-                        let defaultFont: Font = sizeClass == .compact ? .caption : .title3
-                        let textFont: Font = isSelected ? selectedFont : (isNeighboor ? neighborFont : defaultFont)
-                        
-                        Circle()
-                            .fill(circleColor)
-                            .frame(width: size, height: size)
-                            .overlay(
-                                Text("\(note)")
-                                    .foregroundStyle(textColor)
-                                    .font(textFont)
-                                    .fontWeight(.semibold)
-                            )
-                            .opacity(opacictyCircle)
+                        NoteCircle(note: MusicConstants.notes[realIndex], distance: distance, sizeClass: sizeClass)
                             .id(globalIndex)
                     }
                 }
@@ -73,19 +33,75 @@ struct ChoiceKeyCarroussel: View {
             }
             .scrollTargetBehavior(.viewAligned)
             
-            .scrollPosition(id: $viewModel.scrolledID, anchor: .center)
+            .scrollPosition(id: $viewModelBind.scrolledID, anchor: .center)
             
             .defaultScrollAnchor(.center)
-            .safeAreaPadding(.horizontal, lateralPadding)
+            .safeAreaPadding(.horizontal, lateralPadding(screenWidth: screenWidth))
             .animation(.interactiveSpring(response: 0.3, dampingFraction: 0.7), value: viewModel.scrolledID)
         }
         .frame(height: sizeClass == .regular ? 130 : 80)
-        .onAppear {
+        .task {
+            guard viewModel.scrolledID == nil else { return }
+            try? await Task.sleep(for: .milliseconds(50)) // para dar um timming do app iniciar com nota no carrossel
+            let totalItems = MusicConstants.notes.count * CarouselConfig.itemMultiplier
+            viewModel.inicializarScrollPosition(totalItems: totalItems)
             // Faz o carrossel ficar infinito, pois cuida do reset do index do array notes
-            let middleFactor = itemMultiplier / 2
-            let initialIndex = middleFactor * MusicConstants.notes.count
-            viewModel.scrolledID = initialIndex
         }
+    }
+    
+    private func lateralPadding(screenWidth: CGFloat) -> CGFloat {
+        let containerWidth = CarouselConfig.containerWidth(for: sizeClass)
+        return (screenWidth - containerWidth) / 2
+    }
+}
+
+private enum CarouselConfig {
+    static let itemMultiplier = 1000
+    static let spacing: CGFloat = 10
+    
+    static func containerWidth(for sizeClass: UserInterfaceSizeClass?) -> CGFloat {
+        sizeClass == .compact ? 80 : 195
+    }
+}
+
+struct NoteCircle: View {
+    let note: String
+    let distance: Int
+    let sizeClass: UserInterfaceSizeClass?
+    
+    private var isSelected: Bool { distance == 0 }
+    private var isNeighbor: Bool { distance == 1 }
+    
+    private var size: CGFloat {
+        let sizes: (selected: CGFloat, neighbor: CGFloat, base: CGFloat) =
+        sizeClass == .compact ? (80, 55, 35) : (130, 80, 50)
+        return isSelected ? sizes.selected : (isNeighbor ? sizes.neighbor : sizes.base)
+    }
+    private var opacity: Double {
+        isSelected ? 1 : (isNeighbor ? 0.8 : 0.5)
+    }
+    private var circleColor: Color {
+        isSelected ? .colorPrimary : .colorSecondary.opacity(opacity)
+    }
+    private var font: Font {
+        let fonts: (selected: Font, neighbor: Font, base: Font) =
+        sizeClass == .compact
+        ? (.title2, .body, .caption)
+        : (.largeTitle, .title, .title3)
+        return isSelected ? fonts.selected : (isNeighbor ? fonts.neighbor : fonts.base)
+    }
+    
+    var body: some View {
+        Circle()
+            .fill(circleColor)
+            .frame(width: size, height: size)
+            .overlay(
+                Text(note)
+                    .foregroundStyle(isSelected ? .white : .black)
+                    .font(font)
+                    .fontWeight(.semibold)
+            )
+            .opacity(opacity)
     }
 }
 

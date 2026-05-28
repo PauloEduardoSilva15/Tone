@@ -9,28 +9,22 @@ import SwiftUI
 
 
 struct ChordRow: View {
-    let chord: String
-    let typeChord: String
+    let acorde: Acorde
     @Environment(CarouselViewModel.self) var viewModel
     
     var body: some View {
         HStack() {
-            MusicalChordButton(chord: chord+typeChord, instrument: "Piano")
-            switch typeChord {
-            case "m":
-                ChordCell(notes: EngineHarmonica().formarAcorde(tonica: chord, tipo: TipoAcorde.menor))
-            case "º":
-                ChordCell(notes: EngineHarmonica().formarAcorde(tonica: chord, tipo: TipoAcorde.diminuto))
-            default:
-                ChordCell(notes: EngineHarmonica().formarAcorde(tonica: chord, tipo: TipoAcorde.maior))
-            }
-            
-            
+            MusicalChordButton(chord: acorde.nome, instrument: "Piano")
+            ChordCell(
+                acorde: acorde,
+                escala: viewModel.escalaSelecionada,
+                emocao: viewModel.sentimentoSelecionado)
         }
     }
 }
 
 #Preview {
-    ChordRow(chord: "B", typeChord: "")
+    ChordRow(acorde: Acorde(grau: "I", nome: "C", notas: ["C", "E", "G"]))
         .environment(CarouselViewModel())
+        .background(.black)
 }
