@@ -64,21 +64,21 @@ enum GuitarChordLibrary {
         ],
         
         "D": [
-            .init(string: 1, fret: 2),
-            .init(string: 2, fret: 3),
+            .init(string: 5, fret: 2),
+            .init(string: 4, fret: 3),
             .init(string: 3, fret: 2)
         ],
         
         "D#": [
-            .init(string: 1, fret: 1),
-            .init(string: 2, fret: 3),
+            .init(string: 5, fret: 3),
+            .init(string: 4, fret: 4),
             .init(string: 3, fret: 3)
         ],
         
         "E": [
             .init(string: 3, fret: 1),
-            .init(string: 4, fret: 2),
-            .init(string: 5, fret: 2)
+            .init(string: 2, fret: 2),
+            .init(string: 1, fret: 2)
         ],
         
         "F": [
@@ -137,44 +137,40 @@ enum GuitarChordLibrary {
         ],
         
         "Dm": [
-            .init(string: 1, fret: 1),
-            .init(string: 2, fret: 3),
+            .init(string: 5, fret: 1),
+            .init(string: 4, fret: 3),
             .init(string: 3, fret: 2)
         ],
         
         "Ebm": [
-            .init(string: 1, fret: 2),
-            .init(string: 2, fret: 4),
-            .init(string: 3, fret: 4)
+            .init(string: 5, fret: 2),
+            .init(string: 4, fret: 4),
+            .init(string: 3, fret: 3)
         ],
         
         "Em": [
-            .init(string: 4, fret: 2),
-            .init(string: 5, fret: 2)
+            .init(string: 1, fret: 2),
+            .init(string: 2, fret: 2)
         ],
         
         "Fm": [
             .init(string: 1, fret: 3),
-            .init(string: 2, fret: 4),
-            .init(string: 3, fret: 3)
+            .init(string: 2, fret: 3)
         ],
         
         "F#m": [
-            .init(string: 1, fret: 5),
-            .init(string: 2, fret: 7),
-            .init(string: 3, fret: 7)
+            .init(string: 1, fret: 4),
+            .init(string: 2, fret: 4)
         ],
         
         "Gm": [
-            .init(string: 1, fret: 3),
-            .init(string: 2, fret: 3),
-            .init(string: 3, fret: 3)
+            .init(string: 1, fret: 5),
+            .init(string: 2, fret: 5)
         ],
         
         "Abm": [
             .init(string: 1, fret: 6),
-            .init(string: 2, fret: 6),
-            //.init(string: 3, fret: 5)
+            .init(string: 2, fret: 6)
         ],
         
         "Am": [
@@ -194,6 +190,86 @@ enum GuitarChordLibrary {
             .init(string: 3, fret: 4),
             .init(string: 4, fret: 3)
         ],
+        
+        "Bº": [
+            .init(string: 3, fret: 1),
+            .init(string: 1, fret: 2),
+            .init(string: 2, fret: 3),
+            .init(string: 4, fret: 3)
+        ],
+        
+        "Cº": [
+            .init(string: 3, fret: 2),
+            .init(string: 1, fret: 3),
+            .init(string: 2, fret: 4),
+            .init(string: 4, fret: 4)
+        ],
+
+        "C#º": [
+            .init(string: 1, fret: 4),
+            .init(string: 2, fret: 5),
+            .init(string: 3, fret: 5)
+        ],
+
+        "Dº": [
+            .init(string: 1, fret: 5),
+            .init(string: 2, fret: 6),
+            .init(string: 4, fret: 6)
+        ],
+
+        "D#º": [
+            .init(string: 1, fret: 6),
+            .init(string: 2, fret: 7),
+            .init(string: 4, fret: 7)
+        ],
+
+        "Eº": [
+            .init(string: 2, fret: 2),
+            .init(string: 3, fret: 3),
+            .init(string: 4, fret: 2),
+            .init(string: 5, fret: 3)
+        ],
+
+        "Fº": [
+            .init(string: 2, fret: 3),
+            .init(string: 3, fret: 4),
+            .init(string: 4, fret: 3),
+            .init(string: 5, fret: 4)
+        ],
+
+        "F#º": [
+            .init(string: 2, fret: 1),
+            .init(string: 4, fret: 1),
+            .init(string: 0, fret: 2),
+            .init(string: 3, fret: 2)
+        ],
+
+        "Gº": [
+            .init(string: 2, fret: 2),
+            .init(string: 4, fret: 2),
+            .init(string: 0, fret: 3),
+            .init(string: 3, fret: 3)
+        ],
+
+        "Abº": [
+            .init(string: 2, fret: 3),
+            .init(string: 4, fret: 3),
+            .init(string: 0, fret: 4),
+            .init(string: 3, fret: 4)
+        ],
+
+        "Aº": [
+            .init(string: 1, fret: 12),
+            .init(string: 2, fret: 13),
+            .init(string: 4, fret: 13)
+        ],
+
+        "Bbº": [
+            .init(string: 1, fret: 1),
+            .init(string: 2, fret: 2),
+            .init(string: 4, fret: 2)
+        ],
+        
     ]
     
     static let pestanasBase: [String: Pestana] = [
@@ -204,21 +280,26 @@ enum GuitarChordLibrary {
         
         "Ab": Pestana(fret: 4,startString: 0,endString: 5),
         
+        "Aº": Pestana(fret: 11, startString: 3,endString: 5),
+        
         "Bb": Pestana(fret: 1,startString: 0,endString: 5),
         
-        "B": Pestana(fret: 2,startString: 0,endString: 5),
+        "B": Pestana(fret: 2,startString: 1,endString: 5),
         
         "Cm": Pestana(fret: 3, startString: 1, endString: 5),
         
         "C#": Pestana(fret: 1, startString: 0, endString: 5),
         
         "C#m": Pestana(fret: 4, startString: 1, endString: 5),
+        "C#º": Pestana(fret: 3, startString: 3, endString: 5),
+        "Dº": Pestana(fret: 4, startString: 3, endString: 5),
+        "D#º": Pestana(fret: 5, startString: 3, endString: 5),
         
 //        "Dbm": Pestana(fret: 4, startString: 0, endString: 5),
         
 //        "D#m": Pestana(fret: 6, startString: 0, endString: 5),
         
-        "Ebm": Pestana(fret: 6, startString: 0, endString: 5),
+        "Ebm": Pestana(fret: 1, startString: 2, endString: 5),
         
         "Fm": Pestana(fret: 1, startString: 0, endString: 5),
         
