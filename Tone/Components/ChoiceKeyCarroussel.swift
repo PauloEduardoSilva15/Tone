@@ -20,8 +20,10 @@ struct ChoiceKeyCarroussel: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack(alignment: .center, spacing: CarouselConfig.spacing) {
                     ForEach(0..<MusicConstants.notes.count * CarouselConfig.itemMultiplier, id: \.self) { globalIndex in
+                        let totalNotes = MusicConstants.notes.count
+                        let current = viewModel.scrolledID ?? 0
                         let realIndex = globalIndex % MusicConstants.notes.count
-                        let distance = abs(globalIndex - (viewModel.scrolledID ?? 0))
+                        let distance = abs((globalIndex - current) % totalNotes)
                         
                         NoteCircle(note: MusicConstants.notes[realIndex], distance: distance, sizeClass: sizeClass)
                             .id(globalIndex)
@@ -39,6 +41,7 @@ struct ChoiceKeyCarroussel: View {
         }
         .frame(height: sizeClass == .regular ? 130 : 80)
         .task {
+            guard viewModel.scrolledID == nil else { return }
             try? await Task.sleep(for: .milliseconds(50)) // para dar um timming do app iniciar com nota no carrossel
             let totalItems = MusicConstants.notes.count * CarouselConfig.itemMultiplier
             viewModel.inicializarScrollPosition(totalItems: totalItems)

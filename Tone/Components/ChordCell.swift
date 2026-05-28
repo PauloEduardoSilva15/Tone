@@ -8,25 +8,51 @@
 import SwiftUI
 
 struct ChordCell: View {
-    let notes:[String]
+    //let notes:[String]
     @Environment(\.horizontalSizeClass) var sizeClass
+    
+    let acorde: Acorde
+    let escala: Escala
+    let emocao: Emocao
+    
+    private var corDaBorda: Color {
+        MusicConstants.corParaGrau(acorde.grau, escala: escala, emocao: emocao)
+    }
+    
+    private var fazParteDaProgressao: Bool {
+        corDaBorda != .colorSecondary
+    }
+    
     var body: some View {
         VStack(alignment: .center) {
-            Text(notes.joined(separator: " - "))
+            Text(acorde.notas.joined(separator: " - "))
                 .font(sizeClass == .regular ? .title : .body)
-                .foregroundColor(.white)
-        }.frame(width: sizeClass == .regular ? 300 : 240,
-                height: sizeClass == .regular ? 90 : 65)
-            .border(.colorSecondary, width:1)
-            .cornerRadius(sizeClass == .regular ? 15 : 12)
-            .clipShape(RoundedRectangle(cornerRadius: 15))
-            .overlay(
-                RoundedRectangle(cornerRadius: 15)
-                    .stroke(Color.white, lineWidth: 1))
-           
+                .foregroundColor(corDaBorda)
+        }
+        .frame(
+            width: sizeClass == .regular ? 300 : 240,
+            height: sizeClass == .regular ? 90 : 65
+        )
+        .clipShape(RoundedRectangle(cornerRadius: 15))
+        .overlay(
+            RoundedRectangle(cornerRadius: 15)
+                .stroke(corDaBorda, lineWidth: fazParteDaProgressao ? 2 : 1)
+        )
+        .shadow(
+            color: fazParteDaProgressao ? corDaBorda.opacity(0.6) : .clear,
+            radius: fazParteDaProgressao ? 8 : 0
+        )
+        .animation(.easeInOut(duration: 0.3), value: emocao)
     }
 }
 
-#Preview {
-    ChordCell(notes: ["C", "G", "Am"])
+#Preview("Sem emoção") {
+    ChordCell(acorde: Acorde(grau: "I", nome: "G", notas: ["C", "E","G"]), escala: Escala.maior, emocao: Emocao.nenhum)
+        .background(.black)
 }
+#Preview("Com alegria") {
+    ChordCell(acorde: Acorde(grau: "I", nome: "G", notas: ["C", "E","G"]), escala: Escala.maior, emocao: Emocao.alegria)
+        .background(.black)
+}
+
+
