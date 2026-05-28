@@ -9,32 +9,18 @@ import SwiftUI
 
 
 struct ChordRow: View {
-    let chord: String
-    let type: TipoAcorde
+    let acorde: Acorde
     @Environment(CarouselViewModel.self) var viewModel
     
     var body: some View {
         HStack() {
-            MusicalChordButton(chord: chord, instrument: "Piano")
-            let tonica = extrairTonica(do: chord, tipo: type)
-            ChordCell(notes: EngineHarmonica.formarAcorde(tonica: tonica, tipo: type))
-            
+            MusicalChordButton(chord: acorde.nome, instrument: "Piano")
+            ChordCell(notes: acorde.notas)
         }
     }
 }
 
-private func extrairTonica(do nome: String, tipo: TipoAcorde) -> String {
-        switch tipo {
-        case .menor:
-            return nome.replacingOccurrences(of: "m", with: "").trimmingCharacters(in: .whitespaces)
-        case .diminuto:
-            return nome.replacingOccurrences(of: "º", with: "").trimmingCharacters(in: .whitespaces)
-        case .maior:
-            return nome
-        }
-    }
-
 #Preview {
-    ChordRow(chord: "Cm", type: .menor)
+    ChordRow(acorde: Acorde(grau: "I", nome: "C", notas: ["C", "E", "G"]))
         .environment(CarouselViewModel())
 }
