@@ -10,9 +10,10 @@ import SwiftUI
 struct PlayButton: View{
     let isIpad = UIDevice.current.userInterfaceIdiom == .pad
     var corEmocao: Color
+    var action: () -> Void;
     var body: some View{
         Button(action: {
-            
+            action()
         }) {
             
             Image(systemName: "play.fill")
@@ -29,5 +30,7 @@ struct PlayButton: View{
 }
 
 #Preview {
-    PlayButton(corEmocao: Color("ColorPrimary"))
+    PlayButton(corEmocao: Color("ColorPrimary")){
+        
+    }
 }

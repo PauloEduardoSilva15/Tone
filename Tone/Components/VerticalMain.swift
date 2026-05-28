@@ -11,7 +11,7 @@ struct VerticalMain: View {
     @State private var showAcordes: Bool = false
     let isIpad = UIDevice.current.userInterfaceIdiom == .pad
     @Environment(CarouselViewModel.self) var viewModel
-    
+    @State private var audioPiano: AdvancedAudioManager = AdvancedAudioManager(filepath: "Audios/C_Piano")
     var body: some View {
         ZStack{
             Image("BackGroundImage")
@@ -58,7 +58,10 @@ struct VerticalMain: View {
                             
                             
                         Spacer()
-                        PlayButton(corEmocao: Color("ColorPrimary"))
+                        PlayButton(corEmocao: Color("ColorPrimary")){
+                            playProgression()
+                            print("Cliquei")
+                        }
                     }
                     
                     .padding(.bottom, 10)
@@ -101,6 +104,9 @@ struct VerticalMain: View {
             .padding(.top, isIpad ? 100 : 60)
         }
         //.environment(viewModel)
+    }
+    
+    private func playProgression() {
     }
 }
 
