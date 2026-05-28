@@ -198,8 +198,8 @@ struct GuitarCell: View {
         Color.black.ignoresSafeArea()
 
         GuitarCell(
-            fingers: GuitarChordLibrary.chords["F"] ?? [],
-            pestana: GuitarChordLibrary.pestanas["F"]
+            fingers: GuitarChordLibrary.chordsBase["F"] ?? [],
+            pestana: GuitarChordLibrary.pestanasBase["F"]
         )
     }
 }

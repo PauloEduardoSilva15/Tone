@@ -7,14 +7,14 @@
 
 import SwiftUI
 
+
 public struct ViewModeChord: View {
+    @Environment(CarouselViewModel.self) var viewModel
     
-    let harmonyCamp_C: [Acorde] = EngineHarmonica().gerarCampoHarmonico(tom: "C", escala: .maior)
   
     public var body: some View {
-        
         VStack {
-            ForEach(harmonyCamp_C, id: \.self) { acorde in
+            ForEach(viewModel.campoHarmonicoAtual, id: \.self) { acorde in
                 let nomeLimpo = acorde.nome.trimmingCharacters(in: .whitespacesAndNewlines)
                 let tipo: TipoAcorde = descobrirTipo(do: nomeLimpo)
                 ChordRow(chord: acorde.nome, type: tipo)
@@ -23,7 +23,6 @@ public struct ViewModeChord: View {
     }
     
     private func descobrirTipo(do nome: String) -> TipoAcorde {
-        
         switch nome {
         case _ where nome.hasSuffix("m"):
             return .menor
@@ -33,8 +32,6 @@ public struct ViewModeChord: View {
             return .maior
         }
     }
-    
-    
 }
 
 #Preview {

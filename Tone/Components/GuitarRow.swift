@@ -20,12 +20,12 @@ struct GuitarRow: View {
             )
 
             GuitarCell(
-                fingers: GuitarChordLibrary.chords[chord] ?? [],
-                pestana: GuitarChordLibrary.pestanas[chord]
+                fingers: GuitarChordLibrary.chordsBase[chord] ?? [],
+                pestana: GuitarChordLibrary.pestanasBase[chord]
             )
         }
     }
 }
 #Preview {
-    GuitarRow(chord: "C")
+    GuitarRow(chord: "C#m")
 }

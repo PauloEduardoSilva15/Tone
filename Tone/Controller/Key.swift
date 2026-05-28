@@ -14,10 +14,7 @@ class CarouselViewModel {
     var notaSelecionada: String = "C"
     var sentimentoSelecionado: Emocao = .nenhum
     var escalaSelecionada: Escala = .maior
-    
     var campoHarmonicoAtual: [Acorde] = []
-    
-    private let engineHarmonica = EngineHarmonica()
     
     private var selectionTask: Task<Void, Never>?
     
@@ -63,7 +60,7 @@ class CarouselViewModel {
     private func atualizarCampoHarmonico() {
         guard !notaSelecionada.isEmpty else { return }
         
-        campoHarmonicoAtual = engineHarmonica.gerarCampoHarmonico(tom: notaSelecionada, escala: escalaSelecionada)
+        campoHarmonicoAtual = EngineHarmonica.gerarCampoHarmonico(tom: notaSelecionada, escala: escalaSelecionada)
         
         printDebug()
     }

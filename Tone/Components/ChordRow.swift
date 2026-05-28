@@ -17,7 +17,7 @@ struct ChordRow: View {
         HStack() {
             MusicalChordButton(chord: chord, instrument: "Piano")
             let tonica = extrairTonica(do: chord, tipo: type)
-            ChordCell(notes: EngineHarmonica().formarAcorde(tonica: tonica, tipo: type))
+            ChordCell(notes: EngineHarmonica.formarAcorde(tonica: tonica, tipo: type))
             
         }
     }
