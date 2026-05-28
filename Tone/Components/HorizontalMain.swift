@@ -11,7 +11,8 @@ struct HorizontalMain: View {
     @Environment(CarouselViewModel.self) var viewModel
     @State private var showAcordes: Bool = false
     let isIpad = UIDevice.current.userInterfaceIdiom == .pad
-    
+    @State private var audioPiano: AdvancedAudioManager = AdvancedAudioManager(filepath: "Audios/C_Piano")
+    @State private var progressionTask: Task<Void, Never>? = nil
     var body: some View {
         ZStack{
             Image("BackGroundImage")
@@ -57,7 +58,9 @@ struct HorizontalMain: View {
                                 .padding(.vertical, 10)
                                 .zIndex(1)
                             Spacer()
-                            PlayButton(corEmocao: Color("ColorPrimary"))
+                            PlayButton(){
+                                PlayProgression()
+                            }
                         }
                         .padding(.bottom, 120)
                         
@@ -101,7 +104,60 @@ struct HorizontalMain: View {
             .frame(maxWidth: .infinity)
             .padding(.top, isIpad ? 40 : 60)
         }
-        //.environment(viewModel)
+        .onDisappear {
+            StopAudio()
+        }
+    }
+    
+    private func PlayProgression() {
+        if progressionTask != nil {
+            progressionTask?.cancel()
+            progressionTask = nil
+            
+            print("Execução anterior cancelada. Reiniciando...")
+        }
+
+        let escalaAtual = viewModel.escalaSelecionada
+        let emocaoAtual = viewModel.sentimentoSelecionado
+        let campoHarmonico = viewModel.campoHarmonicoAtual
+
+        guard emocaoAtual != .nenhum else { return }
+        guard !campoHarmonico.isEmpty else { return }
+
+        guard let grausDaProgressao = MusicConstants.progressao[escalaAtual]?[emocaoAtual] else { return }
+
+        let acordesParaTocar = grausDaProgressao.compactMap { grauRomano -> String? in
+            let alvo = grauRomano.uppercased()
+            return campoHarmonico.first(where: { $0.grau.uppercased() == alvo })?.nome
+        }
+        progressionTask = Task {
+            for nomeDoAcorde in acordesParaTocar {
+                if Task.isCancelled { break }
+                
+                print("Tocando acorde: \(nomeDoAcorde)")
+                
+                await MainActor.run {
+                    audioPiano.tocarAcorde(nomeDoAcorde: nomeDoAcorde)
+                }
+                
+                do {
+                    try await Task.sleep(for: .seconds(1))
+                } catch {
+                    break
+                }
+            }
+            
+            // Quando a progressão terminar naturalmente de tocar todos os acordes,
+            // limpamos a propriedade de estado para que ela fique pronta para a próxima.
+            progressionTask = nil
+        }
+    }
+    
+    private func StopAudio() {
+        progressionTask?.cancel()
+        progressionTask = nil
+        
+        print("O usuário saiu da tela ou resetou o áudio. Parando tudo.")
     }
 }
 

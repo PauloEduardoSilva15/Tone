@@ -11,6 +11,8 @@ struct VerticalMain: View {
     @State private var showAcordes: Bool = false
     let isIpad = UIDevice.current.userInterfaceIdiom == .pad
     @Environment(CarouselViewModel.self) var viewModel
+    @State private var audioPiano: AdvancedAudioManager = AdvancedAudioManager(filepath: "Audios/C_Piano")
+    @State private var progressionTask: Task<Void, Never>? = nil
     
     var body: some View {
         ZStack{
@@ -55,10 +57,12 @@ struct VerticalMain: View {
                     HStack{
                         EmotionDropdown()
                             .padding(.vertical, 10)
-                            
-                            
+                        
+                        
                         Spacer()
-                        PlayButton(corEmocao: Color("ColorPrimary"))
+                        PlayButton(){
+                            PlayProgression()
+                        }
                     }
                     
                     .padding(.bottom, 10)
@@ -89,8 +93,8 @@ struct VerticalMain: View {
                         
                     }
                     .navigationDestination(isPresented: $showAcordes){
-                            ChordsPage()
-                                //.environment(viewModel)
+                        ChordsPage()
+                        //.environment(viewModel)
                     }
                     .padding(.bottom, isIpad ? 220 : 100)
                     Spacer()
@@ -100,7 +104,60 @@ struct VerticalMain: View {
             .frame(maxWidth: isIpad ? 450 : 320)
             .padding(.top, isIpad ? 100 : 60)
         }
-        //.environment(viewModel)
+        .onDisappear {
+            StopAudio()
+        }
+    }
+    
+    private func PlayProgression() {
+        if progressionTask != nil {
+            progressionTask?.cancel()
+            progressionTask = nil
+            
+            print("Execução anterior cancelada. Reiniciando...")
+        }
+
+        let escalaAtual = viewModel.escalaSelecionada
+        let emocaoAtual = viewModel.sentimentoSelecionado
+        let campoHarmonico = viewModel.campoHarmonicoAtual
+
+        guard emocaoAtual != .nenhum else { return }
+        guard !campoHarmonico.isEmpty else { return }
+
+        guard let grausDaProgressao = MusicConstants.progressao[escalaAtual]?[emocaoAtual] else { return }
+
+        let acordesParaTocar = grausDaProgressao.compactMap { grauRomano -> String? in
+            let alvo = grauRomano.uppercased()
+            return campoHarmonico.first(where: { $0.grau.uppercased() == alvo })?.nome
+        }
+        progressionTask = Task {
+            for nomeDoAcorde in acordesParaTocar {
+                if Task.isCancelled { break }
+                
+                print("Tocando acorde: \(nomeDoAcorde)")
+                
+                await MainActor.run {
+                    audioPiano.tocarAcorde(nomeDoAcorde: nomeDoAcorde)
+                }
+                
+                do {
+                    try await Task.sleep(for: .seconds(1))
+                } catch {
+                    break
+                }
+            }
+            
+            // Quando a progressão terminar naturalmente de tocar todos os acordes,
+            // limpamos a propriedade de estado para que ela fique pronta para a próxima.
+            progressionTask = nil
+        }
+    }
+    
+    private func StopAudio() {
+        progressionTask?.cancel()
+        progressionTask = nil
+        
+        print("O usuário saiu da tela ou resetou o áudio. Parando tudo.")
     }
 }
 

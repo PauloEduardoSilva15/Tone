@@ -7,24 +7,22 @@
 
 import SwiftUI
 
-struct PlayButton: View {
+struct PlayButton: View{
     @Environment(CarouselViewModel.self) var viewModel
-    
     let isIpad = UIDevice.current.userInterfaceIdiom == .pad
-    var corEmocao: Color
+    var action: () -> Void;
     
     var body: some View{
         
         Button(action: {
-//            withAnimation(.easeInOut(duration: 0.3)) {
-//                viewModel.aplicarEmocao()
-//            }
+            action()
         }) {
             Image(systemName: "play.fill")
-                .foregroundColor(.white)
+                .foregroundColor(viewModel.sentimentoSelecionado == .nenhum ? .gray : .white)
                 .font(.title3)
                 .frame(width: isIpad ? 60 : 42, height: isIpad ? 60 : 42)
-                .background(corEmocao)
+                .background(viewModel .sentimentoSelecionado == .nenhum ? .colorPrimary.opacity(0.3) :
+                        .colorPrimary)
                 .clipShape(Circle())
         }
         .zIndex(1)
@@ -33,6 +31,8 @@ struct PlayButton: View {
 }
 
 #Preview {
-    PlayButton(corEmocao: Color("ColorPrimary"))
-        .environment(CarouselViewModel())
+    PlayButton(){
+        
+    }
+    .environment(CarouselViewModel())
 }
