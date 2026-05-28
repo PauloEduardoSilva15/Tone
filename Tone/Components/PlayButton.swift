@@ -16,9 +16,9 @@ struct PlayButton: View {
     var body: some View{
         
         Button(action: {
-            withAnimation(.easeInOut(duration: 0.3)) {
-                viewModel.aplicarEmocao()
-            }
+//            withAnimation(.easeInOut(duration: 0.3)) {
+//                viewModel.aplicarEmocao()
+//            }
         }) {
             Image(systemName: "play.fill")
                 .foregroundColor(.white)

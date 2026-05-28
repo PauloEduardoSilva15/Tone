@@ -71,7 +71,7 @@ class CarouselViewModel {
     
     func escolherSentimento(_ emocao: Emocao) {
         sentimentoSelecionado = emocao
-        //atualizarCampoHarmonico()
+        atualizarCampoHarmonico()
     }
     
     func escolherEscala(_ escala: Escala) {
@@ -79,8 +79,8 @@ class CarouselViewModel {
         atualizarCampoHarmonico()
     }
     
-    func aplicarEmocao() {
-        sentimentoAtivo = sentimentoSelecionado
-    }
+//    func aplicarEmocao() {
+//        sentimentoAtivo = sentimentoSelecionado
+//    }
 }
     

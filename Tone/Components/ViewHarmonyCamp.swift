@@ -25,14 +25,14 @@ struct ViewHarmonyCamp: View {
                                 MusicConstants.corParaGrau(
                                     acorde.grau,
                                     escala: viewModel.escalaSelecionada,
-                                    emocao: viewModel.sentimentoAtivo
+                                    emocao: viewModel.sentimentoSelecionado
                                 ),
                             
                             numerosProgressao:
                                 MusicConstants.numerosDaProgressao(
                                     para: acorde.grau,
                                     escala: viewModel.escalaSelecionada,
-                                    emocao: viewModel.sentimentoAtivo
+                                    emocao: viewModel.sentimentoSelecionado
                                 )
                         )
                         
@@ -51,14 +51,14 @@ struct ViewHarmonyCamp: View {
                                 MusicConstants.corParaGrau(
                                     acorde.grau,
                                     escala: viewModel.escalaSelecionada,
-                                    emocao: viewModel.sentimentoAtivo
+                                    emocao: viewModel.sentimentoSelecionado
                                 ),
                             
                             numerosProgressao:
                                 MusicConstants.numerosDaProgressao(
                                     para: acorde.grau,
                                     escala: viewModel.escalaSelecionada,
-                                    emocao: viewModel.sentimentoAtivo
+                                    emocao: viewModel.sentimentoSelecionado
                                 )
                         )
                     }
@@ -74,14 +74,14 @@ struct ViewHarmonyCamp: View {
                             MusicConstants.corParaGrau(
                                 acorde.grau,
                                 escala: viewModel.escalaSelecionada,
-                                emocao: viewModel.sentimentoAtivo
+                                emocao: viewModel.sentimentoSelecionado
                             ),
                         
                         numerosProgressao:
                             MusicConstants.numerosDaProgressao(
                                 para: acorde.grau,
                                 escala: viewModel.escalaSelecionada,
-                                emocao: viewModel.sentimentoAtivo
+                                emocao: viewModel.sentimentoSelecionado
                             )
                     )
                 }
