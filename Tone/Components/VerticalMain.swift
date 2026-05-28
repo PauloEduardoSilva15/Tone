@@ -61,8 +61,7 @@ struct VerticalMain: View {
                         
                         Spacer()
                         PlayButton(){
-                            playProgression()
-                            print("Cliquei")
+                            PlayProgression()
                         }
                     }
                     
@@ -105,9 +104,12 @@ struct VerticalMain: View {
             .frame(maxWidth: isIpad ? 450 : 320)
             .padding(.top, isIpad ? 100 : 60)
         }
+        .onDisappear {
+            StopAudio()
+        }
     }
     
-    private func playProgression() {
+    private func PlayProgression() {
         if progressionTask != nil {
             progressionTask?.cancel()
             progressionTask = nil
@@ -132,14 +134,14 @@ struct VerticalMain: View {
             for nomeDoAcorde in acordesParaTocar {
                 if Task.isCancelled { break }
                 
-                print("🔊 Tocando acorde: \(nomeDoAcorde)")
+                print("Tocando acorde: \(nomeDoAcorde)")
                 
                 await MainActor.run {
                     audioPiano.tocarAcorde(nomeDoAcorde: nomeDoAcorde)
                 }
                 
                 do {
-                    try await Task.sleep(for: .seconds(1.6))
+                    try await Task.sleep(for: .seconds(1))
                 } catch {
                     break
                 }
@@ -149,6 +151,13 @@ struct VerticalMain: View {
             // limpamos a propriedade de estado para que ela fique pronta para a próxima.
             progressionTask = nil
         }
+    }
+    
+    private func StopAudio() {
+        progressionTask?.cancel()
+        progressionTask = nil
+        
+        print("O usuário saiu da tela ou resetou o áudio. Parando tudo.")
     }
 }
 
