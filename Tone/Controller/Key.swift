@@ -24,6 +24,11 @@ class CarouselViewModel {
         }
     }
     
+    func inicializarScrollPosition(totalItems: Int) {
+        guard scrolledID == nil else { return }
+        scrolledID = (totalItems / 2) - ((totalItems / 2) % MusicConstants.notes.count)
+    }
+    
     init() {
         atualizarCampoHarmonico()
     }
@@ -45,10 +50,8 @@ class CarouselViewModel {
                 let realIndex = currentID % MusicConstants.notes.count
                 let notaFinal = MusicConstants.notes[realIndex]
                 
-                //await MainActor.run {
-                    self.notaSelecionada = notaFinal                    
-                    self.atualizarCampoHarmonico()
-                //}
+                self.notaSelecionada = notaFinal
+                self.atualizarCampoHarmonico()
             } catch is CancellationError {
                 
             } catch {
@@ -56,7 +59,7 @@ class CarouselViewModel {
             }
         }
     }
-        
+    
     private func atualizarCampoHarmonico() {
         guard !notaSelecionada.isEmpty else { return }
         

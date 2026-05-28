@@ -19,4 +19,5 @@ struct MainPage: View {
 }
 #Preview {
     MainPage()
+        .environment(CarouselViewModel())
 }

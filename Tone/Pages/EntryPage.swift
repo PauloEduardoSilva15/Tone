@@ -24,11 +24,11 @@ struct EntryPage: View {
             }
         }
         .onAppear {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            irMain = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                irMain = true
+            }
         }
     }
-}    
 }
 
 #Preview {

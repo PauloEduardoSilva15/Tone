@@ -76,7 +76,7 @@ struct HorizontalChords: View {
                         
                         case 3:
                         ViewModeGuitar()
-                            .environment(viewModel)
+                            //.environment(viewModel)
                     default:
                         ViewModeChord()
                     }
