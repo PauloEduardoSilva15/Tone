@@ -5,8 +5,6 @@
 //  Created by Paulo Eduardo Barbosa da Silva on 19/05/26.
 //
 
-
-
 import SwiftUI
 
 struct EntryPage: View {
