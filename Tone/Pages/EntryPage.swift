@@ -5,32 +5,54 @@
 //  Created by Paulo Eduardo Barbosa da Silva on 19/05/26.
 //
 
+
+
 import SwiftUI
 
 struct EntryPage: View {
-    @State private var irMain: Bool = false
-    let isIpad = UIDevice.current.userInterfaceIdiom == .pad
+    
+    @State private var mostrarMain = false
+    @State private var opacity = 1.0
+    
     var body: some View {
         NavigationStack{
-            ZStack{
-                Image("EntryPage")
-                    .resizable()
-                    .ignoresSafeArea()
-                Image("Logo")
-                    .padding(.bottom, 30)
+            ZStack {
+                
+                if mostrarMain {
+                    
+                    MainPage()
+                        .transition(.opacity)
+                }
+                
+                if opacity > 0 {
+                    
+                    ZStack {
+                        
+                        Image("EntryPage")
+                            .resizable()
+                            .ignoresSafeArea()
+                        
+                        Image("Logo")
+                            .padding(.bottom, 30)
+                    }
+                    .opacity(opacity)
+                    .transition(.opacity)
+                }
             }
-            .navigationDestination(isPresented: $irMain) {
-                MainPage()
-            }
-        }
-        .onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                irMain = true
+            .onAppear {
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                    
+                    withAnimation(.easeInOut(duration: 1.2)) {
+                        
+                        opacity = 0
+                        mostrarMain = true
+                    }
+                }
             }
         }
     }
 }
-
 #Preview {
     EntryPage()
         .environment(CarouselViewModel())
