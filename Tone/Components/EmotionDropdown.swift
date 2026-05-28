@@ -18,8 +18,8 @@ struct EmotionDropdown: View {
             HStack {
                 Text(viewModel.sentimentoSelecionado.rawValue)
                     .foregroundColor(.black)
-                    .font(sizeClass == .regular ? .title2 : .default)
-                    .fontWeight(sizeClass == .regular ? .semibold : .regular)
+                    .font(sizeClass == .regular ? .title2 : .callout)
+                    .fontWeight(sizeClass == .regular ? .regular : .regular)
                 Spacer()
                 
                 Image(systemName: "chevron.down")
@@ -48,8 +48,8 @@ struct EmotionDropdown: View {
                                 
                                 Text(emocao.rawValue)
                                     .foregroundColor(.black)
-                                    .font(sizeClass == .regular ? .title2 : .body)
-                                    .fontWeight(sizeClass == .regular ? .semibold : .regular)
+                                    .font(sizeClass == .regular ? .title2 : .callout)
+                                    .fontWeight(sizeClass == .regular ? .regular : .regular)
                                 
                                 Spacer()
                                 

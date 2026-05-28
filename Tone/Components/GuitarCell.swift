@@ -141,8 +141,8 @@ struct GuitarCell: View {
             )
         }
         .frame(
-            width: sizeClass == .regular ? 140 : 90,
-            height: sizeClass == .regular ? 140 : 90
+            width: sizeClass == .regular ? 130 : 90,
+            height: sizeClass == .regular ? 130 : 90
         )
     }
 

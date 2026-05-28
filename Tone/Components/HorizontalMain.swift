@@ -30,7 +30,7 @@ struct HorizontalMain: View {
                     VStack{
                         Text("Escolha o tom")
                             .foregroundStyle(Color("ColorSecondary"))
-                            .font(isIpad ? .title : .title2)
+                            .font(isIpad ? .title : .title3)
                             .fontWeight(isIpad ? .bold : .semibold)
                         
                         ChoiceKeyCarroussel()
@@ -39,7 +39,7 @@ struct HorizontalMain: View {
                         
                         Text("Escolha a escala")
                             .foregroundStyle(Color("ColorSecondary"))
-                            .font(isIpad ? .title : .title2)
+                            .font(isIpad ? .title : .title3)
                             .fontWeight(isIpad ? .bold : .semibold)
                             .padding(.bottom, 30)
                         
@@ -49,7 +49,7 @@ struct HorizontalMain: View {
                         
                         Text("Quer expressar algo?")
                             .foregroundStyle(Color("ColorSecondary"))
-                            .font(isIpad ? .title : .title2)
+                            .font(isIpad ? .title : .title3)
                             .fontWeight(isIpad ? .bold : .semibold)
                             .padding(.bottom, 20)
                         
@@ -73,7 +73,7 @@ struct HorizontalMain: View {
                     Spacer()
                     Text("Campo Harmônico")
                         .foregroundStyle(Color("ColorSecondary"))
-                        .font(isIpad ? .title : .title2)
+                        .font(isIpad ? .title : .title3)
                         .fontWeight(isIpad ? .bold : .semibold)
                     
                     ViewHarmonyCamp()
@@ -84,9 +84,9 @@ struct HorizontalMain: View {
                         showAcordes = true
                     }) {
                         Text("Ver Acordes")
-                            .font(isIpad ? .title : .body)
+                            .font(isIpad ? .title2 : .body)
                             .foregroundStyle(Color.white)
-                            .frame(width: isIpad ? 230: 150, height: isIpad ? 50 : 50)
+                            .frame(width: isIpad ? 200: 150, height: isIpad ? 50 : 50)
                             .background(Color("ColorPrimary"))
                             .cornerRadius(40)
                         
