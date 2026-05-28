@@ -15,7 +15,10 @@ struct ChordRow: View {
     var body: some View {
         HStack() {
             MusicalChordButton(chord: acorde.nome, instrument: "Piano")
-            ChordCell(notes: acorde.notas)
+            ChordCell(
+                acorde: acorde,
+                escala: viewModel.escalaSelecionada,
+                emocao: viewModel.sentimentoSelecionado)
         }
     }
 }
@@ -23,4 +26,5 @@ struct ChordRow: View {
 #Preview {
     ChordRow(acorde: Acorde(grau: "I", nome: "C", notas: ["C", "E", "G"]))
         .environment(CarouselViewModel())
+        .background(.black)
 }
