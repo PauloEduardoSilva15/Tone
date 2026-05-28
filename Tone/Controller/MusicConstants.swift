@@ -38,6 +38,9 @@ enum MusicConstants {
         guard emocao != .nenhum,
               let graus = progressao[escala]?[emocao],
               graus.contains(grau)
+                
+        
+                
         else { return .colorSecondary }
 
         return emocao.cor

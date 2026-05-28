@@ -14,7 +14,8 @@ struct ToneApp: App {
     var body: some Scene {
         WindowGroup {
             EntryPage()
-                .environment(CarouselViewModel())
+                //.environment(CarouselViewModel())
+                .environment(viewModel)
         }
     }
 }
