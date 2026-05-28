@@ -57,7 +57,7 @@ struct HorizontalMain: View {
                                 .padding(.vertical, 10)
                                 .zIndex(1)
                             Spacer()
-                            PlayButton(corEmocao: Color("ColorPrimary")){
+                            PlayButton(){
                                 print("Cliquei")
                             }
                         }
