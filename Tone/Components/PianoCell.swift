@@ -73,7 +73,17 @@ struct PianoCell: View {
     
     var body: some View {
         
-        let notas = acorde?.notas ?? []
+        let notasOriginais = acorde?.notas ?? []
+        
+            let notas = notasOriginais.map { nota -> String in
+                if MusicConstants.notes.contains(nota) {
+                    return nota
+                } else if let enarmonico = MusicConstants.equivalentesEnarmonicos[nota],                        MusicConstants.notes.contains(enarmonico) {
+                    return enarmonico
+                }
+                return nota
+            }
+        
         let tonica = notas.first ?? "C"
         let indice = MusicConstants.notes.firstIndex(of: tonica) ?? 0
         
