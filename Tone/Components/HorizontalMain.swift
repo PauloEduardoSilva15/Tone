@@ -8,10 +8,9 @@
 import SwiftUI
 
 struct HorizontalMain: View {
+    @Environment(CarouselViewModel.self) var viewModel
     @State private var showAcordes: Bool = false
     let isIpad = UIDevice.current.userInterfaceIdiom == .pad
-    
-    @State private var viewModel = CarouselViewModel()
     
     var body: some View {
         ZStack{
@@ -91,7 +90,7 @@ struct HorizontalMain: View {
                     }
                     .navigationDestination(isPresented: $showAcordes){
                             ChordsPage()
-                                .environment(viewModel)
+                                //.environment(viewModel)
                     }
                     .padding(.bottom, isIpad ? 70 : 60)
                     Spacer()
@@ -102,7 +101,7 @@ struct HorizontalMain: View {
             .frame(maxWidth: .infinity)
             .padding(.top, isIpad ? 40 : 60)
         }
-        .environment(viewModel)
+        //.environment(viewModel)
     }
 }
 

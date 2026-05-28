@@ -9,6 +9,8 @@ import SwiftUI
 
 @main
 struct ToneApp: App {
+    @State private var viewModel = CarouselViewModel()
+    
     var body: some Scene {
         WindowGroup {
             EntryPage()

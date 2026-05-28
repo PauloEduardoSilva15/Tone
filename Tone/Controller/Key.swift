@@ -14,10 +14,7 @@ class CarouselViewModel {
     var notaSelecionada: String = "C"
     var sentimentoSelecionado: Emocao = .nenhum
     var escalaSelecionada: Escala = .maior
-    
     var campoHarmonicoAtual: [Acorde] = []
-    
-    private let engineHarmonica = EngineHarmonica()
     
     private var selectionTask: Task<Void, Never>?
     
@@ -25,6 +22,11 @@ class CarouselViewModel {
         didSet {
             agendarSelecaoComDelay()
         }
+    }
+    
+    func inicializarScrollPosition(totalItems: Int) {
+        guard scrolledID == nil else { return }
+        scrolledID = (totalItems / 2) - ((totalItems / 2) % MusicConstants.notes.count)
     }
     
     init() {
@@ -48,10 +50,8 @@ class CarouselViewModel {
                 let realIndex = currentID % MusicConstants.notes.count
                 let notaFinal = MusicConstants.notes[realIndex]
                 
-                //await MainActor.run {
-                    self.notaSelecionada = notaFinal                    
-                    self.atualizarCampoHarmonico()
-                //}
+                self.notaSelecionada = notaFinal
+                self.atualizarCampoHarmonico()
             } catch is CancellationError {
                 
             } catch {
@@ -59,11 +59,11 @@ class CarouselViewModel {
             }
         }
     }
-        
+    
     private func atualizarCampoHarmonico() {
         guard !notaSelecionada.isEmpty else { return }
         
-        campoHarmonicoAtual = engineHarmonica.gerarCampoHarmonico(tom: notaSelecionada, escala: escalaSelecionada)
+        campoHarmonicoAtual = EngineHarmonica.gerarCampoHarmonico(tom: notaSelecionada, escala: escalaSelecionada)
         
         printDebug()
     }
