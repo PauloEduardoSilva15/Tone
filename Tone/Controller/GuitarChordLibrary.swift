@@ -96,6 +96,7 @@ enum GuitarChordLibrary {
         "G": [
             .init(string: 0, fret: 3),
             .init(string: 1, fret: 2),
+            .init(string: 4, fret: 3),
             .init(string: 5, fret: 3)
         ],
         
@@ -112,25 +113,25 @@ enum GuitarChordLibrary {
         ],
         
         "Bb": [
-            .init(string: 1, fret: 3),
             .init(string: 2, fret: 3),
-            .init(string: 3, fret: 3)
+            .init(string: 3, fret: 3),
+            .init(string: 4, fret: 3)
         ],
         
         "B": [
-            .init(string: 1, fret: 4),
             .init(string: 2, fret: 4),
-            .init(string: 3, fret: 4)
+            .init(string: 3, fret: 4),
+            .init(string: 4, fret: 4)
         ],
         
         "Cm": [
-            .init(string: 1, fret: 4),
+            .init(string: 4, fret: 4),
             .init(string: 2, fret: 5),
             .init(string: 3, fret: 5)
         ],
         
         "C#m": [
-            .init(string: 1, fret: 5),
+            .init(string: 4, fret: 5),
             .init(string: 2, fret: 6),
             .init(string: 3, fret: 6)
         ],
@@ -172,8 +173,8 @@ enum GuitarChordLibrary {
         
         "Abm": [
             .init(string: 1, fret: 6),
-            .init(string: 2, fret: 7),
-            .init(string: 3, fret: 6)
+            .init(string: 2, fret: 6),
+            //.init(string: 3, fret: 5)
         ],
         
         "Am": [
@@ -183,15 +184,15 @@ enum GuitarChordLibrary {
         ],
         
         "Bbm": [
-            .init(string: 1, fret: 4),
-            .init(string: 2, fret: 4),
-            .init(string: 3, fret: 4)
+            .init(string: 2, fret: 3),
+            .init(string: 3, fret: 3),
+            .init(string: 4, fret: 2)
         ],
         
         "Bm": [
-            .init(string: 1, fret: 4),
             .init(string: 2, fret: 4),
-            .init(string: 3, fret: 3)
+            .init(string: 3, fret: 4),
+            .init(string: 4, fret: 3)
         ],
     ]
     
@@ -207,9 +208,11 @@ enum GuitarChordLibrary {
         
         "B": Pestana(fret: 2,startString: 0,endString: 5),
         
-        "Cm": Pestana(fret: 3, startString: 0, endString: 5),
+        "Cm": Pestana(fret: 3, startString: 1, endString: 5),
         
-        "C#m": Pestana(fret: 4, startString: 0, endString: 5),
+        "C#": Pestana(fret: 1, startString: 0, endString: 5),
+        
+        "C#m": Pestana(fret: 4, startString: 1, endString: 5),
         
 //        "Dbm": Pestana(fret: 4, startString: 0, endString: 5),
         
@@ -239,4 +242,28 @@ enum GuitarChordLibrary {
         
 //        "Cbm": Pestana(fret: 2, startString: 0, endString: 5)
     ]
+}
+
+#Preview("Biblioteca Completa") {
+    ScrollView {
+        LazyVGrid(columns: [
+            GridItem(.adaptive(minimum: 110), spacing: 12)
+        ], spacing: 16) {
+            ForEach(Array(GuitarChordLibrary.chordsBase.keys).sorted(), id: \.self) { nome in
+                VStack(spacing: 4) {
+                    Text(nome)
+                        .font(.caption)
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+
+                    GuitarCell(
+                        fingers: GuitarChordLibrary.chordsBase[nome] ?? [],
+                        pestana: GuitarChordLibrary.pestanasBase[nome]
+                    )
+                }
+            }
+        }
+        .padding()
+    }
+    .background(Color.black)
 }
