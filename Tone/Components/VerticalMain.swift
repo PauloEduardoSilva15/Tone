@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct VerticalMain: View {
+    @State private var acordeAtivo: String? = nil
     @State private var showAcordes: Bool = false
     let isIpad = UIDevice.current.userInterfaceIdiom == .pad
     @Environment(CarouselViewModel.self) var viewModel
@@ -75,7 +76,7 @@ struct VerticalMain: View {
                         .foregroundStyle(Color("ColorSecondary"))
                         .font(isIpad ? .title : .headline)
                         .fontWeight(isIpad ? .bold : .semibold)
-                    ViewHarmonyCamp()
+                    ViewHarmonyCamp(acordeAtivo: acordeAtivo)
                         .padding(.top, 10)
                         .padding(.bottom, 8)
                         .zIndex(0)
@@ -111,32 +112,30 @@ struct VerticalMain: View {
     
     private func PlayProgression() {
         if progressionTask != nil {
-            progressionTask?.cancel()
-            progressionTask = nil
-            
-            print("Execução anterior cancelada. Reiniciando...")
+            StopAudio()
         }
 
         let escalaAtual = viewModel.escalaSelecionada
         let emocaoAtual = viewModel.sentimentoSelecionado
         let campoHarmonico = viewModel.campoHarmonicoAtual
 
-        guard emocaoAtual != .nenhum else { return }
-        guard !campoHarmonico.isEmpty else { return }
-
+        guard emocaoAtual != .nenhum, !campoHarmonico.isEmpty else { return }
         guard let grausDaProgressao = MusicConstants.progressao[escalaAtual]?[emocaoAtual] else { return }
 
         let acordesParaTocar = grausDaProgressao.compactMap { grauRomano -> String? in
             let alvo = grauRomano.uppercased()
             return campoHarmonico.first(where: { $0.grau.uppercased() == alvo })?.nome
         }
+
         progressionTask = Task {
             for nomeDoAcorde in acordesParaTocar {
                 if Task.isCancelled { break }
                 
-                print("Tocando acorde: \(nomeDoAcorde)")
-                
                 await MainActor.run {
+                    // Atualiza o acorde ativo com animação fluida
+                    withAnimation(.spring(response: 0.4, dampingFraction: 0.6)) {
+                        self.acordeAtivo = nomeDoAcorde
+                    }
                     audioPiano.tocarAcorde(nomeDoAcorde: nomeDoAcorde)
                 }
                 
@@ -147,8 +146,11 @@ struct VerticalMain: View {
                 }
             }
             
-            // Quando a progressão terminar naturalmente de tocar todos os acordes,
-            // limpamos a propriedade de estado para que ela fique pronta para a próxima.
+            await MainActor.run {
+                withAnimation(.easeInOut) {
+                    self.acordeAtivo = nil
+                }
+            }
             progressionTask = nil
         }
     }
@@ -156,8 +158,9 @@ struct VerticalMain: View {
     private func StopAudio() {
         progressionTask?.cancel()
         progressionTask = nil
-        
-        print("O usuário saiu da tela ou resetou o áudio. Parando tudo.")
+        withAnimation(.easeInOut) {
+            acordeAtivo = nil
+        }
     }
 }
 

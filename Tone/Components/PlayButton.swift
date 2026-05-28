@@ -22,7 +22,7 @@ struct PlayButton: View{
                 .font(.title3)
                 .frame(width: isIpad ? 60 : 42, height: isIpad ? 60 : 42)
                 .background(viewModel .sentimentoSelecionado == .nenhum ? .colorPrimary.opacity(0.3) :
-                        .colorPrimary)
+                                (viewModel.sentimentoSelecionado.cor))
                 .clipShape(Circle())
         }
         .zIndex(1)
